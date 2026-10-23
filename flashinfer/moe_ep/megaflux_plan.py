@@ -396,6 +396,36 @@ def _assignment(blocks: list[int], c: PlanConfig, identity: bool) -> list[list[i
     return q
 
 
+def empty_workspace_plan(config: PlanConfig) -> ForwardPlan:
+    """Shape-only initial metadata, without invoking the routing oracle.
+
+    Online backends replace this with a device Plan before any execution.
+    The initializer never consumes routes or chooses an assignment.
+    """
+    c = config
+    owned = c.num_owned_experts_per_rank
+    zeros = (0,) * c.world_size
+    return ForwardPlan(
+        c,
+        1,
+        PlanStatus.OK,
+        False,
+        (0,) * c.num_logical_experts,
+        ((0,) * c.num_logical_experts,) * c.world_size,
+        (0,) * (c.num_logical_experts + 1),
+        tuple(
+            tuple(range(r * owned, (r + 1) * owned)) + (-1,) * c.replica_budget
+            for r in range(c.world_size)
+        ),
+        (),
+        (),
+        zeros,
+        zeros,
+        zeros,
+        zeros,
+    )
+
+
 def plan_forward(
     topk_ids: Sequence[Sequence[Sequence[int]]],
     config: PlanConfig,

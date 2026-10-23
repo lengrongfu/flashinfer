@@ -57,7 +57,6 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
 
     def compute(self, workspace, transformed_weights, *, output):
         from ......cute_dsl.megamoe.megaflux_sm90.planner import DistributedPlanner
-        from ......cute_dsl.megamoe.megaflux_sm90.static import DeviceReplicaTransport
 
         bank = self._prepare_bank(workspace, transformed_weights)
         planner = getattr(workspace, "_megaflux_planner", None)
@@ -71,10 +70,9 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
                 debug_agreement=self._kernel_config.debug_plan_agreement,
             )
             workspace._megaflux_planner = planner
-            workspace._megaflux_transport = DeviceReplicaTransport(
-                p, bank, self.ep_rank
-            )
+            workspace._megaflux_transport = self._make_transport(p, bank, workspace)
             workspace._megaflux_epoch = 0
+        self._before_planning(workspace)
         workspace._megaflux_epoch += 1
         plan = planner.run(
             workspace.topk_idx,
@@ -82,6 +80,7 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
             epoch=workspace._megaflux_epoch,
             external_failure=self._manifest_fallback,
         )
+        self._prepare_transport_epoch(workspace)
         workspace._megaflux_transport.copy(plan)
         frontend = workspace._frontend
         frontend._identity_counts.copy_(planner.routing.counts)
@@ -90,6 +89,17 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
         return Sm90PullMxfp4MegaKernelBackend.compute(
             self, workspace, bank, output=output
         )
+
+    def _make_transport(self, config, bank, workspace):
+        from ......cute_dsl.megamoe.megaflux_sm90.static import DeviceReplicaTransport
+
+        return DeviceReplicaTransport(config, bank, self.ep_rank)
+
+    def _before_planning(self, workspace):
+        pass
+
+    def _prepare_transport_epoch(self, workspace):
+        pass
 
     def _forget_local_workspace_state(self, workspace):
         transport = getattr(workspace, "_megaflux_transport", None)

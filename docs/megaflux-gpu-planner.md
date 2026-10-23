@@ -3,7 +3,8 @@
 The opt-in `sm90_fp8_mxfp4_bf16_megaflux_online` backend consumes current
 routing on GPU. It retains the frozen beta=32/N32/C1x1 Humming tactic and
 physical weight bank. The CPU Plan implementation is only an oracle in tests;
-the empty bootstrap Plan provides shapes and zero metadata before compilation.
+a shape-only initializer provides empty metadata before compilation and never
+invokes the CPU routing oracle.
 
 `LocalHistogram` assigns stable local occurrences by scanning token/top-k order
 for each expert. GPU all-gather exchanges C[source,expert], retaining source

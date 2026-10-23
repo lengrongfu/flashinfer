@@ -313,7 +313,7 @@ def _global_route_reference(
     from tests.moe_ep._sm90_fp8_wgmma_reference import fma_add
 
     world_size, num_tokens, topk = topk_ids.shape
-    assert topk == world_size
+    assert 0 < topk <= world_size * LOCAL_EXPERTS
     fc1, fc1_common, fc2, fc2_common = _prepare_global_humming_operands(raw_global)
     input_fp8, input_scale = _quantize_input_per_token(hidden)
     terms = torch.zeros(

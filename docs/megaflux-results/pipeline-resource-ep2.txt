@@ -1,0 +1,14 @@
+W1023 07:31:27.126000 27637 torch/distributed/run.py:874]
+W1023 07:31:27.126000 27637 torch/distributed/run.py:874] *****************************************
+W1023 07:31:27.126000 27637 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+W1023 07:31:27.126000 27637 torch/distributed/run.py:874] *****************************************
+MegaFlux pipeline resources {'threads': 384, 'epi_register_policy': 216, 'persistent_clusters': 130, 'reserved_clusters': 2, 'compiled_type': "<class 'cutlass.cutlass_dsl.cuda_jit_executor.CudaDialectJitCompiledFunction'>", 'native': [('kernel_cutlass_kernel_flashinfermoe_epcute_dslmegamoemegaflux_sm90physicalPhysicalSlotFrontend_construct_kernellocalsPhysicalKernel_object_at__TiledMMA_ThrLayoutVMNK1281111000_Permutation_0', {'registers': 131, 'static_smem': 0, 'max_dynamic_smem': 232448, 'local_bytes': 0}), ('kernel_cutlass__reduce_bf16_moe_nvfp4_swapabtopk_reduceTopkReduce_object_at__tensorptrbf16gmemalign128o12921282561281_None_tensorptrbf16gmemalign16o128i641_None_tensorptri64_gmem_align16__1', {'registers': 26, 'static_smem': 0, 'max_dynamic_smem': 232448, 'local_bytes': 0})], 'kernel_info': "OrderedDict({'kernel_cutlass_kernel_flashinfermoe_epcute_dslmegamoemegaflux_sm90physicalPhysicalSlotFrontend_construct_kernellocalsPhysicalKernel_object_at__TiledMMA_ThrLayoutVMNK1281111000_Permutation_0': {}, 'kernel_cutlass__reduce_bf16_moe_nvfp4_swapabtopk_reduceTopkReduce_object_at__tensorptrbf16gmemalign128o12921282561281_None_tensorptrbf16gmemalign16o128i641_None_tensorptri64_gmem_align16__1': {}})"}
+[sm90 mxfp4 multirank launch=0] rel_l2=0.00166 max|d|=0.087891 amax(ref)=36.307
+[sm90 mxfp4 multirank launch=0] rel_l2=0.00166 max|d|=0.087891 amax(ref)=36.307
+MegaFlux pipeline telemetry (0, 20000, 0, 0) [[1792740716809604416, 0, 0, 1792740716808425536, 1792740716828562432], [0, 1792740706185212224, 1792740706204216544, 1792740706184045152, 1792740706204214784]]
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0017082 max|d|=0.67188 amax(ref)=264.67
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0017082 max|d|=0.67188 amax(ref)=264.67
+..
+1 passed, 19 deselected, 41 warnings in 21.52s
+
+1 passed, 19 deselected, 41 warnings in 21.93s

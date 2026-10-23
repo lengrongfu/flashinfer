@@ -143,6 +143,10 @@ def _run_offline_backend(
     online=False,
     requested_capacity=None,
     version_mismatch=False,
+    pipeline=False,
+    delays=(0, 0, 0, 0),
+    resource_audit=False,
+    top_k=None,
 ):
     import torch
     import torch.distributed as dist
@@ -168,6 +172,7 @@ def _run_offline_backend(
     from flashinfer.moe_ep.core.kernel.registry import create_mega_kernel
 
     rank, world, local = ref._launcher_ranks()
+    selected_topk = world if top_k is None else top_k
     if world < 2:
         pytest.skip("launch with torchrun --nproc_per_node=2/4/8")
     bootstrap = BootstrapConfig(world_size=world, rank=rank, device=local)
@@ -176,7 +181,7 @@ def _run_offline_backend(
     initial = create_mega_kernel(
         Sm90_Fp8_Mxfp4_Bf16_PullCutedsl_MegaMoeConfig(
             intermediate_size=ref.INTERMEDIATE,
-            top_k=world,
+            top_k=selected_topk,
         )
     )
     runtime = bootstrap_moe_ep_runtime(
@@ -184,6 +189,7 @@ def _run_offline_backend(
     )
     layer = None
     baseline = None
+    synchronous = None
     graph = None
     try:
         raw = ref._make_raw_weights(rank)
@@ -191,6 +197,9 @@ def _run_offline_backend(
         hidden, ids, weights = ref._make_tokens_and_routes(
             rank, world, launch=0, routing_pattern=routing_pattern
         )
+        selected_topk = world if top_k is None else top_k
+        ids = ids[:, :selected_topk].contiguous()
+        weights = weights[:, :selected_topk].contiguous()
         global_hidden = ref._all_gather_stack(hidden)
         global_ids = ref._all_gather_stack(ids)
         global_weights = ref._all_gather_stack(weights)
@@ -209,7 +218,7 @@ def _run_offline_backend(
                 world,
                 physical_budget or 0,
                 ref.TOKENS_PER_RANK,
-                world,
+                selected_topk,
                 weight_version=int(version_mismatch and rank == 0),
             ),
             invocation_epoch=1,
@@ -237,6 +246,12 @@ def _run_offline_backend(
             )
 
             config_type = Sm90_Mxfp4_MegaFluxOnlineConfig
+        if pipeline:
+            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_pipeline import (
+                Sm90_Mxfp4_MegaFluxPipelineConfig,
+            )
+
+            config_type = Sm90_Mxfp4_MegaFluxPipelineConfig
         plan_args = (
             {
                 "plan_config": plan.config,
@@ -248,7 +263,7 @@ def _run_offline_backend(
         )
         config = config_type(
             intermediate_size=ref.INTERMEDIATE,
-            top_k=world,
+            top_k=selected_topk,
             **plan_args,
             gate_up_clamp=ref.GATE_UP_CLAMP,
             load_balance_mode="static",
@@ -274,7 +289,7 @@ def _run_offline_backend(
         )
         original_config = Sm90_Fp8_Mxfp4_Bf16_PullCutedsl_MegaMoeConfig(
             intermediate_size=ref.INTERMEDIATE,
-            top_k=world,
+            top_k=selected_topk,
             gate_up_clamp=ref.GATE_UP_CLAMP,
             load_balance_mode="static",
             swap_ab=True,
@@ -291,6 +306,25 @@ def _run_offline_backend(
                 megakernel=original_config, quantize_input=True, preprocess_weights=True
             ),
         )
+        if pipeline:
+            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_online import (
+                Sm90_Mxfp4_MegaFluxOnlineConfig,
+            )
+
+            synchronous = MoEEpLayer(
+                **args,
+                backend=MegaConfig(
+                    megakernel=Sm90_Mxfp4_MegaFluxOnlineConfig(
+                        intermediate_size=ref.INTERMEDIATE,
+                        top_k=selected_topk,
+                        plan_config=plan.config,
+                        gate_up_clamp=ref.GATE_UP_CLAMP,
+                        load_balance_mode="static",
+                    ),
+                    quantize_input=True,
+                    preprocess_weights=True,
+                ),
+            )
         inputs = MoEEpTensors(hidden_states=hidden, topk_ids=ids, topk_weights=weights)
         actual = layer.forward(inputs).clone()
         from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.identity import (
@@ -299,6 +333,8 @@ def _run_offline_backend(
         )
 
         ws = layer._ensure_workspace()
+        if pipeline:
+            torch.cuda.synchronize()
         assert isinstance(ws._frontend, IdentityFrontend)
         assert isinstance(ws._frontend._mega.kernel.token_comm, IdentityTokenComm)
         assert ws is not baseline._ensure_workspace()
@@ -330,6 +366,78 @@ def _run_offline_backend(
                         atol=0,
                         rtol=0,
                     )
+        if pipeline:
+            sync_output = synchronous.forward(inputs)
+            torch.testing.assert_close(actual, sync_output, atol=0, rtol=0)
+            torch.testing.assert_close(
+                ws._megaflux_planner.committed.q,
+                synchronous._ensure_workspace()._megaflux_planner.committed.q,
+                atol=0,
+                rtol=0,
+            )
+            from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.pipeline import (
+                PipelineFrontend,
+            )
+
+            assert isinstance(ws._frontend, PipelineFrontend)
+            from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.pipeline_epilogue import (
+                PipelineEpilogue,
+            )
+
+            assert isinstance(ws._frontend._mega.kernel.epilogue, PipelineEpilogue)
+            hardware = torch.cuda.get_device_properties(local).multi_processor_count
+            assert ws._frontend.persistent_clusters == hardware - 2
+            if rank == 0:
+                compiled = ws._frontend._mega.compiled
+                kernel = ws._frontend._mega.kernel
+                native_resources = []
+                if resource_audit:
+                    from cuda.bindings import driver as cuda
+
+                    library = cuda.CUlibrary(int(compiled.library))
+                    for symbol in compiled.kernel_info:
+                        status, handle = cuda.cuLibraryGetKernel(
+                            library, symbol.encode()
+                        )
+                        assert status == cuda.CUresult.CUDA_SUCCESS
+                        values = {}
+                        for label, attr in (
+                            (
+                                "registers",
+                                cuda.CUfunction_attribute.CU_FUNC_ATTRIBUTE_NUM_REGS,
+                            ),
+                            (
+                                "static_smem",
+                                cuda.CUfunction_attribute.CU_FUNC_ATTRIBUTE_SHARED_SIZE_BYTES,
+                            ),
+                            (
+                                "max_dynamic_smem",
+                                cuda.CUfunction_attribute.CU_FUNC_ATTRIBUTE_MAX_DYNAMIC_SHARED_SIZE_BYTES,
+                            ),
+                            (
+                                "local_bytes",
+                                cuda.CUfunction_attribute.CU_FUNC_ATTRIBUTE_LOCAL_SIZE_BYTES,
+                            ),
+                        ):
+                            status, value = cuda.cuKernelGetAttribute(
+                                attr, handle, cuda.CUdevice(local)
+                            )
+                            assert status == cuda.CUresult.CUDA_SUCCESS
+                            values[label] = value
+                        native_resources.append((symbol, values))
+                print(
+                    "MegaFlux pipeline resources",
+                    {
+                        "threads": kernel.threads_per_cta,
+                        "epi_register_policy": kernel.epi_reg_cnt,
+                        "persistent_clusters": ws._frontend.persistent_clusters,
+                        "reserved_clusters": 2,
+                        "compiled_type": str(type(compiled)),
+                        "native": native_resources,
+                        "kernel_info": str(getattr(compiled, "kernel_info", None)),
+                    },
+                    flush=True,
+                )
         original_output = baseline.forward(inputs)
         torch.cuda.synchronize()
         torch.testing.assert_close(actual, original_output, atol=0, rtol=0)
@@ -341,8 +449,47 @@ def _run_offline_backend(
             require_all_experts=routing_pattern == "cross_rank",
         )
         ref._assert_matches_reference(ref._all_gather_stack(actual), expected, launch=0)
+        if pipeline:
+            config.pipeline_delays_us = delays
         # Repeat on the same workspace; metadata counters were tail-reset.
         torch.testing.assert_close(layer.forward(inputs), actual, atol=0, rtol=0)
+        if pipeline:
+            torch.cuda.synchronize()
+            state = ws._megaflux_pipeline
+            times = state.telemetry.cpu().tolist()
+            identities = state.identity.cpu()
+            assert identities[:, :, 0].tolist() == [list(plan.slot_to_expert[rank])] * 2
+            assert identities[0, :, 1].eq(0).all() and identities[1, :, 1].eq(1).all()
+            assert identities[:, :, 2].eq(plan.config.weight_version).all()
+            assert identities[:, :, 3].eq(0).all()
+            assert identities[:, :, 4].eq(2).all() and identities[:, :, 5].eq(1).all()
+            assert state.retired.eq(1).all().item()
+            if physical_budget:
+                assert state.chunks.eq(2).all().item()
+                assert state.ready.eq(2).all().item()
+                assert times[3] > 0 and times[4] > 0
+                owns = any(
+                    b.execution_rank == rank and b.physical_slot < ref.LOCAL_EXPERTS
+                    for b in plan.block_descriptors
+                )
+                replica = any(
+                    b.execution_rank == rank and b.physical_slot >= ref.LOCAL_EXPERTS
+                    for b in plan.block_descriptors
+                )
+                if owns:
+                    assert times[0] > 0
+                    if delays[0]:
+                        assert times[0] < times[3], times
+                    if any(delays[1:]):
+                        assert times[0] < times[4], times
+                if replica:
+                    assert times[1] >= times[3] > 0, times
+                    assert times[2] >= times[4] > 0, times
+                    if any(delays[1:]) and not delays[0]:
+                        assert times[1] < times[4], times
+            gathered_times = ref._all_gather_stack(state.telemetry).cpu().tolist()
+            if rank == 0:
+                print("MegaFlux pipeline telemetry", delays, gathered_times, flush=True)
         if static_replica or online:
 
             def assert_replica_bytes(current_plan):
@@ -467,8 +614,18 @@ def _run_offline_backend(
             torch.cuda.synchronize()
             dist.barrier()
             torch.testing.assert_close(captured, actual, atol=0, rtol=0)
+    except Exception:
+        # A rank-local failure must not enter collective free while peers are
+        # still executing GPU barriers. torchrun terminates the other ranks.
+        import os
+        import traceback
+
+        traceback.print_exc()
+        os._exit(1)
     finally:
         graph = None
+        if synchronous is not None:
+            synchronous.destroy()
         if baseline is not None:
             baseline.destroy()
         if layer is not None:

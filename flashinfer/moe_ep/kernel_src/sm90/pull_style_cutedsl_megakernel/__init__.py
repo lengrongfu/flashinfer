@@ -42,6 +42,9 @@ from __future__ import annotations
 
 from .shim.identity_support import (
     hopper_mxfp4_identity_regions,
+    hopper_mxfp4_pipeline_support,
+    hopper_mxfp4_pipeline_region_specs,
+    prepare_hopper_mxfp4_pipeline,
     hopper_mxfp4_token_comm_type,
 )
 
@@ -167,6 +170,9 @@ def __getattr__(name):  # PEP 562
 
 __all__ = [
     "hopper_mxfp4_identity_regions",
+    "hopper_mxfp4_pipeline_support",
+    "hopper_mxfp4_pipeline_region_specs",
+    "prepare_hopper_mxfp4_pipeline",
     "hopper_mxfp4_token_comm_type",
     *_LAZY_HELPERS,
     "MXFP4_BLOCK_PERMUTATION_ROUTING_PROFILE",

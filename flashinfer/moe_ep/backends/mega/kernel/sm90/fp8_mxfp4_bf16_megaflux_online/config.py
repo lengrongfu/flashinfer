@@ -3,7 +3,7 @@
 """GPU planning with synchronous transport; explicit correctness bringup."""
 
 from dataclasses import dataclass
-from ......megaflux_plan import PlanConfig, plan_forward
+from ......megaflux_plan import PlanConfig, empty_workspace_plan
 from ..fp8_mxfp4_bf16_megaflux_physical.config import Sm90_Mxfp4_MegaFluxPhysicalConfig
 
 
@@ -33,9 +33,7 @@ class Sm90_Mxfp4_MegaFluxOnlineConfig(Sm90_Mxfp4_MegaFluxPhysicalConfig):
                 "online backend consumes routing on GPU, not an offline Plan"
             )
         # Shape-only empty bootstrap metadata; no routing is planned on CPU.
-        self.plan = plan_forward(
-            [[] for _ in range(p.world_size)], p, invocation_epoch=1, identity=True
-        )
+        self.plan = empty_workspace_plan(p)
         super().__post_init__()
 
     def _expected_kernel_name(self):

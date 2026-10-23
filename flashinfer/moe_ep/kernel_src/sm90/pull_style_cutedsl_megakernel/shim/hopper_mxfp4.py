@@ -411,8 +411,8 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
             c.hidden,
         )
         cluster_size = c.cluster_shape_mnk[0] * c.cluster_shape_mnk[1]
-        max_active_clusters = cutlass_utils.HardwareInfo().get_max_active_clusters(
-            cluster_size
+        max_active_clusters = self._resolve_max_active_clusters(
+            cutlass_utils.HardwareInfo().get_max_active_clusters(cluster_size)
         )
         group_hint = c.group_hint if c.group_hint is not None else max_active_clusters
         token_padding_block = c.mma_tiler_mnk[1]
@@ -494,6 +494,9 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
     def _construct_kernel(self, kernel_type, **kwargs):
         """Construction boundary for maintained communication adapters."""
         return kernel_type(**kwargs)
+
+    def _resolve_max_active_clusters(self, value):
+        return value
 
     def _weight_expert_capacity(self):
         """Weight/physical-slot axis; logical E stays in the config."""
