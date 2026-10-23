@@ -155,3 +155,92 @@ class StaticReplicaTransport:
                 core.free_tensor(root)
             self.roots.clear()
             self.closed = True
+
+
+class DeviceReplicaTransport:
+    """GPU-selected exports with conservative synchronous root gets.
+
+    This correctness path fetches every owner's bounded export root on every
+    PE, then unpacks only GPU-selected replicas. Extra bytes are charged work;
+    selective device-initiated transport is a later optimization.
+    """
+
+    def __init__(self, config, bank, rank):
+        from nvshmem import core
+        from .planner import planner_module
+
+        self.config, self.rank = config, rank
+        self.module = planner_module()
+        self.export_capacity = min(
+            config.num_owned_experts_per_rank,
+            (config.world_size - 1) * config.replica_budget,
+        )
+        self.roots, self.exports, self.caches, self.pieces = [], [], [], []
+        self.closed = False
+        S = config.physical_slot_capacity
+        for payload, offset, _, residual in bank:
+            pieces = (
+                payload.transpose(1, 2).reshape(S, -1).view(torch.uint8),
+                offset.reshape(S, -1).view(torch.uint8),
+                residual.reshape(S, -1).view(torch.uint8),
+            )
+            self.pieces.append(pieces)
+            size = sum(p.shape[1] for p in pieces)
+            checked_nbytes((config.world_size + 1) * self.export_capacity, size)
+            if not self.export_capacity:
+                continue
+            source = core.tensor((self.export_capacity, size), dtype=torch.uint8)
+            cache = core.tensor(
+                (config.world_size * self.export_capacity, size), dtype=torch.uint8
+            )
+            self.roots.extend((source, cache))
+            self.exports.append(source)
+            self.caches.append(cache)
+
+    def copy(self, plan):
+        from nvshmem import core, bindings
+
+        if torch.cuda.is_current_stream_capturing():
+            raise RuntimeError("synchronous device-plan transport cannot capture")
+        if not self.export_capacity:
+            return
+        c = self.config
+        for pieces, root in zip(self.pieces, self.exports, strict=True):
+            self.module.weights(
+                plan.q, plan.slot_to_expert, *pieces, root, self.rank, False
+            )
+        StaticReplicaTransport.rendezvous()
+        stream = torch.cuda.current_stream()
+        for root, cache in zip(self.exports, self.caches, strict=True):
+            source_buf, source_bytes, _ = core.tensor_get_buffer(root)
+            cache_buf, cache_bytes, _ = core.tensor_get_buffer(cache)
+            if source_buf.size < source_bytes or cache_buf.size < cache_bytes:
+                raise RuntimeError("registered symmetric root capacity mismatch")
+            for owner in range(c.world_size):
+                # Bounds-checked arithmetic within tracked symmetric roots.
+                # Never interpret an ordinary local weight pointer remotely.
+                assert (owner + 1) * source_bytes <= cache_bytes
+                bindings.getmem_on_stream(
+                    cache_buf.handle + owner * source_bytes,
+                    source_buf.handle,
+                    source_bytes,
+                    owner,
+                    stream.cuda_stream,
+                )
+        core.quiet(stream=stream)
+        stream.synchronize()
+        for pieces, cache in zip(self.pieces, self.caches, strict=True):
+            self.module.weights(
+                plan.q, plan.slot_to_expert, *pieces, cache, self.rank, True
+            )
+        StaticReplicaTransport.rendezvous()
+
+    def close(self):
+        from nvshmem import core
+
+        if not self.closed:
+            StaticReplicaTransport.rendezvous()
+            for root in reversed(self.roots):
+                core.free_tensor(root)
+            self.roots.clear()
+            self.closed = True

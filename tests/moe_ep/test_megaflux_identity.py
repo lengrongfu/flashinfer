@@ -101,7 +101,49 @@ def test_static_replica_full_bytes_and_slot_reuse(monkeypatch, routing_pattern):
     _run_offline_backend(routing_pattern, physical_budget=1, static_replica=True)
 
 
-def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=False):
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("budget", [0, 1, 2, 4])
+@pytest.mark.parametrize(
+    "routing_pattern", ["sparse_owner", "zero_source", "all_masked"]
+)
+def test_online_gpu_plan_and_changing_routes(monkeypatch, routing_pattern, budget):
+    from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+
+    monkeypatch.setattr(ref, "TOKENS_PER_RANK", 129)
+    _run_offline_backend(routing_pattern, physical_budget=budget, online=True)
+
+
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+def test_online_collective_capacity_fallback(monkeypatch):
+    from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+
+    monkeypatch.setattr(ref, "TOKENS_PER_RANK", 129)
+    _run_offline_backend(
+        "sparse_owner", physical_budget=1, online=True, requested_capacity=0
+    )
+
+
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+def test_online_collective_version_fallback(monkeypatch):
+    from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+
+    monkeypatch.setattr(ref, "TOKENS_PER_RANK", 129)
+    _run_offline_backend(
+        "sparse_owner", physical_budget=1, online=True, version_mismatch=True
+    )
+
+
+def _run_offline_backend(
+    routing_pattern,
+    physical_budget=None,
+    static_replica=False,
+    online=False,
+    requested_capacity=None,
+    version_mismatch=False,
+):
     import torch
     import torch.distributed as dist
     from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
@@ -168,9 +210,12 @@ def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=F
                 physical_budget or 0,
                 ref.TOKENS_PER_RANK,
                 world,
+                weight_version=int(version_mismatch and rank == 0),
             ),
             invocation_epoch=1,
-            identity=not static_replica,
+            identity=(not static_replica and not online)
+            or requested_capacity == 0
+            or version_mismatch,
             static_replica=static_spec,
         )
         config_type = Sm90_Mxfp4_MegaFluxIdentityConfig
@@ -186,10 +231,25 @@ def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=F
             )
 
             config_type = Sm90_Mxfp4_MegaFluxStaticConfig
+        if online:
+            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_online import (
+                Sm90_Mxfp4_MegaFluxOnlineConfig,
+            )
+
+            config_type = Sm90_Mxfp4_MegaFluxOnlineConfig
+        plan_args = (
+            {
+                "plan_config": plan.config,
+                "requested_block_capacity": requested_capacity if rank == 0 else None,
+                "debug_plan_agreement": True,
+            }
+            if online
+            else {"plan": plan}
+        )
         config = config_type(
             intermediate_size=ref.INTERMEDIATE,
             top_k=world,
-            plan=plan,
+            **plan_args,
             gate_up_clamp=ref.GATE_UP_CLAMP,
             load_balance_mode="static",
         )
@@ -283,7 +343,7 @@ def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=F
         ref._assert_matches_reference(ref._all_gather_stack(actual), expected, launch=0)
         # Repeat on the same workspace; metadata counters were tail-reset.
         torch.testing.assert_close(layer.forward(inputs), actual, atol=0, rtol=0)
-        if static_replica:
+        if static_replica or online:
 
             def assert_replica_bytes(current_plan):
                 from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.static import (
@@ -317,6 +377,75 @@ def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=F
                             )
 
             assert_replica_bytes(plan)
+            if online:
+
+                def assert_device_plan(expected_plan):
+                    from flashinfer.moe_ep.megaflux_plan import pack_plan_records
+
+                    committed = ws._megaflux_planner.committed
+                    packed = pack_plan_records(expected_plan)
+                    assert committed.blocks[: len(packed.blocks)].cpu().tolist() == [
+                        list(row) for row in packed.blocks
+                    ]
+                    assert committed.replicas[
+                        : len(packed.replicas)
+                    ].cpu().tolist() == [list(row) for row in packed.replicas]
+                    assert committed.slot_to_expert.cpu().tolist() == [
+                        list(row) for row in expected_plan.slot_to_expert
+                    ]
+                    assert committed.statistics.cpu().tolist() == list(
+                        map(
+                            list,
+                            (
+                                expected_plan.rank_task_counts,
+                                expected_plan.num_active_physical_slots,
+                                expected_plan.rank_padded_rows,
+                                expected_plan.rank_sf_rows,
+                            ),
+                        )
+                    )
+                    assert ws._megaflux_planner.fallback.item() == int(
+                        version_mismatch
+                        or (
+                            requested_capacity == 0
+                            and bool(expected_plan.block_descriptors)
+                        )
+                    )
+                    for peer_q in ref._all_gather_stack(committed.q):
+                        torch.testing.assert_close(peer_q, committed.q, atol=0, rtol=0)
+
+                assert_device_plan(plan)
+                shifted = torch.where(
+                    ids >= 0, (ids + ref.LOCAL_EXPERTS) % fleet.num_experts, ids
+                )
+                shifted[(rank * 17) % ref.TOKENS_PER_RANK :] = -1
+                next_inputs = MoEEpTensors(
+                    hidden_states=hidden, topk_ids=shifted, topk_weights=weights
+                )
+                next_actual = layer.forward(next_inputs).clone()
+                torch.testing.assert_close(
+                    next_actual, baseline.forward(next_inputs), atol=0, rtol=0
+                )
+                next_global_ids = ref._all_gather_stack(shifted)
+                next_plan = plan_forward(
+                    next_global_ids.cpu().tolist(),
+                    plan.config,
+                    invocation_epoch=3,
+                    identity=requested_capacity == 0 or version_mismatch,
+                )
+                assert_device_plan(next_plan)
+                assert_replica_bytes(next_plan)
+                next_expected = ref._global_route_reference(
+                    global_hidden,
+                    next_global_ids,
+                    global_weights,
+                    global_raw,
+                    require_all_experts=False,
+                )
+                ref._assert_matches_reference(
+                    ref._all_gather_stack(next_actual), next_expected, launch=1
+                )
+                return
             new_plan = plan_forward(
                 global_ids.cpu().tolist(),
                 plan.config,
