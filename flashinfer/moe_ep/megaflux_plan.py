@@ -476,14 +476,29 @@ def plan_forward(
             )
     descriptors = []
     data_end, sf_end, tasks, active = ([0] * c.world_size for _ in range(4))
+    # Execution pools are traversed by physical slot, not logical expert ID.
+    # Replica slots follow owned slots even if their logical IDs are smaller.
+    slot_rows = [[0] * c.physical_slot_capacity for _ in range(c.world_size)]
+    for e, allocation in enumerate(q):
+        first_block = 0
+        for r, n in enumerate(allocation):
+            if n:
+                slot_rows[r][slot_index[e, r]] = min(
+                    n * c.beta, len(routes[e]) - first_block * c.beta
+                )
+                first_block += n
+    data_base, sf_base = {}, {}
+    for r in range(c.world_size):
+        for s, rows in enumerate(slot_rows[r]):
+            data_base[r, s], sf_base[r, s] = data_end[r], sf_end[r]
+            data_end[r] += _align(rows, c.beta)
+            sf_end[r] += _align(rows, c.sf_padding)
     for e, allocation in enumerate(q):
         block = 0
         for r, n in enumerate(allocation):
             if not n:
                 continue
             active[r] += 1
-            begin = block * c.beta
-            rows = min(n * c.beta, len(routes[e]) - begin)
             for j in range(n):
                 first = (block + j) * c.beta
                 chunk = tuple(routes[e][first : first + c.beta])
@@ -493,14 +508,12 @@ def plan_forward(
                         block + j,
                         r,
                         slot_index[e, r],
-                        data_end[r] + j * c.beta,
+                        data_base[r, slot_index[e, r]] + j * c.beta,
                         len(chunk),
-                        sf_end[r] + j * c.beta,
+                        sf_base[r, slot_index[e, r]] + j * c.beta,
                         chunk,
                     )
                 )
-            data_end[r] += _align(rows, c.beta)
-            sf_end[r] += _align(rows, c.sf_padding)
             tasks[r] += n
             block += n
     return ForwardPlan(

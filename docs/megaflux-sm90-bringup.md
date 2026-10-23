@@ -2,7 +2,9 @@
 
 Status: original-backend baseline and CPU reference established; an offline
 R=0 identity receiver adapter now passes single-GPU and EP8 validation. The
-physical-capacity refactor and replication stages remain incomplete. See
+physical-capacity identity gate now also passes R=1/2/4 reserved-slot tests;
+replication remains incomplete. Initial pooled layer-level evidence is
+superseded as described in `megaflux-identity-executor.md`. See
 `megaflux-plan-abi.md` and `megaflux-identity-executor.md` for the precise
 contracts, evidence and limitations.
 
@@ -248,5 +250,5 @@ bitwise equality at the target shape and records per-iteration rank-max
 latency. See `megaflux-identity-executor.md` and raw identity result files.
 
 Pending: target-shape independent numerical correctness, GPU Plan comparison,
-expanded physical-slot capacity, weight transfer,
+weight transfer,
 delay injection, CUDA Graph stress, all MegaFlux performance ablations.

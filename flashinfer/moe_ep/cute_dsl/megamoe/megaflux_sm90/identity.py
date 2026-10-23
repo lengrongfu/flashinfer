@@ -130,13 +130,8 @@ class IdentityFrontend(MegaMoEHopperMxfp4Frontend):
         raise NotImplementedError("identity Plan metadata must be restored per launch")
 
 
-def bind_identity_plan(workspace, plan):
-    """Upload a trusted offline identity Plan before compilation/capture.
-
-    Caller must stage inputs matching this Plan's original route identities.
-    The Plan is static until explicitly rebound; binding during capture or
-    replacing an already compiled workspace is rejected.
-    """
+def validate_plan_binding(workspace, plan):
+    """Check the frozen logical/input ABI before any Plan upload."""
     if torch.cuda.is_current_stream_capturing():
         raise RuntimeError("bind the identity Plan before capture")
     c = workspace._frontend.config
@@ -145,8 +140,6 @@ def bind_identity_plan(workspace, plan):
         raise RuntimeError("bind the identity Plan before frontend warmup")
     if plan.status != PlanStatus.OK or plan.overflow:
         raise ValueError("identity executor requires a successful Plan")
-    if p.replica_budget != 0 or plan.replica_descriptors:
-        raise ValueError("identity executor requires R=0")
     if p.layout_id != "humming_sm90_m64_k128_gateup8_residual_x64_v1":
         raise ValueError("identity Plan uses an unsupported weight layout")
     if c.num_tokens_per_rank * c.num_topk >= (1 << 31):
@@ -171,6 +164,15 @@ def bind_identity_plan(workspace, plan):
     ):
         raise ValueError("identity executor requires the frozen no-dedup N32 tactic")
     pack_plan_records(plan)  # Refuse unsuccessful Plans before any upload.
+    return c
+
+
+def bind_identity_plan(workspace, plan):
+    """Bind a trusted, fixed R=0 Plan before compilation/capture."""
+    c = validate_plan_binding(workspace, plan)
+    p = plan.config
+    if p.replica_budget != 0 or plan.replica_descriptors:
+        raise ValueError("identity executor requires R=0")
     owned = p.num_owned_experts_per_rank
     # Physical capacity equals owned only for this deliberately restricted R=0 ABI.
     counts = torch.tensor(plan.source_expert_counts, dtype=torch.int64)

@@ -19,6 +19,9 @@ def test_identity_config_rejects_replica_budget_and_tactic_changes():
     config = Sm90_Mxfp4_MegaFluxIdentityConfig(
         intermediate_size=128, top_k=2, plan=plan
     )
+    from flashinfer.moe_ep.core.kernel.registry import create_mega_kernel
+
+    assert create_mega_kernel(config)._workspace_pool_request(None) is None
     for changes in (
         {"dedup_dispatch": True},
         {"mma_tiler_mnk": (128, 64, 128)},
@@ -77,6 +80,18 @@ def test_identity_matches_independent_oracle(monkeypatch, active_dispatch_warps)
     "routing_pattern", ["cross_rank", "zero_source", "all_masked", "sparse_owner"]
 )
 def test_identity_backend_multirank_and_graph(routing_pattern):
+    _run_offline_backend(routing_pattern)
+
+
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("budget", [1, 2, 4])
+@pytest.mark.parametrize("routing_pattern", ["cross_rank", "zero_source", "all_masked"])
+def test_expanded_physical_slots_identity(routing_pattern, budget):
+    _run_offline_backend(routing_pattern, physical_budget=budget)
+
+
+def _run_offline_backend(routing_pattern, physical_budget=None):
     import torch
     import torch.distributed as dist
     from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
@@ -129,10 +144,24 @@ def test_identity_backend_multirank_and_graph(routing_pattern):
         global_weights = ref._all_gather_stack(weights)
         plan = plan_forward(
             global_ids.cpu().tolist(),
-            PlanConfig(world * ref.LOCAL_EXPERTS, world, 0, ref.TOKENS_PER_RANK, world),
+            PlanConfig(
+                world * ref.LOCAL_EXPERTS,
+                world,
+                physical_budget or 0,
+                ref.TOKENS_PER_RANK,
+                world,
+            ),
             invocation_epoch=1,
+            identity=True,
         )
-        config = Sm90_Mxfp4_MegaFluxIdentityConfig(
+        config_type = Sm90_Mxfp4_MegaFluxIdentityConfig
+        if physical_budget is not None:
+            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_physical import (
+                Sm90_Mxfp4_MegaFluxPhysicalConfig,
+            )
+
+            config_type = Sm90_Mxfp4_MegaFluxPhysicalConfig
+        config = config_type(
             intermediate_size=ref.INTERMEDIATE,
             top_k=world,
             plan=plan,
@@ -179,6 +208,43 @@ def test_identity_backend_multirank_and_graph(routing_pattern):
         )
         inputs = MoEEpTensors(hidden_states=hidden, topk_ids=ids, topk_weights=weights)
         actual = layer.forward(inputs).clone()
+        from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.identity import (
+            IdentityFrontend,
+            IdentityTokenComm,
+        )
+
+        ws = layer._ensure_workspace()
+        assert isinstance(ws._frontend, IdentityFrontend)
+        assert isinstance(ws._frontend._mega.kernel.token_comm, IdentityTokenComm)
+        assert ws is not baseline._ensure_workspace()
+        if physical_budget is not None:
+            kernel = ws._frontend._mega.kernel
+            cap = ref.LOCAL_EXPERTS + physical_budget
+            assert kernel.num_logical_experts == world * ref.LOCAL_EXPERTS
+            assert kernel.num_total_experts == world * ref.LOCAL_EXPERTS
+            assert kernel.num_owned_experts_per_rank == ref.LOCAL_EXPERTS
+            assert kernel.physical_slot_capacity == cap
+            assert kernel.num_experts_per_rank == cap
+            assert kernel.token_comm.num_experts_per_rank == cap
+            assert (
+                kernel.token_comm.num_total_experts == plan.config.num_logical_experts
+            )
+            assert ws._frontend._identity_counts.shape == (world, cap)
+            for leg, source in zip(
+                ws._megaflux_weight_bank, layer._transformed, strict=True
+            ):
+                assert leg[0].shape[0] == cap and leg[0].stride(1) == 1
+                for bank_tensor, original_tensor in zip(
+                    (leg[0], leg[1], leg[3]),
+                    (source[0], source[1], source[3]),
+                    strict=True,
+                ):
+                    torch.testing.assert_close(
+                        bank_tensor[: ref.LOCAL_EXPERTS],
+                        original_tensor,
+                        atol=0,
+                        rtol=0,
+                    )
         original_output = baseline.forward(inputs)
         torch.cuda.synchronize()
         torch.testing.assert_close(actual, original_output, atol=0, rtol=0)

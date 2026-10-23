@@ -5,6 +5,14 @@ It does not implement expert replication, GPU planning, transfer readiness,
 changing-Plan Graph replay or a benefit gate. Its purpose is to establish the
 identity execution boundary before adding physical replica slots.
 
+**Evidence correction:** the initial layer-level results in commit `b7e999563`
+used an inherited workspace-pool factory that bypassed the adapter. Those
+layer-level identity claims and timings are withdrawn. Directly bound
+single-rank adapter tests were valid. The corrected backend is unpooled;
+tests/benchmarks assert the actual frontend and communication types and
+workspace separation. `superseded-pooled-*` logs preserve invalid evidence;
+current identity logs and the table below are replacement runs.
+
 ## Enable explicitly
 
 Importing the development backend registers its distinct kernel name. The
@@ -104,9 +112,10 @@ placement. Each EP case compares exactly to the original backend, checks the
 independent numerical oracle, repeats the same workspace and replays a Graph
 16 times. This establishes fixed-Plan R=0 correctness only. Target-shape paired
 benchmark also requires bitwise output equality between the two backends.
-Final backend/config module split was additionally checked on EP2 cross-rank
-execution and 16 Graph replays (1 passed per rank), plus the config rejection
-test (1 passed). Original single-rank + identity regression: 6 passed;
+The earlier EP2 layer result also used the pooled baseline and is superseded.
+The corrected physical-slot EP2 check passes cross-rank execution and 16 Graph
+replays (1 passed per rank); see `megaflux-physical-slots.md`. The config
+rejection test passes (1 passed). Original single-rank + identity regression: 6 passed;
 original EP8 regression: 10 passed per rank. Raw results are retained under
 `megaflux-results/identity-*.txt`.
 
@@ -131,21 +140,23 @@ H200 EP8, H5120/I2304/E384/top-k6:
 
 | Routes / tokens per rank | Complete forward | p50 us | p95 us | p99 us |
 | --- | --- | --- | --- | --- |
-| Balanced / 64 | Original | 827.536 | 1054.638 | 1367.460 |
-| Balanced / 64 | Identity Plan | 820.112 | 931.779 | 1532.453 |
-| Balanced / 512 | Original | 1423.824 | 1604.643 | 1674.128 |
-| Balanced / 512 | Identity Plan | 1416.160 | 1525.064 | 1595.053 |
-| Hotspot / 512 | Original | 6486.192 | 6862.757 | 7036.029 |
-| Hotspot / 512 | Identity Plan | 6429.232 | 6567.963 | 6697.369 |
+| Balanced / 64 | Original | 847.440 | 1873.974 | 2408.974 |
+| Balanced / 64 | Identity Plan | 1042.272 | 1194.406 | 2180.195 |
+| Balanced / 512 | Original | 1421.200 | 1621.320 | 2285.267 |
+| Balanced / 512 | Identity Plan | 1614.480 | 1905.011 | 2125.114 |
+| Hotspot / 512 | Original | 6467.056 | 6925.122 | 7053.839 |
+| Hotspot / 512 | Identity Plan | 6597.152 | 6717.200 | 6726.427 |
 
 One paired run per workload; these differences are not evidence of a speedup. This
 static Plan removes original dispatch preprocessing while adding validation
 and metadata copies. Results are not directly comparable to the earlier
 atomic-scheduler baseline or compute-only timings. Raw results and full
 workload parameters: `megaflux-results/identity-bench-{64,512,hotspot-512}.txt`.
+The real adapter adds about 193 us to balanced-512 p50 in this run; that
+overhead must be charged when judging replication benefits.
 The legal hotspot selects distinct experts 0..5, all on rank 0. All 768 token
 blocks remain on rank 0: this confirms the identity limitation rather than
-claiming load balancing. The 64-token p99 outlier is retained in the raw data.
+claiming load balancing. Timing outliers are retained in the raw data.
 
 Pending: physical capacity beyond owned, static replicas, complete-leg byte
 verification, GPU planner/consistent fallback, delay injection, epoch/slot

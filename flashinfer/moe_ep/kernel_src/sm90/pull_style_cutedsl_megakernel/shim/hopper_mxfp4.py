@@ -406,7 +406,7 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
             raise RuntimeError("MXFP4 frontend requires swap_ab=True.")
 
         static_expert_shape = (
-            c.num_experts_per_rank,
+            self._weight_expert_capacity(),
             c.fc1_out,
             c.hidden,
         )
@@ -494,6 +494,10 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
     def _construct_kernel(self, kernel_type, **kwargs):
         """Construction boundary for maintained communication adapters."""
         return kernel_type(**kwargs)
+
+    def _weight_expert_capacity(self):
+        """Weight/physical-slot axis; logical E stays in the config."""
+        return self.config.num_experts_per_rank
 
     @staticmethod
     def _slice_inputs(
@@ -612,7 +616,7 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
             if tensor.dtype != dtype:
                 raise ValueError(f"{name} must have dtype {dtype}, got {tensor.dtype}.")
 
-        e = c.num_experts_per_rank
+        e = self._weight_expert_capacity()
         packed_weight_contracts = (
             (
                 "fc1_weight",

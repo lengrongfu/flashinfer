@@ -21,6 +21,11 @@ class Sm90MegaFluxIdentityBackend(Sm90PullMxfp4MegaKernelBackend):
     def kernel_name(cls):
         return "sm90_fp8_mxfp4_bf16_megaflux_identity"
 
+    def _workspace_pool_request(self, fleet_params):
+        # A Plan is workspace-local state. The inherited factory allocates an
+        # ordinary frontend and does not invoke our _allocate_workspace hook.
+        return None
+
     def validate_init(self, bootstrap, fleet_params):
         super().validate_init(bootstrap, fleet_params)
         p = self._identity_plan.config

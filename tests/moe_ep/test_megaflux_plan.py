@@ -98,6 +98,20 @@ def _verify(ids, c, plan):
         assert len(replicas) <= c.replica_budget
         assert len(replicas) == sum(e >= 0 for e in slots[own:])
         rank_blocks = [b for b in plan.block_descriptors if b.execution_rank == r]
+        token_prefix = sf_prefix = 0
+        for slot in range(c.physical_slot_capacity):
+            owned_blocks = sorted(
+                (b for b in rank_blocks if b.physical_slot == slot),
+                key=lambda b: b.expert_block,
+            )
+            for j, b in enumerate(owned_blocks):
+                assert b.destination_row_offset == token_prefix + j * c.beta
+                assert b.destination_sf_row_offset == sf_prefix + j * c.beta
+            count = sum(b.valid_rows for b in owned_blocks)
+            token_prefix += (count + c.beta - 1) // c.beta * c.beta
+            sf_prefix += (count + c.sf_padding - 1) // c.sf_padding * c.sf_padding
+        assert token_prefix == plan.rank_padded_rows[r]
+        assert sf_prefix == plan.rank_sf_rows[r]
         assert plan.rank_task_counts[r] == len(rank_blocks)
         assert plan.num_active_physical_slots[r] == len(
             {b.physical_slot for b in rank_blocks}

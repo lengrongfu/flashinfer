@@ -157,6 +157,17 @@ def main():
             )
             for _ in range(args.warmup):
                 layer.forward(inputs)
+            if name == "identity":
+                from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.identity import (
+                    IdentityFrontend,
+                )
+
+                if not isinstance(
+                    layer._ensure_workspace()._frontend, IdentityFrontend
+                ):
+                    raise RuntimeError(
+                        "identity benchmark did not select the Plan frontend"
+                    )
             torch.cuda.synchronize()
             samples = []
             start, end = (

@@ -33,12 +33,11 @@ class Sm90_Mxfp4_MegaFluxIdentityConfig(Sm90_Fp8_Mxfp4_Bf16_PullCutedsl_MegaMoeC
 
     def __post_init__(self):
         super().__post_init__()
-        if self.kernel_name != "sm90_fp8_mxfp4_bf16_megaflux_identity":
+        if self.kernel_name != self._expected_kernel_name():
             raise ValueError("identity config cannot select another backend")
         if self.plan is None or self.plan.status != PlanStatus.OK or self.plan.overflow:
             raise ValueError("a successful offline identity Plan is required")
-        if self.plan.config.replica_budget != 0 or self.plan.replica_descriptors:
-            raise ValueError("MegaFlux identity backend requires R=0")
+        self._validate_plan_kind()
         if self.plan.config.top_k != self.top_k:
             raise ValueError("Plan top_k differs from backend top_k")
         if self.knobs is not None:
@@ -55,3 +54,10 @@ class Sm90_Mxfp4_MegaFluxIdentityConfig(Sm90_Fp8_Mxfp4_Bf16_PullCutedsl_MegaMoeC
             raise ValueError(
                 "identity backend requires frozen no-dedup N32/C1x1 geometry"
             )
+
+    def _expected_kernel_name(self):
+        return "sm90_fp8_mxfp4_bf16_megaflux_identity"
+
+    def _validate_plan_kind(self):
+        if self.plan.config.replica_budget != 0 or self.plan.replica_descriptors:
+            raise ValueError("MegaFlux identity backend requires R=0")

@@ -50,7 +50,10 @@ Owned slots keep expert modulo owned; replica slots are assigned in increasing
 expert ID per receiver. Within each expert, routes are ordered by source rank,
 source token, then top-k position. Blocks are cut once globally; only the last
 block can be partial. Separate token/SF slot prefixes preserve independent
-padding. Returned outputs retain source top-k identity; routing weights are
+padding. Pool prefixes follow physical-slot order (owned first, replicas
+afterward), independently of the logical-expert record ordering. This fixes
+the original CPU-only R>0 prototype's logical-order offsets before enabling
+replica execution. Returned outputs retain source top-k identity; routing weights are
 never modified by this planner.
 
 ## Deterministic load-only oracle
