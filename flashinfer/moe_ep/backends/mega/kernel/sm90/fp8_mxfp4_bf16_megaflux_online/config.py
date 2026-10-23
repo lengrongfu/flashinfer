@@ -3,6 +3,7 @@
 """GPU planning with synchronous transport; explicit correctness bringup."""
 
 from dataclasses import dataclass
+from ......cute_dsl.megamoe.megaflux_sm90.benefit import BenefitCosts
 from ......megaflux_plan import PlanConfig, empty_workspace_plan
 from ..fp8_mxfp4_bf16_megaflux_physical.config import Sm90_Mxfp4_MegaFluxPhysicalConfig
 
@@ -13,6 +14,7 @@ class Sm90_Mxfp4_MegaFluxOnlineConfig(Sm90_Mxfp4_MegaFluxPhysicalConfig):
     plan_config: PlanConfig | None = None
     requested_block_capacity: int | None = None
     debug_plan_agreement: bool = False
+    benefit_costs: BenefitCosts | None = None
 
     def __post_init__(self):
         p = self.plan_config

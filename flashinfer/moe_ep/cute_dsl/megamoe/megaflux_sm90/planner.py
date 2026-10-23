@@ -173,9 +173,17 @@ class DistributedPlanner:
         group=None,
         requested_capacity=None,
         debug_agreement=False,
+        benefit_costs=None,
     ):
+        from .benefit import BenefitGate
+
         self.config = config
         self.group = group
+        self.benefit_gate = (
+            BenefitGate(benefit_costs, device=device)
+            if benefit_costs is not None
+            else None
+        )
         self.requested_capacity = requested_capacity
         self.histogram = LocalHistogram(config, device=device)
         self.candidate = DevicePlan(config, device=device)
@@ -228,6 +236,9 @@ class DistributedPlanner:
             self.candidate.meta[5:6].copy_(epoch)
             self.identity.meta[5:6].copy_(epoch)
         self.fallback.copy_(self.candidate.meta[1:2])
+        if self.benefit_gate is not None:
+            rejected = self.benefit_gate.run(self.candidate, self.identity)
+            self.fallback.copy_(torch.maximum(self.fallback, rejected))
         if external_failure is not None:
             self.fallback.copy_(torch.maximum(self.fallback, external_failure))
         if self.debug_agreement:

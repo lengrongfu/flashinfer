@@ -68,6 +68,7 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
                 group=self.ep_comm_group,
                 requested_capacity=self._kernel_config.requested_block_capacity,
                 debug_agreement=self._kernel_config.debug_plan_agreement,
+                benefit_costs=self._kernel_config.benefit_costs,
             )
             workspace._megaflux_planner = planner
             workspace._megaflux_transport = self._make_transport(p, bank, workspace)
