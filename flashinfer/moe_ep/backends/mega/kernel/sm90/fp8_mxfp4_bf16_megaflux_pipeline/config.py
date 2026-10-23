@@ -9,6 +9,8 @@ from ..fp8_mxfp4_bf16_megaflux_online.config import Sm90_Mxfp4_MegaFluxOnlineCon
 @dataclass
 class Sm90_Mxfp4_MegaFluxPipelineConfig(Sm90_Mxfp4_MegaFluxOnlineConfig):
     kernel_name: str = "sm90_fp8_mxfp4_bf16_megaflux_pipeline"
+    selective_weight_copy: bool = False
+    synchronize_weight_copy: bool = False
     communication_clusters: int = 2
     pipeline_delays_us: tuple[int, int, int, int] = (0, 0, 0, 0)
 

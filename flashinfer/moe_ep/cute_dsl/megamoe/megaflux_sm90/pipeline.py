@@ -119,9 +119,39 @@ class PipelineFrontend(PhysicalSlotFrontend):
 
 
 class PipelinedReplicaTransport(DeviceReplicaTransport):
-    def __init__(self, config, bank, rank, state, backend_config):
+    def __init__(self, config, bank, rank, state, backend_config, *, group=None):
         super().__init__(config, bank, rank)
         self.state, self.backend_config = state, backend_config
+        self.peer_roots = []
+        self.selective = backend_config.selective_weight_copy
+        if self.export_capacity:
+            from nvshmem import core, bindings
+            import torch.distributed as dist
+
+            addresses = []
+            for root in self.exports:
+                buf, size, _ = core.tensor_get_buffer(root)
+                if buf.size < size:
+                    raise RuntimeError("symmetric export root capacity mismatch")
+                addresses.append(
+                    [bindings.ptr(buf.handle, r) for r in range(config.world_size)]
+                )
+            unavailable = torch.tensor(
+                [
+                    not self.selective
+                    or any(not ptr for row in addresses for ptr in row)
+                ],
+                dtype=torch.int32,
+                device=bank[0][0].device,
+            )
+            dist.all_reduce(unavailable, op=dist.ReduceOp.MAX, group=group)
+            # Initialization-only capability decision; no invocation Plan readback.
+            self.selective = not bool(unavailable.item())
+            if self.selective:
+                self.peer_roots = [
+                    torch.tensor(row, dtype=torch.int64, device=bank[0][0].device)
+                    for row in addresses
+                ]
 
     def copy(self, plan):
         from nvshmem import core, bindings
@@ -175,17 +205,30 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                     or cache_size != c.world_size * size
                 ):
                     raise RuntimeError("symmetric pipeline root capacity mismatch")
-                for owner in range(c.world_size):
-                    bindings.getmem_on_stream(
-                        dst.handle + owner * size,
-                        src.handle,
-                        size,
-                        owner,
-                        stream.cuda_stream,
+                if self.selective:
+                    state.module.selective_get(
+                        plan.q,
+                        plan.slot_to_expert,
+                        self.peer_roots[leg],
+                        cache,
+                        self.rank,
+                        self.export_capacity,
                     )
-                    core.quiet(stream=stream)
-                    # This marker follows actual get completion, not enqueue.
-                    state.control(2, leg=leg, owner=owner)
+                    # The kernel boundary completes all peer reads before markers.
+                    for owner in range(c.world_size):
+                        state.control(2, leg=leg, owner=owner)
+                else:
+                    for owner in range(c.world_size):
+                        bindings.getmem_on_stream(
+                            dst.handle + owner * size,
+                            src.handle,
+                            size,
+                            owner,
+                            stream.cuda_stream,
+                        )
+                        core.quiet(stream=stream)
+                        # This marker follows actual get completion, not enqueue.
+                        state.control(2, leg=leg, owner=owner)
                 pieces = self.pieces[leg]
                 for part in range(3):
                     extra_delay = delays[part + 1] if leg == 1 and part > 0 else 0
@@ -197,6 +240,8 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                 state.control(3, leg=leg)
                 state.done[leg].record(stream)
         state.issued = True
+        if self.backend_config.synchronize_weight_copy:
+            state.join()
 
     def _rendezvous(self):
         from nvshmem import core

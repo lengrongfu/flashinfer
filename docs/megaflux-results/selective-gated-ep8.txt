@@ -1,0 +1,982 @@
+W1023 08:28:18.115000 34330 torch/distributed/run.py:874]
+W1023 08:28:18.115000 34330 torch/distributed/run.py:874] *****************************************
+W1023 08:28:18.115000 34330 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+W1023 08:28:18.115000 34330 torch/distributed/run.py:874] *****************************************
+MegaFlux pipeline resources {'threads': 384, 'epi_register_policy': 216, 'persistent_clusters': 130, 'reserved_clusters': 2, 'compiled_type': "<class 'cutlass.cutlass_dsl.cuda_jit_executor.CudaDialectJitCompiledFunction'>", 'native': [], 'kernel_info': "OrderedDict({'kernel_cutlass_kernel_flashinfermoe_epcute_dslmegamoemegaflux_sm90physicalPhysicalSlotFrontend_construct_kernellocalsPhysicalKernel_object_at__TiledMMA_ThrLayoutVMNK1281111000_Permutation_0': {}, 'kernel_cutlass__reduce_bf16_moe_nvfp4_swapabtopk_reduceTopkReduce_object_at__tensorptrbf16gmemalign128o129812810241281_None_tensorptrbf16gmemalign16o128i641_None_tensorptri64_gmem_align16_1': {}})"}
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+
+[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225[sm90 mxfp4 multirank launch=0] rel_l2=0.0016612 max|d|=0.2254 amax(ref)=70.225
+
+MegaFlux pipeline telemetry (0, 20000, 0, 0) [[1792744136743422368, 0, 0, 1792744136742217536, 1792744136762325056], [1792744126106000768, 0, 0, 1792744126104857024, 1792744126124987424], [0, 0, 0, 1792744130172277600, 1792744130192406624], [0, 0, 0, 1792744134000990464, 1792744134021094560], [0, 0, 0, 1792744133208123968, 1792744133228255424], [0, 0, 0, 1792744144791284448, 1792744144811437280], [0, 0, 0, 1792744135721635488, 1792744135741783168], [0, 0, 0, 1792744117342529408, 1792744117362656576]]
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792
+
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792
+
+
+[sm90 mxfp4 multirank launch=1] rel_l2=0.0016658 max|d|=0.20789 amax(ref)=70.792
+........
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 31.79s
+
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 29.78s
+
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 29.80s
+
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 29.81s
+
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 29.92s
+
+=============================== warnings summary ===============================
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+=============================== warnings summary ===============================
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+=============================== warnings summary ===============================
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+tests/conftest.py:30
+tests/conftest.py:30
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+  /root/flashinfer/tests/conftest.py:30: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    from cutlass.cute.nvgpu.tcgen05 import OperandMajorMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3459: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2386: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:29tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forwardflashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()flashinfer/fused_moe/cute_dsl/hopper/utils.py:31
+
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/utils.py:34
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+1 passed, 12 deselected, 41 warnings in 29.84s
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:968: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970
+  /root/flashinfer/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:970: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102
+  /root/flashinfer/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218
+  /root/flashinfer/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:218: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6
+  /root/flashinfer/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+flashinfer/cute_dsl/availability.py:136
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+flashinfer/cute_dsl/availability.py:136
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+    return func(*args, **kwargs)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8.py:84: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/epilogue_fp8_swapab.py:195: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    fc1_output_layout: utils.LayoutEnum,
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:349: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    self.smem_capacity = utils.get_smem_capacity_in_bytes(self.arch)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1022: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.a_layout = utils.LayoutEnum.from_tensor(fc1_weight_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1023: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.b_layout = utils.LayoutEnum.from_tensor(activation_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1026: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.fc1_output_layout = utils.LayoutEnum.from_tensor(fc1_output_gemm)
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/flashinfer/moe_ep/kernel_src/sm90/pull_style_cutedsl_megakernel/src/moe_hopper_fp8/kernel_fp8_glu_fc12_swapab.py:1839: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+tests/moe_ep/test_megaflux_selective.py::test_selective_gated_forward
+  /root/flashinfer/tests/moe_ep/_sm90_fp8_wgmma_reference.py:27: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = utils.SmemAllocator()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 12 deselected, 41 warnings in 29.81s1 passed, 12 deselected, 41 warnings in 30.48s
+

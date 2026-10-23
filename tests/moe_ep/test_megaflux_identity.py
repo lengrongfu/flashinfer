@@ -147,6 +147,8 @@ def _run_offline_backend(
     delays=(0, 0, 0, 0),
     resource_audit=False,
     top_k=None,
+    selective=False,
+    benefit_reject=False,
 ):
     import torch
     import torch.distributed as dist
@@ -224,7 +226,8 @@ def _run_offline_backend(
             invocation_epoch=1,
             identity=(not static_replica and not online)
             or requested_capacity == 0
-            or version_mismatch,
+            or version_mismatch
+            or benefit_reject,
             static_replica=static_spec,
         )
         config_type = Sm90_Mxfp4_MegaFluxIdentityConfig
@@ -268,6 +271,14 @@ def _run_offline_backend(
             gate_up_clamp=ref.GATE_UP_CLAMP,
             load_balance_mode="static",
         )
+        if benefit_reject:
+            from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.benefit import (
+                BenefitCosts,
+            )
+
+            config.benefit_costs = BenefitCosts(10, 1e9 if rank == 0 else 0, 0)
+        if pipeline:
+            config.selective_weight_copy = selective
         assert isinstance(create_mega_kernel(config), Sm90MegaFluxIdentityBackend)
         fleet = FleetParams(
             num_experts=world * ref.LOCAL_EXPERTS,
@@ -318,6 +329,7 @@ def _run_offline_backend(
                         intermediate_size=ref.INTERMEDIATE,
                         top_k=selected_topk,
                         plan_config=plan.config,
+                        benefit_costs=config.benefit_costs,
                         gate_up_clamp=ref.GATE_UP_CLAMP,
                         load_balance_mode="static",
                     ),
@@ -333,6 +345,10 @@ def _run_offline_backend(
         )
 
         ws = layer._ensure_workspace()
+        if selective and physical_budget:
+            assert ws._megaflux_transport.selective, (
+                "NVLink selective path was not exercised"
+            )
         if pipeline:
             torch.cuda.synchronize()
         assert isinstance(ws._frontend, IdentityFrontend)
@@ -553,6 +569,7 @@ def _run_offline_backend(
                     )
                     assert ws._megaflux_planner.fallback.item() == int(
                         version_mismatch
+                        or benefit_reject
                         or (
                             requested_capacity == 0
                             and bool(expected_plan.block_descriptors)
@@ -578,7 +595,9 @@ def _run_offline_backend(
                     next_global_ids.cpu().tolist(),
                     plan.config,
                     invocation_epoch=3,
-                    identity=requested_capacity == 0 or version_mismatch,
+                    identity=requested_capacity == 0
+                    or version_mismatch
+                    or benefit_reject,
                 )
                 assert_device_plan(next_plan)
                 assert_replica_bytes(next_plan)

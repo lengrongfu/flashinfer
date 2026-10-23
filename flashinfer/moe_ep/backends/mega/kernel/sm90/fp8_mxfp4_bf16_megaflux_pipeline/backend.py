@@ -44,6 +44,7 @@ class Sm90MegaFluxPipelineBackend(Sm90MegaFluxOnlineBackend):
             self.ep_rank,
             workspace._megaflux_pipeline,
             self._kernel_config,
+            group=self.ep_comm_group,
         )
 
     def _before_planning(self, workspace):

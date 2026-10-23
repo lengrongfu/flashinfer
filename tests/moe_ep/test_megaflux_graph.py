@@ -106,6 +106,7 @@ def test_graph_replay_plan_slot_epoch(monkeypatch, budget, force_fallback):
             debug_plan_agreement=True,
             requested_block_capacity=0 if force_fallback and rank == 0 else None,
             pipeline_delays_us=delays,
+            selective_weight_copy=os.environ.get("MEGAFLUX_SELECTIVE") == "1",
         )
         fleet = FleetParams(
             num_experts=c.num_logical_experts,
@@ -161,6 +162,8 @@ def test_graph_replay_plan_slot_epoch(monkeypatch, budget, force_fallback):
                 baseline.forward(fixed)
             torch.cuda.synchronize()
             state = ws._megaflux_pipeline
+            if config.selective_weight_copy and budget:
+                assert ws._megaflux_transport.selective
             start_epoch = state.epoch.item()
             assert start_epoch == 3
             addresses = _addresses(ws)
@@ -361,6 +364,7 @@ def _addresses(ws):
     for leg in ws._megaflux_weight_bank:
         tensors.extend((leg[0], leg[1], leg[3]))
     tensors.extend(ws._megaflux_transport.roots)
+    tensors.extend(ws._megaflux_transport.peer_roots)
     p = ws._megaflux_planner
     for plan in (p.candidate, p.identity, p.committed):
         tensors.extend(

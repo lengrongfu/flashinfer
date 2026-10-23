@@ -174,6 +174,50 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
         S, rank, cap, PB, OB, RB, part);
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
 }
+// Peer addresses come exclusively from nvshmem_ptr on tracked symmetric roots.
+// Owners publish before this kernel and cannot overwrite until global retirement.
+__global__ void selective_get_kernel(const int64_t* q, const int64_t* slots, const int64_t* peers,
+                                     uint8_t* cache, int E, int P, int S, int rank, int cap,
+                                     int64_t bytes) {
+  int L = E / P, e = slots[rank * S + L + blockIdx.x];
+  if (e < 0 || e >= E || !q[e * P + rank]) return;
+  int owner = e / L, index = 0;
+  for (int prior = owner * L; prior < e; ++prior) index += exported(q, prior, P, L);
+  if (owner == rank || index >= cap || !exported(q, e, P, L)) return;
+  const uint8_t* src = reinterpret_cast<const uint8_t*>(peers[owner]) + index * bytes;
+  uint8_t* dst = cache + (owner * cap + index) * bytes;
+  // Vectorize aligned payload; byte tail preserves offsets and residual exactly.
+  int64_t vectors = bytes % 4 == 0 ? bytes / 4 : 0;
+  for (int64_t i = threadIdx.x; i < vectors; i += blockDim.x)
+    reinterpret_cast<uint32_t*>(dst)[i] = reinterpret_cast<const uint32_t*>(src)[i];
+  for (int64_t i = vectors * 4 + threadIdx.x; i < bytes; i += blockDim.x) dst[i] = src[i];
+}
+void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView cache, int64_t rank,
+                   int64_t cap) {
+  for (auto t : {q, slots, peers}) {
+    CHECK_INPUT_AND_TYPE(t, dl_int64);
+    CHECK_DEVICE(q, t);
+  }
+  CHECK_INPUT_AND_TYPE(cache, dl_uint8);
+  CHECK_DEVICE(q, cache);
+  CHECK_DIM(2, q);
+  CHECK_DIM(2, slots);
+  CHECK_DIM(2, cache);
+  int E = q.size(0), P = q.size(1), S = slots.size(1);
+  TVM_FFI_ICHECK(P > 0 && E % P == 0 && rank >= 0 && rank < P && cap > 0);
+  TVM_FFI_ICHECK_EQ(slots.size(0), P);
+  TVM_FFI_ICHECK_GE(S, E / P);
+  TVM_FFI_ICHECK_EQ(peers.numel(), P);
+  TVM_FFI_ICHECK_EQ(cache.size(0), P * cap);
+  ffi::CUDADeviceGuard guard(q.device().device_id);
+  if (S > E / P)
+    selective_get_kernel<<<S - E / P, 128, 0, get_stream(q.device())>>>(
+        static_cast<int64_t*>(q.data_ptr()), static_cast<int64_t*>(slots.data_ptr()),
+        static_cast<int64_t*>(peers.data_ptr()), static_cast<uint8_t*>(cache.data_ptr()), E, P, S,
+        rank, cap, cache.size(1));
+  TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
+}
+TVM_FFI_DLL_EXPORT_TYPED_FUNC(selective_get, selective_get);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(bind_identity, bind_identity);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(control, control);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(unpack_part, unpack_part);
