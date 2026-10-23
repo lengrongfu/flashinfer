@@ -306,7 +306,14 @@ def _swiglu_sm90_formula(gate, up):
 
 
 def _global_route_reference(
-    hidden, topk_ids, topk_weights, raw_global, *, require_all_experts=True
+    hidden,
+    topk_ids,
+    topk_weights,
+    raw_global,
+    *,
+    require_all_experts=True,
+    owned_rank=None,
+    return_terms=False,
 ):
     """Compute all ranks' fused output from raw operands and global routing."""
     import torch
@@ -314,7 +321,8 @@ def _global_route_reference(
 
     world_size, num_tokens, topk = topk_ids.shape
     assert 0 < topk <= world_size * LOCAL_EXPERTS
-    fc1, fc1_common, fc2, fc2_common = _prepare_global_humming_operands(raw_global)
+    if owned_rank is None:
+        fc1, fc1_common, fc2, fc2_common = _prepare_global_humming_operands(raw_global)
     input_fp8, input_scale = _quantize_input_per_token(hidden)
     terms = torch.zeros(
         world_size,
@@ -325,7 +333,13 @@ def _global_route_reference(
         device=hidden.device,
     )
 
-    for global_expert in range(world_size * LOCAL_EXPERTS):
+    first_expert = 0 if owned_rank is None else owned_rank * LOCAL_EXPERTS
+    last_expert = (
+        world_size * LOCAL_EXPERTS
+        if owned_rank is None
+        else first_expert + LOCAL_EXPERTS
+    )
+    for global_expert in range(first_expert, last_expert):
         routed = (topk_ids == global_expert).nonzero(as_tuple=False)
         if require_all_experts:
             assert routed.numel() > 0, (
@@ -336,18 +350,40 @@ def _global_route_reference(
             # nothing. Dense coverage remains mandatory for existing callers.
             continue
         source_rank, source_token, source_slot = routed.unbind(dim=1)
-        target_rank = global_expert // LOCAL_EXPERTS
+        target_rank = global_expert // LOCAL_EXPERTS if owned_rank is None else 0
         local_expert = global_expert % LOCAL_EXPERTS
+
+        if owned_rank is None:
+            fc1_weight, fc1_factor = (
+                fc1[target_rank, local_expert],
+                fc1_common[target_rank, local_expert],
+            )
+            fc2_weight, fc2_factor = (
+                fc2[target_rank, local_expert],
+                fc2_common[target_rank, local_expert],
+            )
+        else:
+            # Decode one owned expert at a time, keeping full-size oracle
+            # temporaries bounded without gathering decoded global weights.
+            section = slice(local_expert, local_expert + 1)
+            one_fc1, one_common1 = _humming_fp8_operand(
+                raw_global.w13[0, section],
+                raw_global.w13_scale[0, section],
+                gate_up=True,
+            )
+            one_fc2, one_common2 = _humming_fp8_operand(
+                raw_global.w2[0, section],
+                raw_global.w2_scale[0, section],
+                gate_up=False,
+            )
+            fc1_weight, fc1_factor = one_fc1[0], one_common1.reshape(-1)[0]
+            fc2_weight, fc2_factor = one_fc2[0], one_common2.reshape(-1)[0]
 
         fc1_raw = _fast_fp8_mm(
             input_fp8[source_rank, source_token],
-            fc1[target_rank, local_expert].transpose(0, 1),
+            fc1_weight.transpose(0, 1),
         )
-        fc1_output = (
-            fc1_raw
-            * input_scale[source_rank, source_token]
-            * fc1_common[target_rank, local_expert]
-        )
+        fc1_output = fc1_raw * input_scale[source_rank, source_token] * fc1_factor
         paired = fc1_output.reshape(-1, INTERMEDIATE // 8, 2, 8)
         gate = paired[:, :, 0].clamp(max=GATE_UP_CLAMP)
         up = paired[:, :, 1].clamp(min=-GATE_UP_CLAMP, max=GATE_UP_CLAMP)
@@ -368,15 +404,15 @@ def _global_route_reference(
             end = begin + K64
             partial = _fast_fp8_mm(
                 fc2_input[:, group].contiguous(),
-                fc2[target_rank, local_expert, :, begin:end].transpose(0, 1),
+                fc2_weight[:, begin:end].transpose(0, 1),
             )
             fc2_accum = fma_add(fc2_accum, partial, fc2_scale[:, group])
-        fc2_output = fc2_accum * fc2_common[target_rank, local_expert]
+        fc2_output = fc2_accum * fc2_factor
         terms[source_rank, source_token, source_slot] = fc2_output.to(torch.bfloat16)
 
     # The fused kernel emits one BF16 term per top-k slot; its standalone
     # reducer accumulates those terms into the final BF16 token output.
-    return terms.to(torch.float32).sum(dim=2)
+    return terms if return_terms else terms.to(torch.float32).sum(dim=2)
 
 
 class _RawGlobalWeights:
