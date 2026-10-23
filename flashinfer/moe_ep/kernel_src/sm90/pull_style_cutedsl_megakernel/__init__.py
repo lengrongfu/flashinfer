@@ -40,6 +40,11 @@ package stays CPU-safe (no GPU, no compiled kernels).
 
 from __future__ import annotations
 
+from .shim.identity_support import (
+    hopper_mxfp4_identity_regions,
+    hopper_mxfp4_token_comm_type,
+)
+
 # Importing the shim puts this tree's ``src/`` on sys.path (via
 # shim/_paths.bootstrap_paths) before its modules resolve the raw kernel
 # packages (moe_hopper_fp8, moe_hopper_bf16, common, ...).  ``bootstrap_paths``
@@ -161,6 +166,8 @@ def __getattr__(name):  # PEP 562
 
 
 __all__ = [
+    "hopper_mxfp4_identity_regions",
+    "hopper_mxfp4_token_comm_type",
     *_LAZY_HELPERS,
     "MXFP4_BLOCK_PERMUTATION_ROUTING_PROFILE",
     "MXFP4_PUBLISHED_EXACT_ROUTING_PROFILE",

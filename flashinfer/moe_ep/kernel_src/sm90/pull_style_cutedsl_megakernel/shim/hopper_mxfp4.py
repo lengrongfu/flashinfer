@@ -418,7 +418,8 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
         token_padding_block = c.mma_tiler_mnk[1]
 
         # There is intentionally no conditional class selection or fallback.
-        kernel = Sm90MegaMoESwapABMxfp4Fp8Kernel(
+        kernel = self._construct_kernel(
+            Sm90MegaMoESwapABMxfp4Fp8Kernel,
             mma_tiler_mnk=c.mma_tiler_mnk,
             cluster_shape_mnk=c.cluster_shape_mnk,
             use_2cta_instrs=c.use_2cta_instrs,
@@ -489,6 +490,10 @@ class MegaMoEHopperMxfp4Frontend(MegaMoEHopperFp8Frontend):
         mega.compiled = cute.compile(kernel, **compile_kwargs)
         self._mega_key = key
         return mega
+
+    def _construct_kernel(self, kernel_type, **kwargs):
+        """Construction boundary for maintained communication adapters."""
+        return kernel_type(**kwargs)
 
     @staticmethod
     def _slice_inputs(

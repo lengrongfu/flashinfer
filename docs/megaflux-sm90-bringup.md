@@ -1,9 +1,10 @@
 # MegaFlux forward on SM90 MXFP4: bring-up ledger
 
-Status: stage 1 original-backend baseline established on H200 EP8; stage 2
-CPU Plan reference implemented. No MegaFlux executor has been implemented
-or validated. Target-shape numerical accuracy needs its own extended oracle
-test. See `megaflux-plan-abi.md` for the internal reference contract.
+Status: original-backend baseline and CPU reference established; an offline
+R=0 identity receiver adapter now passes single-GPU and EP8 validation. The
+physical-capacity refactor and replication stages remain incomplete. See
+`megaflux-plan-abi.md` and `megaflux-identity-executor.md` for the precise
+contracts, evidence and limitations.
 
 ## Scope and revision
 
@@ -238,6 +239,14 @@ R=0/1/2/4, global tails, masks, ragged and empty sources, descriptor capacity
 failure and int64 bounds. Raw output: `megaflux-results/planner-cpu.txt`.
 This establishes only the CPU reference. It is not a GPU planner or backend.
 
+Identity adapter validation: single-rank 3 dispatch-warp variants and EP8
+4 routing cases per rank pass the independent numerical oracle. EP8 results
+are bitwise equal to the original backend, including repeated calls and
+16 fixed-Plan Graph replays. Original-backend regression also passes (single
+rank and all 10 EP8 cases). Paired H5120/I2304/E384/top-k6 benchmark requires
+bitwise equality at the target shape and records per-iteration rank-max
+latency. See `megaflux-identity-executor.md` and raw identity result files.
+
 Pending: target-shape independent numerical correctness, GPU Plan comparison,
-identity executor, weight transfer,
+expanded physical-slot capacity, weight transfer,
 delay injection, CUDA Graph stress, all MegaFlux performance ablations.
