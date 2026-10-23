@@ -217,10 +217,16 @@ class DistributedPlanner:
         dist.all_gather_into_tensor(
             counts.view(-1), self.histogram.counts, group=self.group
         )
+        device_epoch = isinstance(epoch, torch.Tensor)
         self.candidate.build(
-            counts, epoch=epoch, requested_capacity=self.requested_capacity
+            counts,
+            epoch=1 if device_epoch else epoch,
+            requested_capacity=self.requested_capacity,
         )
-        self.identity.build(counts, epoch=epoch, identity=True)
+        self.identity.build(counts, epoch=1 if device_epoch else epoch, identity=True)
+        if device_epoch:
+            self.candidate.meta[5:6].copy_(epoch)
+            self.identity.meta[5:6].copy_(epoch)
         self.fallback.copy_(self.candidate.meta[1:2])
         if external_failure is not None:
             self.fallback.copy_(torch.maximum(self.fallback, external_failure))

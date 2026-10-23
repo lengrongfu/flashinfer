@@ -77,7 +77,7 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
         plan = planner.run(
             workspace.topk_idx,
             rank=self.ep_rank,
-            epoch=workspace._megaflux_epoch,
+            epoch=self._planner_epoch(workspace),
             external_failure=self._manifest_fallback,
         )
         self._prepare_transport_epoch(workspace)
@@ -89,6 +89,9 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
         return Sm90PullMxfp4MegaKernelBackend.compute(
             self, workspace, bank, output=output
         )
+
+    def _planner_epoch(self, workspace):
+        return workspace._megaflux_epoch
 
     def _make_transport(self, config, bank, workspace):
         from ......cute_dsl.megamoe.megaflux_sm90.static import DeviceReplicaTransport

@@ -51,7 +51,7 @@ class Sm90MegaFluxPipelineBackend(Sm90MegaFluxOnlineBackend):
         # its expert had no work. Retire it before rebuilding that storage.
         workspace._megaflux_pipeline.join()
 
-    def _prepare_transport_epoch(self, workspace):
+    def _bind_pipeline_state(self, workspace):
         from ......kernel_src.sm90.pull_style_cutedsl_megakernel import (
             prepare_hopper_mxfp4_pipeline,
         )
@@ -62,7 +62,10 @@ class Sm90MegaFluxPipelineBackend(Sm90MegaFluxOnlineBackend):
                 workspace, workspace._megaflux_weight_bank
             )
             state.__dict__.update(views)
-        state.epoch.fill_(workspace._megaflux_epoch)
+        return state
+
+    def _prepare_transport_epoch(self, workspace):
+        self._bind_pipeline_state(workspace).epoch.fill_(workspace._megaflux_epoch)
 
     def _forget_local_workspace_state(self, workspace):
         super()._forget_local_workspace_state(workspace)

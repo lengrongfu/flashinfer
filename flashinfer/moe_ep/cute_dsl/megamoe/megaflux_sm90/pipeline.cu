@@ -23,6 +23,9 @@ __global__ void initialize(int64_t* ready, const int64_t* epoch, int64_t* teleme
     ready[S + s] = *epoch;
   }
 }
+__global__ void advance_epoch(int64_t* epoch) {
+  if (threadIdx.x == 0) ++*epoch;
+}
 __global__ void delay(uint64_t ns) {
   if (threadIdx.x) return;
   auto start = timer();
@@ -135,6 +138,8 @@ void control(TensorView ready, TensorView epoch, TensorView telemetry, TensorVie
     chunk_done<<<1, 32, 0, stream>>>(c, e, P, leg, owner);
   } else if (action == 3)
     publish<<<1, 128, 0, stream>>>(r, e, t, c, P, S, leg);
+  else if (action == 4)
+    advance_epoch<<<1, 32, 0, stream>>>(e);
   else
     TVM_FFI_LOG_AND_THROW(ValueError) << "unknown pipeline control action";
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);

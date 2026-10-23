@@ -1,0 +1,705 @@
+W1023 07:55:56.290000 29362 torch/distributed/run.py:874]
+W1023 07:55:56.290000 29362 torch/distributed/run.py:874] *****************************************
+W1023 07:55:56.290000 29362 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+W1023 07:55:56.290000 29362 torch/distributed/run.py:874] *****************************************
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+MegaFlux Graph accepted {'world': 8, 'R': 0, 'replays': 128, 'fallback': False, 'final_epoch': 131, 'stable_addresses': True}
+........[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+
+
+
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+
+
+
+
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+
+
+
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+
+
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+
+
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+
+
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+
+
+
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+MegaFlux Graph accepted {'world': 8, 'R': 1, 'replays': 128, 'fallback': False, 'final_epoch': 131, 'stable_addresses': True}
+........[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+MegaFlux Graph accepted {'world': 8, 'R': 2, 'replays': 128, 'fallback': False, 'final_epoch': 131, 'stable_addresses': True}
+........[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+
+
+
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+
+
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+
+
+
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+
+
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+
+
+
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+MegaFlux Graph accepted {'world': 8, 'R': 4, 'replays': 128, 'fallback': False, 'final_epoch': 131, 'stable_addresses': True}
+........[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+
+
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=2] rel_l2=0.0016627 max|d|=0.24072 amax(ref)=79.225
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+
+
+
+
+[sm90 mxfp4 multirank launch=7] rel_l2=0.0016657 max|d|=0.125 amax(ref)=69.44
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+
+
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=18] rel_l2=0.001662 max|d|=0.2417 amax(ref)=80.043
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+
+
+
+[sm90 mxfp4 multirank launch=23] rel_l2=0.0016614 max|d|=0.24951 amax(ref)=71.327
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=34] rel_l2=0.0016568 max|d|=0.24048 amax(ref)=95.487
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+
+
+
+[sm90 mxfp4 multirank launch=39] rel_l2=0.00165 max|d|=0.125 amax(ref)=64.428
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+
+[sm90 mxfp4 multirank launch=50] rel_l2=0.0016586 max|d|=0.19531 amax(ref)=85.435
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+
+
+[sm90 mxfp4 multirank launch=55] rel_l2=0.001659 max|d|=0.18896 amax(ref)=68.479
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+
+
+[sm90 mxfp4 multirank launch=66] rel_l2=0.0016601 max|d|=0.23462 amax(ref)=77.297
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+
+
+
+[sm90 mxfp4 multirank launch=71] rel_l2=0.0016549 max|d|=0.12476 amax(ref)=66.018
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=82] rel_l2=0.0016613 max|d|=0.22949 amax(ref)=85.543
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+
+
+
+[sm90 mxfp4 multirank launch=87] rel_l2=0.0016614 max|d|=0.125 amax(ref)=69.114
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+
+
+
+[sm90 mxfp4 multirank launch=98] rel_l2=0.0016599 max|d|=0.24628 amax(ref)=82.392
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=103] rel_l2=0.0016401 max|d|=0.125 amax(ref)=71.08
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+
+[sm90 mxfp4 multirank launch=114] rel_l2=0.0016639 max|d|=0.22266 amax(ref)=70.099
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+
+
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=119] rel_l2=0.0016508 max|d|=0.12476 amax(ref)=57.716
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+
+
+
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+[sm90 mxfp4 multirank launch=127] rel_l2=0.0016502 max|d|=0.12451 amax(ref)=62.238
+MegaFlux Graph accepted {'world': 8, 'R': 1, 'replays': 128, 'fallback': True, 'final_epoch': 131, 'stable_addresses': True}
+........
+5 passed, 84 warnings in 127.83s (0:02:07)
+
+5 passed, 84 warnings in 127.78s (0:02:07)
+
+5 passed, 84 warnings in 127.88s (0:02:07)
+
+5 passed, 84 warnings in 128.01s (0:02:08)
+
+5 passed, 84 warnings in 127.85s (0:02:07)
+
+5 passed, 84 warnings in 127.75s (0:02:07)
+
+5 passed, 84 warnings in 127.94s (0:02:07)
+
+5 passed, 84 warnings in 129.75s (0:02:09)

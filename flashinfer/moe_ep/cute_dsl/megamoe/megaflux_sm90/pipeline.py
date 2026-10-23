@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from .physical import PhysicalSlotFrontend
-from .static import DeviceReplicaTransport, StaticReplicaTransport
+from .static import DeviceReplicaTransport
 
 
 @lru_cache(maxsize=1)
@@ -37,6 +37,7 @@ class PipelineState:
         self.start = torch.cuda.Event()
         self.done = [torch.cuda.Event() for _ in range(2)]
         self.issued = False
+        self.graph_mode = False
 
     def join(self):
         if self.issued:
@@ -125,7 +126,7 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
     def copy(self, plan):
         from nvshmem import core, bindings
 
-        if torch.cuda.is_current_stream_capturing():
+        if torch.cuda.is_current_stream_capturing() and not self.state.graph_mode:
             raise RuntimeError("warm and validate pipeline before the Graph stage")
         state, c = self.state, self.config
         state.control(0)
@@ -141,7 +142,7 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
             return
         # All PEs retire old local consumers and their receiver streams before
         # any owner overwrites exports still readable by another PE.
-        StaticReplicaTransport.rendezvous()
+        self._rendezvous()
         state.module.bind_identity(
             plan.slot_to_expert,
             state.epoch,
@@ -156,7 +157,7 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
             )
         # Old compute/transfers are retired and every owner export is published.
         # No further cross-rank barrier runs on a communication stream.
-        StaticReplicaTransport.rendezvous()
+        self._rendezvous()
         main = torch.cuda.current_stream()
         state.start.record(main)
         delays = self.backend_config.pipeline_delays_us
@@ -196,6 +197,14 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                 state.control(3, leg=leg)
                 state.done[leg].record(stream)
         state.issued = True
+
+    def _rendezvous(self):
+        from nvshmem import core
+
+        stream = torch.cuda.current_stream()
+        core.barrier_all(stream=stream)
+        if not self.state.graph_mode:
+            stream.synchronize()
 
     def close(self):
         self.state.join()
