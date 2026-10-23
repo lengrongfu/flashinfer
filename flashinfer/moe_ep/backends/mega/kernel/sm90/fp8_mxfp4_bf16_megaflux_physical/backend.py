@@ -26,7 +26,7 @@ class Sm90MegaFluxPhysicalBackend(Sm90MegaFluxIdentityBackend):
             raise
         return workspace
 
-    def compute(self, workspace, transformed_weights, *, output):
+    def _prepare_bank(self, workspace, transformed_weights):
         from ......cute_dsl.megamoe.megaflux_sm90.physical import (
             allocate_physical_weight_bank,
         )
@@ -44,6 +44,10 @@ class Sm90MegaFluxPhysicalBackend(Sm90MegaFluxIdentityBackend):
             workspace._megaflux_source_key = source_key
         elif source_key != workspace._megaflux_source_key:
             raise ValueError("physical bank does not support runtime weight updates")
+        return bank
+
+    def compute(self, workspace, transformed_weights, *, output):
+        bank = self._prepare_bank(workspace, transformed_weights)
         return super().compute(workspace, bank, output=output)
 
     def _forget_local_workspace_state(self, workspace):

@@ -254,3 +254,33 @@ def test_configuration_and_int64_capacity_validation():
         _MODULE.checked_nbytes(1 << 62, 8)
     with pytest.raises(ValueError):
         plan_forward([[]] * 8, c, invocation_epoch=0)
+
+
+@pytest.mark.parametrize("moved", [0, 1, 2, 3])
+def test_manual_static_replica_conserves_global_tail(moved):
+    c = PlanConfig(4, 2, 1, 65, 1)
+    ids = [[[0]] * 65, []]
+    plan = plan_forward(ids, c, invocation_epoch=1, static_replica=(0, 1, moved))
+    _verify(ids, c, plan)
+    assert len(plan.replica_descriptors) == 1
+    assert plan.slot_to_expert[1][2] == 0
+    assert sum(b.execution_rank == 1 for b in plan.block_descriptors) == moved
+
+
+def test_manual_static_empty_expert_reserves_dormant_slot():
+    c = PlanConfig(4, 2, 1, 65, 1)
+    plan = plan_forward([[], []], c, invocation_epoch=1, static_replica=(0, 1, 0))
+    _verify([[], []], c, plan)
+    assert len(plan.replica_descriptors) == 1
+    assert plan.num_active_physical_slots == (0, 0)
+
+
+@pytest.mark.parametrize("spec", [(4, 1, 0), (0, 2, 0), (0, 0, 0), (0, 1, 4)])
+def test_manual_static_invalid_assignment(spec):
+    with pytest.raises(ValueError, match="invalid static"):
+        plan_forward(
+            [[[0]] * 65, []],
+            PlanConfig(4, 2, 1, 65, 1),
+            invocation_epoch=1,
+            static_replica=spec,
+        )

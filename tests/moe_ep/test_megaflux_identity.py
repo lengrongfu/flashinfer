@@ -91,7 +91,17 @@ def test_expanded_physical_slots_identity(routing_pattern, budget):
     _run_offline_backend(routing_pattern, physical_budget=budget)
 
 
-def _run_offline_backend(routing_pattern, physical_budget=None):
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("routing_pattern", ["cross_rank", "zero_source", "all_masked"])
+def test_static_replica_full_bytes_and_slot_reuse(monkeypatch, routing_pattern):
+    from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+
+    monkeypatch.setattr(ref, "TOKENS_PER_RANK", 129)
+    _run_offline_backend(routing_pattern, physical_budget=1, static_replica=True)
+
+
+def _run_offline_backend(routing_pattern, physical_budget=None, static_replica=False):
     import torch
     import torch.distributed as dist
     from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
@@ -142,6 +152,14 @@ def _run_offline_backend(routing_pattern, physical_budget=None):
         global_hidden = ref._all_gather_stack(hidden)
         global_ids = ref._all_gather_stack(ids)
         global_weights = ref._all_gather_stack(weights)
+        static_spec = None
+        if static_replica:
+            expert = ref.LOCAL_EXPERTS if routing_pattern == "zero_source" else 0
+            receiver = 0 if routing_pattern == "zero_source" else world - 1
+            moved = {"all_masked": 0, "zero_source": 1, "cross_rank": 2}[
+                routing_pattern
+            ]
+            static_spec = (expert, receiver, moved)
         plan = plan_forward(
             global_ids.cpu().tolist(),
             PlanConfig(
@@ -152,7 +170,8 @@ def _run_offline_backend(routing_pattern, physical_budget=None):
                 world,
             ),
             invocation_epoch=1,
-            identity=True,
+            identity=not static_replica,
+            static_replica=static_spec,
         )
         config_type = Sm90_Mxfp4_MegaFluxIdentityConfig
         if physical_budget is not None:
@@ -161,6 +180,12 @@ def _run_offline_backend(routing_pattern, physical_budget=None):
             )
 
             config_type = Sm90_Mxfp4_MegaFluxPhysicalConfig
+        if static_replica:
+            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_static import (
+                Sm90_Mxfp4_MegaFluxStaticConfig,
+            )
+
+            config_type = Sm90_Mxfp4_MegaFluxStaticConfig
         config = config_type(
             intermediate_size=ref.INTERMEDIATE,
             top_k=world,
@@ -258,6 +283,52 @@ def _run_offline_backend(routing_pattern, physical_budget=None):
         ref._assert_matches_reference(ref._all_gather_stack(actual), expected, launch=0)
         # Repeat on the same workspace; metadata counters were tail-reset.
         torch.testing.assert_close(layer.forward(inputs), actual, atol=0, rtol=0)
+        if static_replica:
+
+            def assert_replica_bytes(current_plan):
+                from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.static import (
+                    StaticReplicaTransport,
+                )
+
+                for source_leg, bank_leg in zip(
+                    layer._transformed, ws._megaflux_weight_bank, strict=True
+                ):
+                    # Gather the original owner's kernel-ready bytes, independent
+                    # of transport export/staging buffers.
+                    source_bytes = torch.cat(
+                        [
+                            torch.cat(StaticReplicaTransport._pieces(source_leg, slot))
+                            for slot in range(ref.LOCAL_EXPERTS)
+                        ]
+                    ).reshape(ref.LOCAL_EXPERTS, -1)
+                    gathered = ref._all_gather_stack(source_bytes)
+                    for d in current_plan.replica_descriptors:
+                        if d.receiver_rank == rank:
+                            actual_bytes = torch.cat(
+                                StaticReplicaTransport._pieces(
+                                    bank_leg, d.receiver_slot
+                                )
+                            )
+                            torch.testing.assert_close(
+                                actual_bytes,
+                                gathered[d.owner_rank, d.owner_slot],
+                                atol=0,
+                                rtol=0,
+                            )
+
+            assert_replica_bytes(plan)
+            new_plan = plan_forward(
+                global_ids.cpu().tolist(),
+                plan.config,
+                invocation_epoch=2,
+                static_replica=(static_spec[0] + 1, static_spec[1], static_spec[2]),
+            )
+            # Same addresses and physical slot, different logical expert.
+            backend = layer._kernel
+            backend.rebind_plan(ws, new_plan)
+            torch.testing.assert_close(layer.forward(inputs), actual, atol=0, rtol=0)
+            assert_replica_bytes(new_plan)
+            return
         graph = torch.cuda.CUDAGraph()
         dist.barrier()
         with torch.cuda.graph(graph):

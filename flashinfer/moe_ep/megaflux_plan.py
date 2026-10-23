@@ -403,11 +403,14 @@ def plan_forward(
     invocation_epoch: int,
     identity: bool = False,
     block_capacity: int | None = None,
+    static_replica: tuple[int, int, int] | None = None,
 ) -> ForwardPlan:
     """Build a CPU oracle plan; capacity failure never returns partial tasks.
 
     Sources may have different valid token counts. ``-1`` is padding; other
     out-of-range IDs and repeated experts within a token are rejected.
+    ``static_replica=(expert, receiver, blocks)`` bypasses scheduling for the
+    synchronous transport bringup; zero blocks reserves a dormant replica.
     Destination blocks are ordered by expert, then execution rank. SF offsets
     are independently padded per slot, not multiplied by beta/128.
     """
@@ -456,6 +459,27 @@ def plan_forward(
         if not overflow
         else [[0] * c.world_size for _ in blocks]
     )
+    if static_replica is not None:
+        if identity:
+            raise ValueError("static_replica and identity are mutually exclusive")
+        e, receiver, moved = static_replica
+        e = _integer("static expert", e)
+        receiver = _integer("static receiver", receiver)
+        moved = _integer("static blocks", moved)
+        if (
+            e >= c.num_logical_experts
+            or receiver >= c.world_size
+            or receiver == e // owned
+            or not c.replica_budget
+            or moved > blocks[e]
+        ):
+            raise ValueError("invalid static replica assignment")
+        q = [[0] * c.world_size for _ in blocks]
+        if not overflow:
+            for expert, n in enumerate(blocks):
+                q[expert][expert // owned] = n
+            q[e][e // owned] -= moved
+            q[e][receiver] = moved
     replicas = []
     slot_index = {
         (e, r): e % owned
@@ -464,7 +488,17 @@ def plan_forward(
     }
     for r in range(c.world_size):
         remote = [
-            e for e in range(c.num_logical_experts) if e // owned != r and q[e][r]
+            e
+            for e in range(c.num_logical_experts)
+            if e // owned != r
+            and (
+                q[e][r]
+                or (
+                    not overflow
+                    and static_replica is not None
+                    and (e, r) == static_replica[:2]
+                )
+            )
         ]
         for s, e in enumerate(remote, start=owned):
             slots[r][s] = e

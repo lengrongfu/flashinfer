@@ -62,3 +62,10 @@ python3 -m torch.distributed.run --standalone --nproc_per_node=8 -m pytest -q \
 Raw evidence: `megaflux-results/physical-identity-ep{2,8}.txt`,
 `megaflux-results/planner-physical-order.txt`. Corrected R=0 timing evidence
 is explained in `megaflux-identity-executor.md`.
+
+Static synchronous transport development continues in the separate
+`sm90_fp8_mxfp4_bf16_megaflux_static` backend. It is not enabled by the
+physical identity configuration. Its first gate copies both complete
+kernel-ready legs through tracked NVSHMEM symmetric roots before compute,
+with explicit completion and no CUDA Graph capture. See the static transport
+acceptance evidence before using it.

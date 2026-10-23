@@ -1,0 +1,8 @@
+W1023 06:18:54.333000 12185 torch/distributed/run.py:874]
+W1023 06:18:54.333000 12185 torch/distributed/run.py:874] *****************************************
+W1023 06:18:54.333000 12185 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+W1023 06:18:54.333000 12185 torch/distributed/run.py:874] *****************************************
+.....                                                                      [100%].                                                                      [100%]
+3 passed, 17 deselected, 53 warnings in 32.00s
+
+3 passed, 17 deselected, 53 warnings in 32.15s
