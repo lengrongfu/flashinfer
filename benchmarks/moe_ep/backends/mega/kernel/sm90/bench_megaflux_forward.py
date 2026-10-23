@@ -47,6 +47,12 @@ def main():
     from flashinfer.moe_ep.sm90_routing import generate_sm90_routing_numpy
 
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cuda-graph", action="store_true")
+    parser.add_argument(
+        "--reference",
+        action="store_true",
+        help="owner-sharded independent instruction reference outside timing",
+    )
     parser.add_argument("--budget", type=int, default=1)
     parser.add_argument("--gate-block-us", type=float)
     parser.add_argument("--gate-fixed-us", type=float)
@@ -63,10 +69,11 @@ def main():
     parser.add_argument("--warmup", type=int, default=5)
     parser.add_argument("--iters", type=int, default=30)
     args = parser.parse_args()
-    if args.gate_block_us is not None and (
-        args.gate_fixed_us is None or args.gate_transfer_us is None
+    explicit_costs = (args.gate_block_us, args.gate_fixed_us, args.gate_transfer_us)
+    if any(value is not None for value in explicit_costs) and not all(
+        value is not None for value in explicit_costs
     ):
-        parser.error("explicit block cost requires fixed and transfer costs")
+        parser.error("explicit calibration requires block, fixed and transfer costs")
     if args.tokens <= 0 or args.iters <= 0 or args.warmup < 1:
         parser.error("positive tokens/iters and at least one warmup are required")
     rank, world, local = (
@@ -150,9 +157,14 @@ def main():
         )
 
         def pipeline_config(**extra):
-            return Sm90_Mxfp4_MegaFluxPipelineConfig(
-                **common, plan_config=pc, selective_weight_copy=True, **extra
-            )
+            kind = Sm90_Mxfp4_MegaFluxPipelineConfig
+            if args.cuda_graph:
+                from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_graph import (
+                    Sm90_Mxfp4_MegaFluxGraphConfig,
+                )
+
+                kind = Sm90_Mxfp4_MegaFluxGraphConfig
+            return kind(**common, plan_config=pc, selective_weight_copy=True, **extra)
 
         outputs = []
         results = {}
@@ -170,15 +182,21 @@ def main():
                 block_us = results["original"]["p50_us"] / max(
                     1, max(plan.rank_task_counts)
                 )
-                fixed_us = (
-                    observed["diagnostic_planner_us"]
-                    + observed["diagnostic_staging_and_launch_us"]
-                )
-                transfer_us = max(
-                    0,
-                    max(observed.get("diagnostic_leg_completion_us", [0]))
-                    - observed["diagnostic_staging_and_launch_us"],
-                )
+                if args.cuda_graph:
+                    fixed_us = max(
+                        0, observed["p50_us"] - block_us * max(observed["rank_blocks"])
+                    )
+                    transfer_us = 0  # Full observed residual includes transfer.
+                else:
+                    fixed_us = (
+                        observed["diagnostic_planner_us"]
+                        + observed["diagnostic_staging_and_launch_us"]
+                    )
+                    transfer_us = max(
+                        0,
+                        max(observed.get("diagnostic_leg_completion_us", [0]))
+                        - observed["diagnostic_staging_and_launch_us"],
+                    )
                 costs = BenefitCosts(
                     block_us, fixed_us, transfer_us, args.gate_margin_us
                 )
@@ -231,6 +249,18 @@ def main():
                     return planner.committed
 
                 planner.run = frozen_run
+            graph = None
+            run_forward = lambda: layer.forward(inputs)
+            if args.cuda_graph:
+                capture_stream = torch.cuda.Stream(device=device)
+                capture_stream.wait_stream(torch.cuda.current_stream())
+                graph = torch.cuda.CUDAGraph()
+                with torch.cuda.graph(graph, stream=capture_stream):
+                    layer.forward(inputs)
+                torch.cuda.current_stream().wait_stream(capture_stream)
+                run_forward = graph.replay
+                for _ in range(args.warmup):
+                    run_forward()
             torch.cuda.synchronize()
             samples = []
             start, end = (
@@ -240,7 +270,7 @@ def main():
             for _ in range(args.iters):
                 dist.barrier()
                 start.record()
-                layer.forward(inputs)
+                run_forward()
                 end.record()
                 end.synchronize()
                 samples.append(start.elapsed_time(end) * 1000)
@@ -256,60 +286,114 @@ def main():
             if hasattr(ws, "_megaflux_planner"):
                 planner = ws._megaflux_planner
                 transport = ws._megaflux_transport
-                # Separate diagnostic pass: event instrumentation is outside samples.
-                phase_events = [torch.cuda.Event(enable_timing=True) for _ in range(4)]
-                leg_events = [torch.cuda.Event(enable_timing=True) for _ in range(2)]
-                original_run, original_copy = planner.run, transport.copy
+                if rank == 0:
+                    from cuda.bindings import driver as cuda
 
-                def timed_run(*pos, **kw):
-                    phase_events[0].record()
-                    result = original_run(*pos, **kw)
-                    phase_events[1].record()
-                    return result
+                    compiled = ws._frontend._mega.compiled
+                    library = cuda.CUlibrary(int(compiled.library))
+                    resources = []
+                    for symbol in compiled.kernel_info:
+                        status, handle = cuda.cuLibraryGetKernel(
+                            library, symbol.encode()
+                        )
+                        assert status == cuda.CUresult.CUDA_SUCCESS
+                        values = {}
+                        for label, attribute in (
+                            ("registers", "NUM_REGS"),
+                            ("local_bytes", "LOCAL_SIZE_BYTES"),
+                            ("static_smem", "SHARED_SIZE_BYTES"),
+                            ("max_dynamic_smem_limit", "MAX_DYNAMIC_SHARED_SIZE_BYTES"),
+                        ):
+                            attr = getattr(
+                                cuda.CUfunction_attribute,
+                                "CU_FUNC_ATTRIBUTE_" + attribute,
+                            )
+                            status, value = cuda.cuKernelGetAttribute(
+                                attr, handle, cuda.CUdevice(local)
+                            )
+                            assert status == cuda.CUresult.CUDA_SUCCESS
+                            values[label] = value
+                        resources.append({"symbol": symbol, **values})
+                    results[name]["native_resources"] = resources
+                    results[name]["persistent_clusters"] = (
+                        ws._frontend.persistent_clusters
+                    )
+                    results[name]["communication_clusters"] = (
+                        config.communication_clusters
+                    )
 
-                def timed_copy(*pos, **kw):
-                    phase_events[2].record()
-                    result = original_copy(*pos, **kw)
-                    phase_events[3].record()
-                    for event, stream in zip(
-                        leg_events, ws._megaflux_pipeline.streams, strict=True
-                    ):
-                        event.record(stream)
-                    return result
-
-                planner.run, transport.copy = timed_run, timed_copy
-                layer.forward(inputs)
-                torch.cuda.synchronize()
-                planner.run, transport.copy = original_run, original_copy
-                state = ws._megaflux_pipeline
-                results[name]["diagnostic_planner_us"] = (
-                    phase_events[0].elapsed_time(phase_events[1]) * 1000
-                )
-                results[name]["diagnostic_staging_and_launch_us"] = (
-                    phase_events[2].elapsed_time(phase_events[3]) * 1000
-                )
-                if state.issued:
-                    results[name]["diagnostic_leg_completion_us"] = [
-                        phase_events[2].elapsed_time(event) * 1000
-                        for event in leg_events
+                if args.cuda_graph:
+                    results[name]["diagnostic_planner_us"] = None
+                    results[name]["diagnostic_staging_and_launch_us"] = None
+                    results[name]["diagnostic_leg_completion_us"] = None
+                    results[name]["phase_diagnostics_unavailable_in_graph"] = True
+                    results[name]["diagnostic_progress_globaltimer_ns"] = (
+                        ws._megaflux_pipeline.telemetry.cpu().tolist()[:5]
+                    )
+                else:
+                    # Separate diagnostic pass: event instrumentation is outside samples.
+                    phase_events = [
+                        torch.cuda.Event(enable_timing=True) for _ in range(4)
                     ]
-                phase_values = torch.tensor(
-                    [
-                        results[name]["diagnostic_planner_us"],
-                        results[name]["diagnostic_staging_and_launch_us"],
-                        *results[name].get("diagnostic_leg_completion_us", [0, 0]),
-                    ],
-                    dtype=torch.float64,
-                    device=device,
-                )
-                dist.all_reduce(phase_values, op=dist.ReduceOp.MAX)
-                phase_values = phase_values.cpu().tolist()
-                results[name]["diagnostic_planner_us"] = phase_values[0]
-                results[name]["diagnostic_staging_and_launch_us"] = phase_values[1]
-                results[name]["diagnostic_leg_completion_us"] = phase_values[2:]
-                results[name]["diagnostic_progress_globaltimer_ns"] = (
-                    state.telemetry.cpu().tolist()
-                )
+                    leg_events = [
+                        torch.cuda.Event(enable_timing=True) for _ in range(2)
+                    ]
+                    original_run, original_copy = planner.run, transport.copy
+
+                    def timed_run(*pos, **kw):
+                        phase_events[0].record()
+                        result = original_run(*pos, **kw)
+                        phase_events[1].record()
+                        return result
+
+                    def timed_copy(*pos, **kw):
+                        phase_events[2].record()
+                        result = original_copy(*pos, **kw)
+                        phase_events[3].record()
+                        for event, stream in zip(
+                            leg_events, ws._megaflux_pipeline.streams, strict=True
+                        ):
+                            event.record(stream)
+                        return result
+
+                    planner.run, transport.copy = timed_run, timed_copy
+                    layer.forward(inputs)
+                    torch.cuda.synchronize()
+                    planner.run, transport.copy = original_run, original_copy
+                    state = ws._megaflux_pipeline
+                    results[name]["diagnostic_planner_us"] = (
+                        phase_events[0].elapsed_time(phase_events[1]) * 1000
+                    )
+                    results[name]["diagnostic_staging_and_launch_us"] = (
+                        phase_events[2].elapsed_time(phase_events[3]) * 1000
+                    )
+                    if state.issued:
+                        results[name]["diagnostic_leg_completion_us"] = [
+                            phase_events[2].elapsed_time(event) * 1000
+                            for event in leg_events
+                        ]
+                    phase_values = torch.tensor(
+                        [
+                            results[name]["diagnostic_planner_us"],
+                            results[name]["diagnostic_staging_and_launch_us"],
+                            *results[name].get("diagnostic_leg_completion_us", [0, 0]),
+                        ],
+                        dtype=torch.float64,
+                        device=device,
+                    )
+                    dist.all_reduce(phase_values, op=dist.ReduceOp.MAX)
+                    phase_values = phase_values.cpu().tolist()
+                    results[name]["diagnostic_planner_us"] = phase_values[0]
+                    results[name]["diagnostic_staging_and_launch_us"] = phase_values[1]
+                    results[name]["diagnostic_leg_completion_us"] = phase_values[2:]
+                    results[name]["diagnostic_progress_globaltimer_ns"] = (
+                        state.telemetry.cpu().tolist()[:5]
+                    )
+                wait_values = ws._megaflux_pipeline.telemetry[5:7].clone()
+                dist.all_reduce(wait_values, op=dist.ReduceOp.MAX)
+                results[name]["max_consumer_weight_wait_us"] = [
+                    value / 1000 for value in wait_values.cpu().tolist()
+                ]
                 signature = hashlib.sha256(
                     planner.committed.q.cpu().numpy().tobytes()
                     + planner.committed.slot_to_expert.cpu().numpy().tobytes()
@@ -367,11 +451,51 @@ def main():
                     ),
                     flush=True,
                 )
+            run_forward = None
+            graph = None
             layer.destroy()
             layers.pop()
             torch.cuda.empty_cache()
         for output in outputs[1:]:
             torch.testing.assert_close(outputs[0], output, atol=0, rtol=0)
+        if args.reference:
+            # Decode only owned raw experts. Gathering decoded E384 weights would
+            # exceed the shared container's available GPU memory.
+            from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+
+            ref.HIDDEN, ref.INTERMEDIATE = args.hidden, args.intermediate
+            ref.LOCAL_EXPERTS, ref.GATE_UP_CLAMP = args.experts // world, 10.0
+            raw = create_tuning_weights(
+                local_experts=args.experts // world,
+                hidden=args.hidden,
+                intermediate=args.intermediate,
+                rank=rank,
+                device=device,
+            )
+            local_raw = ref._RawGlobalWeights(
+                **{
+                    name: getattr(raw, name).unsqueeze(0)
+                    for name in ("w13", "w2", "w13_scale", "w2_scale")
+                }
+            )
+            terms = ref._global_route_reference(
+                ref._all_gather_stack(hidden),
+                ref._all_gather_stack(ids),
+                ref._all_gather_stack(weights),
+                local_raw,
+                require_all_experts=False,
+                owned_rank=rank,
+                return_terms=True,
+            )
+            # Exactly one owner writes each BF16 route term; all other ranks
+            # contribute zero. Preserve the final top-k summation order.
+            dist.all_reduce(terms, op=dist.ReduceOp.SUM)
+            expected = terms.to(torch.float32).sum(dim=2)
+            ref._assert_matches_reference(
+                ref._all_gather_stack(outputs[-1]), expected, launch=0
+            )
+            for result in results.values():
+                result["owner_sharded_independent_reference"] = True
         if rank == 0:
             print(
                 json.dumps(
