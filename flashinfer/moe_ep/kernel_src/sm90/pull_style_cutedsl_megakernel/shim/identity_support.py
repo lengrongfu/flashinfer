@@ -69,7 +69,7 @@ def hopper_mxfp4_pipeline_region_specs(capacity, world_size):
         for name, shape in (
             ("megaflux_ready", (2, capacity)),
             ("megaflux_epoch", (1,)),
-            ("megaflux_telemetry", (5,)),
+            ("megaflux_telemetry", (7,)),
             ("megaflux_chunks", (2, world_size)),
             ("megaflux_identity", (2, capacity, 6)),
             ("megaflux_retired", (capacity,)),

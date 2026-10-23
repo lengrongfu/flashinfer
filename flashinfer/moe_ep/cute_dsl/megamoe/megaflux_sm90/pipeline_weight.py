@@ -23,6 +23,7 @@ iket = _support["iket"]
 class PipelineWeightMixin:
     _mf_ready_offset: int
     _mf_capacity: int
+    _mf_telemetry_offset: int
     _mf_epoch_offset: int
     wgmma_warpgroup_count: int
     _uses_weight_aux_pipeline: Callable[..., Any]
@@ -58,6 +59,9 @@ class PipelineWeightMixin:
             + cutlass.Int64(self._mf_ready_offset)
             + 8 * (leg * self._mf_capacity + cutlass.Int64(work_tile_info.expert_idx)),
             ext.fc1_ready_counter_ptr.toint() + cutlass.Int64(self._mf_epoch_offset),
+            ext.fc1_ready_counter_ptr.toint()
+            + cutlass.Int64(self._mf_telemetry_offset)
+            + 8 * (cutlass.Int64(5) + leg),
         )
         if _iket_active:
             iket.range_push(range_name)

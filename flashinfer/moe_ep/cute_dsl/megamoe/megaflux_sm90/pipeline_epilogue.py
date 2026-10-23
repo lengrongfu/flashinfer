@@ -177,6 +177,9 @@ class PipelineEpilogue(_Base):  # type: ignore[valid-type,misc]
                         + Int64(8) * Int64(expert_idx),
                         sched_ext.fc1_ready_counter_ptr.toint()
                         + Int64(self._mf_epoch_offset),
+                        sched_ext.fc1_ready_counter_ptr.toint()
+                        + Int64(self._mf_telemetry_offset)
+                        + Int64(8 * 5),
                     )
                     fc1_act_weight_dequant_scale = Float32(
                         fc1_weight_dequant_scale[expert_idx]
@@ -188,6 +191,9 @@ class PipelineEpilogue(_Base):  # type: ignore[valid-type,misc]
                         + Int64(8) * (Int64(self._mf_capacity) + Int64(expert_idx)),
                         sched_ext.fc1_ready_counter_ptr.toint()
                         + Int64(self._mf_epoch_offset),
+                        sched_ext.fc1_ready_counter_ptr.toint()
+                        + Int64(self._mf_telemetry_offset)
+                        + Int64(8 * 6),
                     )
                     fc2_act_weight_dequant_scale = Float32(
                         fc2_weight_dequant_scale[expert_idx]

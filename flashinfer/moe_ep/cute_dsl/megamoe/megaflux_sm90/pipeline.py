@@ -75,7 +75,7 @@ class PipelineFrontend(PhysicalSlotFrontend):
     def _mega_compile_key(self):
         return (
             *super()._mega_compile_key(),
-            "megaflux_pipeline_runtime_flags_v2",
+            "megaflux_pipeline_runtime_flags_v3",
             self.reserved_clusters,
         )
 

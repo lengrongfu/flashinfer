@@ -40,3 +40,21 @@ def test_selective_gated_forward(monkeypatch):
         benefit_reject=True,
         delays=(0, 20000, 0, 0),
     )
+
+
+@pytest.mark.gpu_2
+@pytest.mark.arch_hopper
+def test_selective_gated_accepts_improving_plan(monkeypatch):
+    from tests.moe_ep import test_moe_ep_sm90_pull_mxfp4_mega_multirank as ref
+    from tests.moe_ep.test_megaflux_identity import _run_offline_backend
+
+    monkeypatch.setattr(ref, "TOKENS_PER_RANK", 129)
+    _run_offline_backend(
+        "sparse_owner",
+        physical_budget=1,
+        online=True,
+        pipeline=True,
+        selective=True,
+        benefit_accept=True,
+        delays=(0, 20000, 0, 0),
+    )

@@ -91,3 +91,24 @@ telemetry demonstrates independent communication progress under this bound.
 The shape-only bootstrap metadata constructor does not invoke the CPU routing
 oracle. Ruff, focused mypy and all 105 host Plan tests also pass. Capture and
 benefit/latency claims are not established by this stage.
+
+## Consumer wait diagnostics
+
+The v3 private pipeline workspace appends two int64 nanosecond maxima to the
+five existing progress timestamps (16 additional local bytes/rank). An acquire
+that immediately observes the current epoch records no wait. A failed acquire
+starts `%globaltimer`, polls with the same system acquire, and atomically MAXs
+its elapsed duration before the async proxy fence. Both weight/offset TMA and
+residual epilogue consumers contribute to the corresponding W1/W2 maximum.
+The counter measures a real individual consumer stall; it is not a sum across
+threads or the global critical-path loss, since other owned work may overlap.
+No per-forward host readback is added. Control initialization resets both
+counters every invocation, including captured replay.
+
+EP8 accepts 14 full-forward cases/rank (including both gated accept and reject)
+and five Graph cases/rank x128 replays after this instrumentation. Injecting
+W1/W2 start delays of 20ms and additional W2 offset/residual delays yields
+roughly 19ms W1 and 59ms W2 maximum waits on replica receivers. Owner-only rows
+remain zero. Raw evidence: `consumer-wait-ep8.txt` and
+`consumer-wait-graph-ep8.txt`. The compile key advances to v3 for the changed
+local workspace layout; packed Plan ABI and numerical computation are unchanged.

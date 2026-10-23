@@ -149,6 +149,7 @@ def _run_offline_backend(
     top_k=None,
     selective=False,
     benefit_reject=False,
+    benefit_accept=False,
 ):
     import torch
     import torch.distributed as dist
@@ -271,12 +272,14 @@ def _run_offline_backend(
             gate_up_clamp=ref.GATE_UP_CLAMP,
             load_balance_mode="static",
         )
-        if benefit_reject:
+        if benefit_reject or benefit_accept:
             from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.benefit import (
                 BenefitCosts,
             )
 
-            config.benefit_costs = BenefitCosts(10, 1e9 if rank == 0 else 0, 0)
+            config.benefit_costs = BenefitCosts(
+                10, 1e9 if benefit_reject and rank == 0 else 0, 0
+            )
         if pipeline:
             config.selective_weight_copy = selective
         assert isinstance(create_mega_kernel(config), Sm90MegaFluxIdentityBackend)
@@ -504,6 +507,8 @@ def _run_offline_backend(
                     if any(delays[1:]) and not delays[0]:
                         assert times[1] < times[4], times
             gathered_times = ref._all_gather_stack(state.telemetry).cpu().tolist()
+            if selective and plan.replica_descriptors and any(delays[1:]):
+                assert max(row[6] for row in gathered_times) > 1000, gathered_times
             if rank == 0:
                 print("MegaFlux pipeline telemetry", delays, gathered_times, flush=True)
         if static_replica or online:

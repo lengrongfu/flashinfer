@@ -17,7 +17,7 @@ __device__ uint64_t timer() {
 }
 __global__ void initialize(int64_t* ready, const int64_t* epoch, int64_t* telemetry, int S, int L) {
   int i = threadIdx.x;
-  for (int j = i; j < 5; j += blockDim.x) telemetry[j] = 0;
+  for (int j = i; j < 7; j += blockDim.x) telemetry[j] = 0;
   for (int s = i; s < L; s += blockDim.x) {
     ready[s] = *epoch;
     ready[S + s] = *epoch;
@@ -129,7 +129,7 @@ void control(TensorView ready, TensorView epoch, TensorView telemetry, TensorVie
   TVM_FFI_ICHECK_EQ(ready.size(0), 2);
   TVM_FFI_ICHECK_EQ(chunks.size(0), 2);
   TVM_FFI_ICHECK_EQ(epoch.numel(), 1);
-  TVM_FFI_ICHECK_EQ(telemetry.numel(), 5);
+  TVM_FFI_ICHECK_EQ(telemetry.numel(), 7);
   int S = ready.size(1), P = chunks.size(1);
   TVM_FFI_ICHECK(leg >= 0 && leg < 2 && owned > 0 && owned <= S && delay_us >= 0);
   ffi::CUDADeviceGuard guard(ready.device().device_id);
