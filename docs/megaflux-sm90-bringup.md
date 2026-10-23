@@ -1,8 +1,9 @@
 # MegaFlux forward on SM90 MXFP4: bring-up ledger
 
-Status: stage 1 original-backend baseline established on H200 EP8. No
-MegaFlux executor has been implemented or validated. CPU Plan work can now
-begin; target-shape numerical accuracy needs its own extended oracle test.
+Status: stage 1 original-backend baseline established on H200 EP8; stage 2
+CPU Plan reference implemented. No MegaFlux executor has been implemented
+or validated. Target-shape numerical accuracy needs its own extended oracle
+test. See `megaflux-plan-abi.md` for the internal reference contract.
 
 ## Scope and revision
 
@@ -231,6 +232,12 @@ p50/p95/p99 ablation suite. Freeze the full emitted tactic after validation,
 then use identical weights/routing/return modes for all comparisons. Existing
 small-shape numerical tests do not establish target-shape numerical accuracy.
 
-Pending: target-shape independent numerical correctness, Plan properties,
+CPU reference validation: 96 tests passed on the container's Python 3.12,
+covering deterministic plans, conservation, packing, multiple hotspots,
+R=0/1/2/4, global tails, masks, ragged and empty sources, descriptor capacity
+failure and int64 bounds. Raw output: `megaflux-results/planner-cpu.txt`.
+This establishes only the CPU reference. It is not a GPU planner or backend.
+
+Pending: target-shape independent numerical correctness, GPU Plan comparison,
 identity executor, weight transfer,
 delay injection, CUDA Graph stress, all MegaFlux performance ablations.
