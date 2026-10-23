@@ -73,7 +73,15 @@ __global__ void unpack(const int64_t* q, const int64_t* slots, uint8_t* payload,
                  : part == 1 ? offset + slot * OB
                              : residual + slot * RB;
   src += part == 0 ? 0 : part == 1 ? PB : PB + OB;
-  for (int64_t i = threadIdx.x; i < n; i += blockDim.x) dst[i] = src[i];
+  int64_t first = blockIdx.y * blockDim.x + threadIdx.x;
+  int64_t step = gridDim.y * blockDim.x;
+  int64_t words =
+      n % 4 == 0 && ((reinterpret_cast<uintptr_t>(src) | reinterpret_cast<uintptr_t>(dst)) & 3) == 0
+          ? n / 4
+          : 0;
+  for (int64_t i = first; i < words; i += step)
+    reinterpret_cast<uint32_t*>(dst)[i] = reinterpret_cast<const uint32_t*>(src)[i];
+  for (int64_t i = words * 4 + first; i < n; i += step) dst[i] = src[i];
 }
 __global__ void identity_kernel(const int64_t* slots, const int64_t* epoch, int64_t* retired,
                                 int64_t* identity, int S, int rank, int64_t version) {
@@ -167,7 +175,7 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
   ffi::CUDADeviceGuard guard(q.device().device_id);
   auto stream = get_stream(q.device());
   if (S > E / P)
-    unpack<<<S - E / P, 128, 0, stream>>>(
+    unpack<<<dim3(S - E / P, 32), 128, 0, stream>>>(
         static_cast<int64_t*>(q.data_ptr()), static_cast<int64_t*>(slots.data_ptr()),
         static_cast<uint8_t*>(payload.data_ptr()), static_cast<uint8_t*>(offset.data_ptr()),
         static_cast<uint8_t*>(residual.data_ptr()), static_cast<uint8_t*>(cache.data_ptr()), E, P,
@@ -188,9 +196,11 @@ __global__ void selective_get_kernel(const int64_t* q, const int64_t* slots, con
   uint8_t* dst = cache + (owner * cap + index) * bytes;
   // Vectorize aligned payload; byte tail preserves offsets and residual exactly.
   int64_t vectors = bytes % 4 == 0 ? bytes / 4 : 0;
-  for (int64_t i = threadIdx.x; i < vectors; i += blockDim.x)
+  for (int64_t i = blockIdx.y * blockDim.x + threadIdx.x; i < vectors; i += blockDim.x * gridDim.y)
     reinterpret_cast<uint32_t*>(dst)[i] = reinterpret_cast<const uint32_t*>(src)[i];
-  for (int64_t i = vectors * 4 + threadIdx.x; i < bytes; i += blockDim.x) dst[i] = src[i];
+  for (int64_t i = vectors * 4 + blockIdx.y * blockDim.x + threadIdx.x; i < bytes;
+       i += blockDim.x * gridDim.y)
+    dst[i] = src[i];
 }
 void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView cache, int64_t rank,
                    int64_t cap) {
@@ -211,7 +221,7 @@ void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView 
   TVM_FFI_ICHECK_EQ(cache.size(0), P * cap);
   ffi::CUDADeviceGuard guard(q.device().device_id);
   if (S > E / P)
-    selective_get_kernel<<<S - E / P, 128, 0, get_stream(q.device())>>>(
+    selective_get_kernel<<<dim3(S - E / P, 32), 128, 0, get_stream(q.device())>>>(
         static_cast<int64_t*>(q.data_ptr()), static_cast<int64_t*>(slots.data_ptr()),
         static_cast<int64_t*>(peers.data_ptr()), static_cast<uint8_t*>(cache.data_ptr()), E, P, S,
         rank, cap, cache.size(1));

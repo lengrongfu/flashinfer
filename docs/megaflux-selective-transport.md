@@ -49,3 +49,18 @@ the synchronous comparator did not have the gate enabled, violating its
 same-Plan assertion. The comparator configuration was corrected; the separate
 EP8 gated log is the acceptance evidence. No kernel arithmetic was changed to
 resolve that test configuration mismatch. Performance acceptance is separate.
+
+## Tiled copy acceptance
+
+The initial target benchmark exposed roughly 100ms full-leg transfer spans with
+single-CTA byte loops. The maintained pack, selected peer-read and part-unpack
+kernels now distribute each row over 32 CTAs, using four-byte copies where row
+and part alignment permit, with a byte fallback. Each CTA owns disjoint strided
+indices. Inactive export rows are no longer cleared: no committed replica can
+reference them, while the conservative transport still charges full-root DMA.
+Global retirement, publication and full-leg readiness remain unchanged.
+
+H200 EP8 accepts 63 cases/rank (13 full forward including gated fallback, plus
+50 fieldwise GPU Plan tests) and five Graph cases/rank x128 queued replays.
+Raw results: `tiled-copy-ep8.txt`, `tiled-copy-graph-ep8.txt`. Full-size benchmark
+and owner-streamed independent-reference results follow separately.

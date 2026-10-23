@@ -413,19 +413,29 @@ __global__ void pack_exports(const int64_t* q, const uint8_t* payload, const uin
         break;
       }
     }
+  // Only selected exports are ever unpacked. Inactive rows are unreachable,
+  // so clearing their full padded capacity is wasted per-invocation traffic.
+  if (expert < 0) return;
+  int slot = expert % L;
   int64_t bytes = PB + OB + RB;
-  for (int64_t i = threadIdx.x; i < bytes; i += blockDim.x) {
-    uint8_t value = 0;
-    if (expert >= 0) {
-      int slot = expert % L;
-      if (i < PB)
-        value = payload[slot * PB + i];
-      else if (i < PB + OB)
-        value = offset[slot * OB + i - PB];
-      else
-        value = residual[slot * RB + i - PB - OB];
+  int64_t step = blockDim.x * gridDim.y;
+  int64_t first = blockIdx.y * blockDim.x + threadIdx.x;
+  if ((PB | OB | RB) % 4 == 0) {
+    for (int64_t w = first; w < bytes / 4; w += step) {
+      int64_t i = w * 4;
+      const uint8_t* src = i < PB        ? payload + slot * PB + i
+                           : i < PB + OB ? offset + slot * OB + i - PB
+                                         : residual + slot * RB + i - PB - OB;
+      reinterpret_cast<uint32_t*>(root + index * bytes)[w] =
+          *reinterpret_cast<const uint32_t*>(src);
     }
-    root[index * bytes + i] = value;
+  } else {
+    for (int64_t i = first; i < bytes; i += step) {
+      const uint8_t* src = i < PB        ? payload + slot * PB + i
+                           : i < PB + OB ? offset + slot * OB + i - PB
+                                         : residual + slot * RB + i - PB - OB;
+      root[index * bytes + i] = *src;
+    }
   }
 }
 __global__ void unpack_replicas(const int64_t* q, const int64_t* slots, uint8_t* payload,
@@ -485,7 +495,7 @@ void weights_ffi(TensorView q, TensorView slots, TensorView payload, TensorView 
         static_cast<uint8_t*>(residual.data_ptr()), static_cast<uint8_t*>(root.data_ptr()), E, P, S,
         rank, cap, PB, OB, RB);
   else if (!unpack && cap)
-    pack_exports<<<cap, 128, 0, stream>>>(
+    pack_exports<<<dim3(cap, 32), 128, 0, stream>>>(
         static_cast<int64_t*>(q.data_ptr()), static_cast<uint8_t*>(payload.data_ptr()),
         static_cast<uint8_t*>(offset.data_ptr()), static_cast<uint8_t*>(residual.data_ptr()),
         static_cast<uint8_t*>(root.data_ptr()), E, P, S, rank, cap, PB, OB, RB);
