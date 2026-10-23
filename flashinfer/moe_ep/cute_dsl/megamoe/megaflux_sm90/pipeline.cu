@@ -61,13 +61,15 @@ __device__ bool exported(const int64_t* q, int e, int P, int L) {
 }
 __global__ void unpack(const int64_t* q, const int64_t* slots, uint8_t* payload, uint8_t* offset,
                        uint8_t* residual, const uint8_t* cache, int E, int P, int S, int rank,
-                       int cap, int64_t PB, int64_t OB, int64_t RB, int part) {
+                       int export_cap, int cache_cap, int64_t PB, int64_t OB, int64_t RB,
+                       int part, bool compact) {
   int L = E / P, slot = L + blockIdx.x, e = slots[rank * S + slot];
   if (e < 0) return;
   int owner = e / L, index = 0;
   for (int prior = owner * L; prior < e; ++prior) index += exported(q, prior, P, L);
-  if (index >= cap || !exported(q, e, P, L)) return;
-  const uint8_t* src = cache + (owner * cap + index) * (PB + OB + RB);
+  if (index >= export_cap || !exported(q, e, P, L)) return;
+  int cache_index = compact ? slot - L : owner * cache_cap + index;
+  const uint8_t* src = cache + cache_index * (PB + OB + RB);
   int64_t n = part == 0 ? PB : part == 1 ? OB : RB;
   uint8_t* dst = part == 0   ? payload + slot * PB
                  : part == 1 ? offset + slot * OB
@@ -153,7 +155,8 @@ void control(TensorView ready, TensorView epoch, TensorView telemetry, TensorVie
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
 }
 void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView offset,
-                 TensorView residual, TensorView cache, int64_t rank, int64_t part) {
+                 TensorView residual, TensorView cache, int64_t rank, int64_t export_cap,
+                 int64_t part, bool compact) {
   CHECK_INPUT_AND_TYPE(q, dl_int64);
   CHECK_INPUT_AND_TYPE(slots, dl_int64);
   for (auto t : {payload, offset, residual, cache}) {
@@ -165,7 +168,8 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
   CHECK_DIM(2, q);
   CHECK_DIM(2, slots);
   int E = q.size(0), P = q.size(1), S = slots.size(1), cap = cache.size(0) / P;
-  TVM_FFI_ICHECK(rank >= 0 && rank < P && E % P == 0 && S >= E / P && part >= 0 && part < 3);
+  TVM_FFI_ICHECK(rank >= 0 && rank < P && export_cap > 0 && E % P == 0 && S >= E / P &&
+                 part >= 0 && part < 3);
   TVM_FFI_ICHECK_EQ(payload.size(0), S);
   TVM_FFI_ICHECK_EQ(offset.size(0), S);
   TVM_FFI_ICHECK_EQ(residual.size(0), S);
@@ -179,21 +183,21 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
         static_cast<int64_t*>(q.data_ptr()), static_cast<int64_t*>(slots.data_ptr()),
         static_cast<uint8_t*>(payload.data_ptr()), static_cast<uint8_t*>(offset.data_ptr()),
         static_cast<uint8_t*>(residual.data_ptr()), static_cast<uint8_t*>(cache.data_ptr()), E, P,
-        S, rank, cap, PB, OB, RB, part);
+        S, rank, export_cap, cap, PB, OB, RB, part, compact);
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
 }
 // Peer addresses come exclusively from nvshmem_ptr on tracked symmetric roots.
 // Owners publish before this kernel and cannot overwrite until global retirement.
 __global__ void selective_get_kernel(const int64_t* q, const int64_t* slots, const int64_t* peers,
-                                     uint8_t* cache, int E, int P, int S, int rank, int cap,
-                                     int64_t bytes) {
+                                     uint8_t* cache, int E, int P, int S, int rank,
+                                     int export_cap, int cache_cap, int64_t bytes) {
   int L = E / P, e = slots[rank * S + L + blockIdx.x];
   if (e < 0 || e >= E || !q[e * P + rank]) return;
   int owner = e / L, index = 0;
   for (int prior = owner * L; prior < e; ++prior) index += exported(q, prior, P, L);
-  if (owner == rank || index >= cap || !exported(q, e, P, L)) return;
+  if (owner == rank || index >= export_cap || !exported(q, e, P, L)) return;
   const uint8_t* src = reinterpret_cast<const uint8_t*>(peers[owner]) + index * bytes;
-  uint8_t* dst = cache + (owner * cap + index) * bytes;
+  uint8_t* dst = cache + (owner * cache_cap + blockIdx.x) * bytes;
   // Vectorize aligned payload; byte tail preserves offsets and residual exactly.
   int64_t vectors = bytes % 4 == 0 ? bytes / 4 : 0;
   for (int64_t i = blockIdx.y * blockDim.x + threadIdx.x; i < vectors; i += blockDim.x * gridDim.y)
@@ -203,7 +207,7 @@ __global__ void selective_get_kernel(const int64_t* q, const int64_t* slots, con
     dst[i] = src[i];
 }
 void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView cache, int64_t rank,
-                   int64_t cap) {
+                   int64_t export_cap, int64_t cache_cap) {
   for (auto t : {q, slots, peers}) {
     CHECK_INPUT_AND_TYPE(t, dl_int64);
     CHECK_DEVICE(q, t);
@@ -214,17 +218,18 @@ void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView 
   CHECK_DIM(2, slots);
   CHECK_DIM(2, cache);
   int E = q.size(0), P = q.size(1), S = slots.size(1);
-  TVM_FFI_ICHECK(P > 0 && E % P == 0 && rank >= 0 && rank < P && cap > 0);
+  TVM_FFI_ICHECK(P > 0 && E % P == 0 && rank >= 0 && rank < P && export_cap > 0 &&
+                 cache_cap > 0);
   TVM_FFI_ICHECK_EQ(slots.size(0), P);
   TVM_FFI_ICHECK_GE(S, E / P);
   TVM_FFI_ICHECK_EQ(peers.numel(), P);
-  TVM_FFI_ICHECK_EQ(cache.size(0), P * cap);
+  TVM_FFI_ICHECK_EQ(cache.size(0), P * cache_cap);
   ffi::CUDADeviceGuard guard(q.device().device_id);
   if (S > E / P)
     selective_get_kernel<<<dim3(S - E / P, 32), 128, 0, get_stream(q.device())>>>(
         static_cast<int64_t*>(q.data_ptr()), static_cast<int64_t*>(slots.data_ptr()),
         static_cast<int64_t*>(peers.data_ptr()), static_cast<uint8_t*>(cache.data_ptr()), E, P, S,
-        rank, cap, cache.size(1));
+        rank, export_cap, cache_cap, cache.size(1));
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
 }
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(selective_get, selective_get);

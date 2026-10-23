@@ -120,7 +120,11 @@ class PipelineFrontend(PhysicalSlotFrontend):
 
 class PipelinedReplicaTransport(DeviceReplicaTransport):
     def __init__(self, config, bank, rank, state, backend_config, *, group=None):
-        super().__init__(config, bank, rank)
+        # Decide whether all peers support direct symmetric-pointer reads
+        # before sizing the receive cache. A receiver can have at most R
+        # replica slots, so the selective path needs P*R rows, not P*export
+        # capacity rows (which can be much larger for large EP groups).
+        super().__init__(config, bank, rank, allocate_cache=False)
         self.state, self.backend_config = state, backend_config
         self.peer_roots = []
         self.selective = backend_config.selective_weight_copy
@@ -147,11 +151,16 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
             dist.all_reduce(unavailable, op=dist.ReduceOp.MAX, group=group)
             # Initialization-only capability decision; no invocation Plan readback.
             self.selective = not bool(unavailable.item())
-            if self.selective:
-                self.peer_roots = [
-                    torch.tensor(row, dtype=torch.int64, device=bank[0][0].device)
-                    for row in addresses
-                ]
+        self.cache_capacity = (
+            config.replica_budget if self.selective else self.export_capacity
+        )
+        if self.export_capacity:
+            self.allocate_caches(self.cache_capacity)
+        if self.selective and self.export_capacity:
+            self.peer_roots = [
+                torch.tensor(row, dtype=torch.int64, device=bank[0][0].device)
+                for row in addresses
+            ]
 
     def copy(self, plan):
         from nvshmem import core, bindings
@@ -197,12 +206,15 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                 if delays[leg]:
                     state.control(1, leg=leg, delay_us=delays[leg])
                 root, cache = self.exports[leg], self.caches[leg]
-                src, size, _ = core.tensor_get_buffer(root)
+                src, source_bytes, _ = core.tensor_get_buffer(root)
                 dst, cache_size, _ = core.tensor_get_buffer(cache)
+                if source_bytes % self.export_capacity:
+                    raise RuntimeError("symmetric pipeline export size is not row aligned")
+                row_bytes = source_bytes // self.export_capacity
                 if (
-                    src.size < size
+                    src.size < source_bytes
                     or dst.size < cache_size
-                    or cache_size != c.world_size * size
+                    or cache_size != c.world_size * self.cache_capacity * row_bytes
                 ):
                     raise RuntimeError("symmetric pipeline root capacity mismatch")
                 if self.selective:
@@ -213,6 +225,7 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                         cache,
                         self.rank,
                         self.export_capacity,
+                        self.cache_capacity,
                     )
                     # The kernel boundary completes all peer reads before markers.
                     for owner in range(c.world_size):
@@ -235,7 +248,14 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                     if extra_delay:
                         state.control(1, leg=leg, delay_us=extra_delay)
                     state.module.unpack_part(
-                        plan.q, plan.slot_to_expert, *pieces, cache, self.rank, part
+                        plan.q,
+                        plan.slot_to_expert,
+                        *pieces,
+                        cache,
+                        self.rank,
+                        self.export_capacity,
+                        part,
+                        self.selective,
                     )
                 state.control(3, leg=leg)
                 state.done[leg].record(stream)

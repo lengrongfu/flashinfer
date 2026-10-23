@@ -165,7 +165,7 @@ class DeviceReplicaTransport:
     selective device-initiated transport is a later optimization.
     """
 
-    def __init__(self, config, bank, rank):
+    def __init__(self, config, bank, rank, *, allocate_cache=True):
         from nvshmem import core
         from .planner import planner_module
 
@@ -176,6 +176,7 @@ class DeviceReplicaTransport:
             (config.world_size - 1) * config.replica_budget,
         )
         self.roots, self.exports, self.caches, self.pieces = [], [], [], []
+        self.cache_sizes = []
         self.closed = False
         S = config.physical_slot_capacity
         for payload, offset, _, residual in bank:
@@ -190,11 +191,28 @@ class DeviceReplicaTransport:
             if not self.export_capacity:
                 continue
             source = core.tensor((self.export_capacity, size), dtype=torch.uint8)
-            cache = core.tensor(
-                (config.world_size * self.export_capacity, size), dtype=torch.uint8
-            )
-            self.roots.extend((source, cache))
+            self.roots.append(source)
             self.exports.append(source)
+            self.cache_sizes.append(size)
+            if allocate_cache:
+                cache = core.tensor(
+                    (config.world_size * self.export_capacity, size),
+                    dtype=torch.uint8,
+                )
+                self.roots.append(cache)
+                self.caches.append(cache)
+
+    def allocate_caches(self, capacity):
+        """Allocate symmetric receive caches with ``capacity`` rows per PE."""
+        from nvshmem import core
+
+        if self.caches:
+            raise RuntimeError("replica receive caches were already allocated")
+        for size in self.cache_sizes:
+            cache = core.tensor(
+                (self.config.world_size * capacity, size), dtype=torch.uint8
+            )
+            self.roots.append(cache)
             self.caches.append(cache)
 
     def copy(self, plan):
