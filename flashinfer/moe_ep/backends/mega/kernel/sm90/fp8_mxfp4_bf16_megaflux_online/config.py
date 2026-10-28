@@ -3,7 +3,7 @@
 """GPU planning with synchronous transport; explicit correctness bringup."""
 
 from dataclasses import dataclass
-from ......cute_dsl.megamoe.megaflux_sm90.benefit import BenefitCosts
+from ......cute_dsl.megamoe.megaflux_sm90.benefit import BenefitCosts, ReplicaAdmission
 from ......megaflux_plan import PlanConfig, empty_workspace_plan
 from ..fp8_mxfp4_bf16_megaflux_physical.config import Sm90_Mxfp4_MegaFluxPhysicalConfig
 
@@ -15,8 +15,15 @@ class Sm90_Mxfp4_MegaFluxOnlineConfig(Sm90_Mxfp4_MegaFluxPhysicalConfig):
     requested_block_capacity: int | None = None
     debug_plan_agreement: bool = False
     benefit_costs: BenefitCosts | None = None
+    min_replica_routes: int = 0
+    replica_admission: ReplicaAdmission | None = None
+    metadata_transport: str = "nccl"
 
     def __post_init__(self):
+        if self.metadata_transport not in ("nccl", "nvlink"):
+            raise ValueError("metadata_transport must be nccl or nvlink")
+        if self.min_replica_routes < 0:
+            raise ValueError("negative replica planning threshold")
         p = self.plan_config
         if (
             p is None

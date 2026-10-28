@@ -1,9 +1,9 @@
 /*
  * SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES.
  * SPDX-License-Identifier: Apache-2.0
- * Deterministic device planner bringup. One control thread implements the exact
- * bounded oracle; routing/count work is parallel across experts. Optimize only
- * after fieldwise acceptance. No device data participates in host decisions.
+ * Deterministic device planner. Replica search preserves serial oracle order;
+ * owner-only descriptors and routing/count work are parallel across experts.
+ * No device data participates in host decisions.
  */
 #include <cuda_runtime.h>
 
@@ -14,6 +14,13 @@
 
 namespace flashinfer::megaflux {
 constexpr int MAX_E = 512, MAX_P = 8, MAX_Q = MAX_E * MAX_P;
+struct Admission {
+  int64_t skew, block_ns, fixed_ns, copy_ns, margin_ns;
+  __device__ bool enabled() const { return block_ns > 0; }
+  __device__ bool pays(int64_t saved, int copies) const {
+    return saved * block_ns > fixed_ns + copies * copy_ns + margin_ns;
+  }
+};
 struct Entry {
   int64_t value;
   int e, r;
@@ -65,36 +72,162 @@ __global__ void histogram(const int64_t* ids, int64_t* counts, int64_t* ordinal,
     if (ids[i] == e) ordinal[i] = n++;
   counts[e] = n;
 }
+// Owner-only plans have no balancing dependencies. Construct their exact
+// oracle layout cooperatively instead of serially revisiting E*P entries.
+// The route-count decision stays on device and is uniform across the CTA.
+__device__ bool build_owner_plan(const int64_t* C, int64_t* q, int64_t* counts, int64_t* offsets,
+                                 int64_t* slots, int64_t* records, int64_t* stats, int64_t* meta,
+                                 int E, int P, int R, int64_t capacity, int64_t epoch,
+                                 bool identity, int64_t min_routes, Admission admission,
+                                 int64_t* scratch) {
+  const int L = E / P, S = L + R, tid = threadIdx.x;
+  int64_t* n = scratch;
+  int64_t* b = n + E;
+  int64_t* prefix = b + E;
+  int64_t* control = prefix + E;
+  for (int e = tid; e < E; e += blockDim.x) {
+    int64_t count = 0;
+    for (int r = 0; r < P; ++r) count += C[r * E + e];
+    n[e] = count;
+    b[e] = (count + 31) / 32;
+  }
+  __syncthreads();
+  if (!tid) {
+    int64_t total = 0, assignments = 0;
+    for (int e = 0; e < E; ++e) {
+      total += b[e];
+      assignments += n[e];
+    }
+    int64_t peak = 0;
+    for (int r = 0; r < P; ++r) {
+      int64_t blocks = 0;
+      for (int e = r * L; e < (r + 1) * L; ++e) blocks += b[e];
+      peak = blocks > peak ? blocks : peak;
+    }
+    // Conservative opportunity screen: reserve 1/P of ideal savings and
+    // charge the full replica-slot budget before paying serial search cost.
+    // This deliberately skips marginal wins; it is not an optimality bound.
+    // Skew uses padded blocks, matching actual work.
+    bool unprofitable =
+        admission.enabled() && (peak * P * 1000 < total * admission.skew ||
+                                !admission.pays((peak - (total + P - 1) / P) * (P - 1) / P, P * R));
+    control[0] = identity || !R || assignments < min_routes || unprofitable;
+    control[1] = total;
+    control[2] = assignments;
+  }
+  __syncthreads();
+  const bool owner_only = control[0];
+  __syncthreads();  // Retire shared reads before the serial planner reuses scratch.
+  if (!owner_only) return false;
+  const bool overflow = control[1] > capacity;
+  for (int e = tid; e < E; e += blockDim.x) {
+    int64_t first = 0;
+    for (int j = 0; j < e; ++j) first += b[j];
+    prefix[e] = first;
+    counts[e] = n[e];
+    offsets[e] = first;
+  }
+  for (int i = tid; i < E * P; i += blockDim.x)
+    q[i] = !overflow && i % P == (i / P) / L ? b[i / P] : 0;
+  for (int i = tid; i < P * S; i += blockDim.x) slots[i] = i % S < L ? (i / S) * L + i % S : -1;
+  for (int r = tid; r < P; r += blockDim.x) {
+    int64_t tasks = 0, active = 0, data = 0, sf = 0;
+    if (!overflow)
+      for (int e = r * L; e < (r + 1) * L; ++e) {
+        tasks += b[e];
+        active += n[e] > 0;
+        data += align(n[e], 32);
+        sf += align(n[e], 128);
+      }
+    stats[r] = tasks;
+    stats[P + r] = active;
+    stats[2 * P + r] = data;
+    stats[3 * P + r] = sf;
+  }
+  if (!tid) {
+    offsets[E] = control[1];
+    meta[0] = overflow;
+    meta[1] = overflow;
+    meta[2] = overflow ? 0 : control[1];
+    meta[3] = 0;
+    meta[4] = control[2];
+    meta[5] = epoch;
+  }
+  if (overflow) return true;
+  // Each expert owns a disjoint contiguous record range in oracle order.
+  for (int e = tid; e < E; e += blockDim.x) {
+    int64_t data = 0, sf = 0;
+    for (int j = (e / L) * L; j < e; ++j) {
+      data += align(n[j], 32);
+      sf += align(n[j], 128);
+    }
+    for (int64_t block = 0; block < b[e]; ++block) {
+      int64_t* row = records + 8 * (prefix[e] + block);
+      row[0] = e;
+      row[1] = block;
+      row[2] = e / L;
+      row[3] = e % L;
+      row[4] = data + block * 32;
+      row[5] = imin(32, n[e] - block * 32);
+      row[6] = sf + block * 32;
+      row[7] = 0;
+    }
+  }
+  return true;
+}
+
+// Keep the parallel fast path out of the serial search kernel's register
+// allocation. A device flag skips search without a host read or graph branch.
+__global__ void build_owner_plan_kernel(const int64_t* C, int64_t* q, int64_t* counts,
+                                        int64_t* offsets, int64_t* slots, int64_t* records,
+                                        int64_t* stats, int64_t* meta, int E, int P, int R,
+                                        int64_t capacity, int64_t epoch, bool identity,
+                                        int64_t min_routes, Admission admission, int64_t* handled,
+                                        const int32_t* condition) {
+  if (condition != nullptr && !*condition) return;
+  extern __shared__ int64_t owner_scratch[];
+  bool owner = build_owner_plan(C, q, counts, offsets, slots, records, stats, meta, E, P, R,
+                                capacity, epoch, identity, min_routes, admission, owner_scratch);
+  if (!threadIdx.x) *handled = owner;
+}
+
 __global__ void build_plan(const int64_t* C, int64_t* out_q, int64_t* counts, int64_t* offsets,
                            int64_t* slotmap, int64_t* records, int64_t* replicas, int64_t* stats,
                            int64_t* meta, int E, int P, int R, int64_t capacity, int64_t epoch,
-                           int64_t version, bool identity, int64_t* scratch) {
+                           int64_t version, bool identity, int64_t* scratch,
+                           const int32_t* condition, int64_t min_replica_routes,
+                           Admission admission) {
   if (threadIdx.x) return;
+  if (condition != nullptr && !*condition) return;
+  if (scratch[39999]) return;
+  extern __shared__ int64_t shared_scratch[];
   const int L = E / P, S = L + R;
-  // Global scratch avoids CUDA local-memory backing proportional to maximum
-  // resident threads (hundreds of GiB for these bounded serial control arrays).
+  // Bound each array by the actual geometry. The deterministic control thread
+  // repeatedly revisits q/best; shared memory avoids serialized global-memory
+  // traffic without changing the planner's ordering or tie-breaking rules.
+  scratch = shared_scratch;
   int64_t* b = scratch;
-  scratch += MAX_E;
+  scratch += E;
   int64_t* q = scratch;
-  scratch += MAX_Q;
+  scratch += E * P;
   int64_t* best = scratch;
-  scratch += MAX_Q;
+  scratch += E * P;
   int64_t* load = scratch;
-  scratch += MAX_P;
+  scratch += P;
   int* used = reinterpret_cast<int*>(scratch);
-  scratch += MAX_P;
+  scratch += P;
   Entry* donors = reinterpret_cast<Entry*>(scratch);
-  scratch += 2 * MAX_P;
+  scratch += 2 * P;
   Entry* existing = reinterpret_cast<Entry*>(scratch);
-  scratch += 2 * MAX_Q;
+  scratch += 2 * L * (P - 1);
   Entry* experts = reinterpret_cast<Entry*>(scratch);
-  scratch += 2 * MAX_E;
+  scratch += 2 * L;
   Entry* copies = reinterpret_cast<Entry*>(scratch);
-  scratch += 2 * MAX_Q;
+  scratch += 2 * P * R;
   int64_t* slot = scratch;
-  scratch += MAX_Q;
+  scratch += E * P;
   int64_t* base = scratch;
-  scratch += MAX_Q;
+  scratch += E * P;
   int64_t* sfbase = scratch;
   int64_t bestload = INT64_MAX;
   int bestcopies = INT32_MAX;
@@ -109,6 +242,7 @@ __global__ void build_plan(const int64_t* C, int64_t* out_q, int64_t* counts, in
     assignments += n;
   }
   offsets[E] = total;
+  identity = identity || assignments < min_replica_routes;
   meta[0] = total > capacity ? 1 : 0;
   meta[1] = total > capacity;
   meta[2] = 0;
@@ -232,6 +366,27 @@ __global__ void build_plan(const int64_t* C, int64_t* out_q, int64_t* counts, in
       --load[donor];
       ++load[receiver];
     }
+  }
+  if (admission.enabled()) {
+    int64_t owner_peak = 0, candidate_peak = 0;
+    int copies_count = 0;
+    for (int r = 0; r < P; ++r) {
+      int64_t owner_blocks = 0, candidate_blocks = 0;
+      for (int e = 0; e < E; ++e) {
+        if (e / L == r)
+          owner_blocks += b[e];
+        else
+          copies_count += q[e * P + r] > 0;
+        candidate_blocks += q[e * P + r];
+      }
+      owner_peak = owner_blocks > owner_peak ? owner_blocks : owner_peak;
+      candidate_peak = candidate_blocks > candidate_peak ? candidate_blocks : candidate_peak;
+    }
+    // Charge actual committed copies after compaction, before any transport.
+    // Rejection preserves exact owner descriptor order and requires no host read.
+    if (!admission.pays(owner_peak - candidate_peak, copies_count))
+      for (int e = 0; e < E; ++e)
+        for (int r = 0; r < P; ++r) q[e * P + r] = r == e / L ? b[e] : 0;
   }
   for (int i = 0; i < E * P; ++i) out_q[i] = q[i];
   int nr = 0;
@@ -530,10 +685,11 @@ void histogram_ffi(TensorView ids, TensorView counts, TensorView ordinal, Tensor
                                   static_cast<int64_t*>(ordinal.data_ptr()), M, K);
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
 }
-void plan_ffi(TensorView C, TensorView q, TensorView counts, TensorView offsets, TensorView slots,
-              TensorView blocks, TensorView replicas, TensorView stats, TensorView meta,
-              int64_t epoch, int64_t version, bool identity, int64_t requested_capacity,
-              TensorView scratch) {
+void plan_impl(TensorView C, TensorView q, TensorView counts, TensorView offsets, TensorView slots,
+               TensorView blocks, TensorView replicas, TensorView stats, TensorView meta,
+               int64_t epoch, int64_t version, bool identity, int64_t requested_capacity,
+               TensorView scratch, const int32_t* condition, int64_t min_replica_routes,
+               Admission admission) {
   CHECK_INPUT_AND_TYPE(C, dl_int64);
   CHECK_INPUT_AND_TYPE(scratch, dl_int64);
   CHECK_DEVICE(C, scratch);
@@ -562,17 +718,63 @@ void plan_ffi(TensorView C, TensorView q, TensorView counts, TensorView offsets,
   TVM_FFI_ICHECK_EQ(meta.numel(), 6);
   ffi::CUDADeviceGuard guard(C.device().device_id);
   auto stream = get_stream(C.device());
-  build_plan<<<1, 32, 0, stream>>>(
+  const int shared_bytes = (E + 5 * E * P + 4 * P + 2 * (E / P) * P + 2 * P * R) * sizeof(int64_t);
+  // The supported E<=512/P<=8/R<=4 bound needs at most 176896 bytes,
+  // below Hopper's opt-in shared-memory limit. Set the context's function
+  // limit only once per host thread/device, outside warmed graph capture.
+  static thread_local int configured_device = -1;
+  if (configured_device != C.device().device_id) {
+    TVM_FFI_ICHECK_EQ(
+        cudaFuncSetAttribute(build_plan, cudaFuncAttributeMaxDynamicSharedMemorySize, 176896),
+        cudaSuccess);
+    configured_device = C.device().device_id;
+  }
+  build_owner_plan_kernel<<<1, 256, (3 * E + 3) * sizeof(int64_t), stream>>>(
+      static_cast<int64_t*>(C.data_ptr()), static_cast<int64_t*>(q.data_ptr()),
+      static_cast<int64_t*>(counts.data_ptr()), static_cast<int64_t*>(offsets.data_ptr()),
+      static_cast<int64_t*>(slots.data_ptr()), static_cast<int64_t*>(blocks.data_ptr()),
+      static_cast<int64_t*>(stats.data_ptr()), static_cast<int64_t*>(meta.data_ptr()), E, P, R,
+      std::min(blocks.size(0), requested_capacity), epoch, identity, min_replica_routes, admission,
+      static_cast<int64_t*>(scratch.data_ptr()) + 39999, condition);
+  TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
+  build_plan<<<1, 32, shared_bytes, stream>>>(
       static_cast<int64_t*>(C.data_ptr()), static_cast<int64_t*>(q.data_ptr()),
       static_cast<int64_t*>(counts.data_ptr()), static_cast<int64_t*>(offsets.data_ptr()),
       static_cast<int64_t*>(slots.data_ptr()), static_cast<int64_t*>(blocks.data_ptr()),
       static_cast<int64_t*>(replicas.data_ptr()), static_cast<int64_t*>(stats.data_ptr()),
       static_cast<int64_t*>(meta.data_ptr()), E, P, R, std::min(blocks.size(0), requested_capacity),
-      epoch, version, identity, static_cast<int64_t*>(scratch.data_ptr()));
+      epoch, version, identity, static_cast<int64_t*>(scratch.data_ptr()), condition,
+      min_replica_routes, admission);
   TVM_FFI_ICHECK_EQ(cudaGetLastError(), cudaSuccess);
+}
+void plan_ffi(TensorView C, TensorView q, TensorView counts, TensorView offsets, TensorView slots,
+              TensorView blocks, TensorView replicas, TensorView stats, TensorView meta,
+              int64_t epoch, int64_t version, bool identity, int64_t requested_capacity,
+              TensorView scratch) {
+  plan_impl(C, q, counts, offsets, slots, blocks, replicas, stats, meta, epoch, version, identity,
+            requested_capacity, scratch, nullptr, 0, Admission{});
+}
+void plan_conditional_ffi(TensorView C, TensorView q, TensorView counts, TensorView offsets,
+                          TensorView slots, TensorView blocks, TensorView replicas,
+                          TensorView stats, TensorView meta, int64_t epoch, int64_t version,
+                          bool identity, int64_t requested_capacity, TensorView scratch,
+                          TensorView condition, int64_t min_replica_routes, int64_t skew,
+                          int64_t block_ns, int64_t fixed_ns, int64_t copy_ns, int64_t margin_ns) {
+  CHECK_INPUT_AND_TYPE(condition, dl_int32);
+  CHECK_DEVICE(C, condition);
+  TVM_FFI_ICHECK_EQ(condition.numel(), 1);
+  TVM_FFI_ICHECK_GE(min_replica_routes, 0);
+  for (int64_t value : {skew, block_ns, fixed_ns, copy_ns, margin_ns}) {
+    TVM_FFI_ICHECK_GE(value, 0);
+    TVM_FFI_ICHECK_LE(value, 1000000000000LL);
+  }
+  plan_impl(C, q, counts, offsets, slots, blocks, replicas, stats, meta, epoch, version, identity,
+            requested_capacity, scratch, static_cast<const int32_t*>(condition.data_ptr()),
+            min_replica_routes, Admission{skew, block_ns, fixed_ns, copy_ns, margin_ns});
 }
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(weights, weights_ffi);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(materialize, materialize_ffi);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(histogram, histogram_ffi);
 TVM_FFI_DLL_EXPORT_TYPED_FUNC(plan, plan_ffi);
+TVM_FFI_DLL_EXPORT_TYPED_FUNC(plan_conditional, plan_conditional_ffi);
 }  // namespace flashinfer::megaflux

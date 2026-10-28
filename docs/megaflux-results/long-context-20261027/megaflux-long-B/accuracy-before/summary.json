@@ -1,0 +1,746 @@
+{
+  "fixture_sha256": "b968fb5f636efa21f157f00fe19da8ccf4e29fab129b1b76da3c30ffd3c3bac9",
+  "observations": [
+    {
+      "name": "gsm8k-313",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.2E+5",
+      "extracted": "1.2E+5",
+      "correct": true,
+      "seconds": 39.41001815022901
+    },
+    {
+      "name": "gsm8k-102",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "26",
+      "extracted": "26",
+      "correct": true,
+      "seconds": 26.11350755672902
+    },
+    {
+      "name": "gsm8k-265",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "9.5E+3",
+      "extracted": "9.5E+3",
+      "correct": true,
+      "seconds": 29.243836894165725
+    },
+    {
+      "name": "gsm8k-390",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "12",
+      "extracted": "12",
+      "correct": true,
+      "seconds": 18.69416844472289
+    },
+    {
+      "name": "gsm8k-1225",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "3",
+      "correct": true,
+      "seconds": 40.59360654000193
+    },
+    {
+      "name": "gsm8k-384",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "32",
+      "extracted": "32",
+      "correct": true,
+      "seconds": 33.93784768972546
+    },
+    {
+      "name": "gsm8k-836",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.4E+2",
+      "extracted": "1.4E+2",
+      "correct": true,
+      "seconds": 18.548684566281736
+    },
+    {
+      "name": "gsm8k-207",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "2.6E+3",
+      "extracted": "2.6E+3",
+      "correct": true,
+      "seconds": 31.701641015242785
+    },
+    {
+      "name": "gsm8k-465",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3E+1",
+      "extracted": "3E+1",
+      "correct": true,
+      "seconds": 26.642373159062117
+    },
+    {
+      "name": "gsm8k-52",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "15",
+      "extracted": "15",
+      "correct": true,
+      "seconds": 33.42046633781865
+    },
+    {
+      "name": "gsm8k-56",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "3",
+      "correct": true,
+      "seconds": 14.162151573225856
+    },
+    {
+      "name": "gsm8k-1008",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "2.3E+2",
+      "extracted": "2.3E+2",
+      "correct": true,
+      "seconds": 17.351235451642424
+    },
+    {
+      "name": "gsm8k-863",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.1E+2",
+      "extracted": "1.1E+2",
+      "correct": true,
+      "seconds": 14.607357895933092
+    },
+    {
+      "name": "gsm8k-860",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "3",
+      "correct": true,
+      "seconds": 15.24104218184948
+    },
+    {
+      "name": "gsm8k-1135",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "32",
+      "extracted": "32",
+      "correct": true,
+      "seconds": 20.157471211161464
+    },
+    {
+      "name": "gsm8k-83",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "6E+2",
+      "extracted": "6E+2",
+      "correct": true,
+      "seconds": 14.666307107079774
+    },
+    {
+      "name": "gsm8k-160",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "16",
+      "extracted": "16",
+      "correct": true,
+      "seconds": 12.306648141238838
+    },
+    {
+      "name": "gsm8k-886",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "2E+1",
+      "extracted": "2E+1",
+      "correct": true,
+      "seconds": 21.18071742588654
+    },
+    {
+      "name": "gsm8k-476",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "5",
+      "extracted": "5",
+      "correct": true,
+      "seconds": 14.390734620857984
+    },
+    {
+      "name": "gsm8k-1013",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "2",
+      "extracted": "2",
+      "correct": true,
+      "seconds": 21.4339800151065
+    },
+    {
+      "name": "gsm8k-424",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "5.7E+2",
+      "extracted": "5.7E+2",
+      "correct": true,
+      "seconds": 27.988884140271693
+    },
+    {
+      "name": "gsm8k-523",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "74",
+      "extracted": "74",
+      "correct": true,
+      "seconds": 17.44215904502198
+    },
+    {
+      "name": "gsm8k-787",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "25",
+      "extracted": "25",
+      "correct": true,
+      "seconds": 26.96442930167541
+    },
+    {
+      "name": "gsm8k-354",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "45",
+      "extracted": "45",
+      "correct": true,
+      "seconds": 25.29888976737857
+    },
+    {
+      "name": "gsm8k-410",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "3",
+      "correct": true,
+      "seconds": 29.263445968274027
+    },
+    {
+      "name": "gsm8k-993",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "11",
+      "extracted": "11",
+      "correct": true,
+      "seconds": 35.254225418902934
+    },
+    {
+      "name": "gsm8k-668",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "3",
+      "correct": true,
+      "seconds": 16.590983889065683
+    },
+    {
+      "name": "gsm8k-834",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "8E+1",
+      "extracted": "8E+1",
+      "correct": true,
+      "seconds": 17.304562535136938
+    },
+    {
+      "name": "gsm8k-531",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "66",
+      "extracted": "66",
+      "correct": true,
+      "seconds": 27.23000680329278
+    },
+    {
+      "name": "gsm8k-754",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "89",
+      "extracted": "89",
+      "correct": true,
+      "seconds": 78.78325339592993
+    },
+    {
+      "name": "gsm8k-652",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "75",
+      "extracted": "105",
+      "correct": false,
+      "seconds": 33.65145030384883
+    },
+    {
+      "name": "gsm8k-179",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.3E+2",
+      "extracted": "1.3E+2",
+      "correct": true,
+      "seconds": 13.971093035303056
+    },
+    {
+      "name": "gsm8k-23",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "8",
+      "extracted": "8",
+      "correct": true,
+      "seconds": 15.887712495867163
+    },
+    {
+      "name": "gsm8k-240",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "21",
+      "extracted": "21",
+      "correct": true,
+      "seconds": 37.99386946763843
+    },
+    {
+      "name": "gsm8k-439",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "17",
+      "extracted": "17",
+      "correct": true,
+      "seconds": 46.98199674766511
+    },
+    {
+      "name": "gsm8k-545",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3E+1",
+      "extracted": "3E+1",
+      "correct": true,
+      "seconds": 12.910515543073416
+    },
+    {
+      "name": "gsm8k-627",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "54",
+      "extracted": "54",
+      "correct": true,
+      "seconds": 28.60751144774258
+    },
+    {
+      "name": "gsm8k-1155",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "13",
+      "extracted": "13",
+      "correct": true,
+      "seconds": 15.889609484933317
+    },
+    {
+      "name": "gsm8k-1108",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "38",
+      "extracted": "38",
+      "correct": true,
+      "seconds": 10.30219140322879
+    },
+    {
+      "name": "gsm8k-1282",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "12",
+      "extracted": "12",
+      "correct": true,
+      "seconds": 24.37850182875991
+    },
+    {
+      "name": "gsm8k-386",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "8E+1",
+      "extracted": "8E+1",
+      "correct": true,
+      "seconds": 15.26816649409011
+    },
+    {
+      "name": "gsm8k-552",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "4.5E+2",
+      "extracted": "4.5E+2",
+      "correct": true,
+      "seconds": 26.192294280976057
+    },
+    {
+      "name": "gsm8k-171",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.21E+3",
+      "extracted": "1.21E+3",
+      "correct": true,
+      "seconds": 13.852342487312853
+    },
+    {
+      "name": "gsm8k-623",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "8",
+      "extracted": "8",
+      "correct": true,
+      "seconds": 12.333732674829662
+    },
+    {
+      "name": "gsm8k-306",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1E+1",
+      "extracted": "5",
+      "correct": false,
+      "seconds": 27.154118963051587
+    },
+    {
+      "name": "gsm8k-1072",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "85",
+      "extracted": "85",
+      "correct": true,
+      "seconds": 32.73233415931463
+    },
+    {
+      "name": "gsm8k-799",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "4",
+      "extracted": "4",
+      "correct": true,
+      "seconds": 14.011981052812189
+    },
+    {
+      "name": "gsm8k-660",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "15",
+      "extracted": "15",
+      "correct": true,
+      "seconds": 39.762794645968825
+    },
+    {
+      "name": "gsm8k-1198",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1.4E+2",
+      "extracted": "1.4E+2",
+      "correct": true,
+      "seconds": 30.957256426103413
+    },
+    {
+      "name": "gsm8k-749",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "3",
+      "extracted": "6",
+      "correct": false,
+      "seconds": 28.762492976151407
+    },
+    {
+      "name": "gsm8k-1199",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "2",
+      "extracted": "2",
+      "correct": true,
+      "seconds": 22.304221738129854
+    },
+    {
+      "name": "gsm8k-197",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "6277",
+      "extracted": "6277",
+      "correct": true,
+      "seconds": 14.6977762831375
+    },
+    {
+      "name": "gsm8k-786",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "142",
+      "extracted": "142",
+      "correct": true,
+      "seconds": 18.575437614694238
+    },
+    {
+      "name": "gsm8k-1163",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "12",
+      "extracted": "12",
+      "correct": true,
+      "seconds": 12.836070210207254
+    },
+    {
+      "name": "gsm8k-1220",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "32",
+      "extracted": "32",
+      "correct": true,
+      "seconds": 22.28051860211417
+    },
+    {
+      "name": "gsm8k-1303",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "4",
+      "extracted": "4",
+      "correct": true,
+      "seconds": 121.63206379581243
+    },
+    {
+      "name": "gsm8k-724",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "18",
+      "extracted": "18",
+      "correct": true,
+      "seconds": 45.23166646016762
+    },
+    {
+      "name": "gsm8k-890",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "25",
+      "extracted": "25",
+      "correct": true,
+      "seconds": 31.046333075966686
+    },
+    {
+      "name": "gsm8k-1284",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "25",
+      "extracted": "25",
+      "correct": true,
+      "seconds": 21.66661757370457
+    },
+    {
+      "name": "gsm8k-589",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "15",
+      "extracted": "15",
+      "correct": true,
+      "seconds": 26.984567584935576
+    },
+    {
+      "name": "gsm8k-1237",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "78",
+      "extracted": "78",
+      "correct": true,
+      "seconds": 12.720270320773125
+    },
+    {
+      "name": "gsm8k-293",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "83",
+      "extracted": "83",
+      "correct": true,
+      "seconds": 33.900022675748914
+    },
+    {
+      "name": "gsm8k-76",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "5",
+      "extracted": "5",
+      "correct": true,
+      "seconds": 32.77306763874367
+    },
+    {
+      "name": "gsm8k-499",
+      "kind": "gsm8k",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "1E+1",
+      "extracted": "1E+1",
+      "correct": true,
+      "seconds": 32.24882251303643
+    },
+    {
+      "name": "retrieval-16384-position-0",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81250951",
+      "extracted": "81250951",
+      "correct": true,
+      "seconds": 6.137216674163938
+    },
+    {
+      "name": "retrieval-16384-position-1",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81251124",
+      "extracted": "81251124",
+      "correct": true,
+      "seconds": 6.547942998819053
+    },
+    {
+      "name": "retrieval-16384-position-2",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81251297",
+      "extracted": "81251297",
+      "correct": true,
+      "seconds": 6.7284297570586205
+    },
+    {
+      "name": "retrieval-32768-position-0",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81267335",
+      "extracted": "81267335",
+      "correct": true,
+      "seconds": 11.9963463768363
+    },
+    {
+      "name": "retrieval-32768-position-1",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81267508",
+      "extracted": "81267508",
+      "correct": true,
+      "seconds": 8.791756171733141
+    },
+    {
+      "name": "retrieval-32768-position-2",
+      "kind": "retrieval",
+      "transport_ok": true,
+      "finish_reason": "stop",
+      "expected": "81267681",
+      "extracted": "81267681",
+      "correct": true,
+      "seconds": 6.294481273274869
+    },
+    {
+      "name": "logprobs-512",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 511,
+      "seconds": 0.4565676497295499
+    },
+    {
+      "name": "logprobs-4096",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 4095,
+      "seconds": 1.3809904637746513
+    },
+    {
+      "name": "logprobs-16384",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 16383,
+      "seconds": 5.214449546299875
+    },
+    {
+      "name": "logprobs-32768",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 32767,
+      "seconds": 10.297335851937532
+    }
+  ],
+  "transport_failures": 0,
+  "gsm8k": {
+    "total": 64,
+    "correct": 61
+  },
+  "retrieval": {
+    "total": 6,
+    "correct": 6
+  }
+}

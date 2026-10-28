@@ -1,0 +1,13 @@
+[
+  "python3",
+  "examples/deepseek_v41/run_megaflux_long_context.py",
+  "--root",
+  "/tmp/megaflux-results/long-context-20261027",
+  "--name",
+  "native-highconcurrency-E",
+  "--backend",
+  "native",
+  "--short",
+  "--concurrency",
+  "128"
+]

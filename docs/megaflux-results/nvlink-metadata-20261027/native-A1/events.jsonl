@@ -1,0 +1,11 @@
+{"stage": "starting", "time": 1793086179.510857, "pid": 1137354}
+{"stage": "correctness", "time": 1793086404.62992}
+{"stage": "prewarm-4096-c64-s1042", "time": 1793086441.0017593}
+{"stage": "case_passed", "time": 1793086482.2457383, "name": "prewarm-4096-c64-s1042", "completed": 64, "failed": 0, "complete_inputs": 64, "complete_outputs": 64, "expected": 64, "duration": 19.477524258196354, "output_throughput": 26.28670837283362, "p95_ttft_ms": 17753.298219153658, "p95_tpot_ms": 291.5208866021463}
+{"stage": "prewarm-7168-c128-s1042", "time": 1793086482.2463765}
+{"stage": "case_passed", "time": 1793086571.6896386, "name": "prewarm-7168-c128-s1042", "completed": 128, "failed": 0, "complete_inputs": 128, "complete_outputs": 128, "expected": 128, "duration": 62.799537986982614, "output_throughput": 16.30585244452371, "p95_ttft_ms": 57623.6628156621, "p95_tpot_ms": 327.35576682857106}
+{"stage": "traffic-4096-c64-s42", "time": 1793086571.6907394}
+{"stage": "case_passed", "time": 1793086660.5293036, "name": "traffic-4096-c64-s42", "completed": 128, "failed": 0, "complete_inputs": 128, "complete_outputs": 128, "expected": 128, "duration": 59.76628980413079, "output_throughput": 137.06723349980817, "p95_ttft_ms": 15827.74865264073, "p95_tpot_ms": 310.94703830349897}
+{"stage": "traffic-7168-c128-s42", "time": 1793086660.5297492}
+{"stage": "case_passed", "time": 1793086833.263879, "name": "traffic-7168-c128-s42", "completed": 256, "failed": 0, "complete_inputs": 256, "complete_outputs": 256, "expected": 256, "duration": 139.5960210408084, "output_throughput": 117.36724211652444, "p95_ttft_ms": 58724.71278801095, "p95_tpot_ms": 318.17372157312343}
+{"stage": "ALL_DONE", "time": 1793086833.2682385}

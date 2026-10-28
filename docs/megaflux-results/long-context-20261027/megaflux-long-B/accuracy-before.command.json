@@ -1,0 +1,12 @@
+[
+  "python3",
+  "examples/deepseek_v41/measure_megaflux_accuracy.py",
+  "--dataset",
+  "/tmp/megaflux-results/long-context-20261027/gsm8k-test.jsonl",
+  "--fixtures",
+  "/tmp/megaflux-results/long-context-20261027/accuracy-fixtures.json.gz",
+  "--output",
+  "/tmp/megaflux-results/long-context-20261027/megaflux-long-B/accuracy-before",
+  "--phase",
+  "all"
+]

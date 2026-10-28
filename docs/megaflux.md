@@ -8,6 +8,12 @@ FP8 WGMMA arithmetic and BF16 per-route return contract. Original backend
 selection is unchanged. The implementation is in the maintained
 `cute_dsl/megamoe/megaflux_sm90` tree; vendored kernel `src` files are unchanged.
 
+Optional single-node NVLink metadata exchange is selected with
+`metadata_transport="nvlink"`; the default remains NCCL. See
+[the transport contract and measurements](megaflux-nvlink-metadata.md).
+Stability, model accuracy and 16K/32K output measurements are tracked in
+[the long-context campaign report](megaflux-long-context.md).
+
 Use explicit imports:
 
 ```python

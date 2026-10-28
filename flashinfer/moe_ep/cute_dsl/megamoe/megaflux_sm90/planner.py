@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 """Preallocated GPU Plan bringup; CPU oracle is used only by tests.
 
-The control kernel is deliberately serial and bounded. This establishes exact
-rules before optimizing planner latency. No CUDA tensors are read on the host.
+The bounded replica search preserves serial oracle ordering. Owner-only plans
+are constructed cooperatively with the same layout. No CUDA tensors are read
+on the host.
 """
 
 from functools import lru_cache
@@ -64,8 +65,19 @@ class DevicePlan:
         self.statistics = alloc((4, P))
         self.scratch = alloc((40000,))
         self.meta = alloc((6,))  # status, overflow, B, N, routes, epoch
+        self.always_run = torch.ones(1, dtype=torch.int32, device=device)
 
-    def build(self, source_counts, *, epoch, identity=False, requested_capacity=None):
+    def build(
+        self,
+        source_counts,
+        *,
+        epoch,
+        identity=False,
+        requested_capacity=None,
+        condition=None,
+        min_replica_routes=0,
+        replica_admission=None,
+    ):
         c = self.config
         if (
             source_counts.shape != self.source_counts.shape
@@ -74,7 +86,20 @@ class DevicePlan:
         ):
             raise ValueError("source counts differ from the configured GPU ABI")
         self.source_counts.copy_(source_counts)
-        self.module.plan(
+        plan = self.module.plan
+        extra = ()
+        if condition is not None or min_replica_routes or replica_admission is not None:
+            plan = self.module.plan_conditional
+            extra = (
+                self.always_run if condition is None else condition,
+                min_replica_routes,
+                *(
+                    replica_admission.values
+                    if replica_admission is not None
+                    else (0,) * 5
+                ),
+            )
+        plan(
             self.source_counts,
             self.q,
             self.expert_counts,
@@ -89,6 +114,7 @@ class DevicePlan:
             identity,
             self.blocks.shape[0] if requested_capacity is None else requested_capacity,
             self.scratch,
+            *extra,
         )
         return self
 
@@ -174,10 +200,15 @@ class DistributedPlanner:
         requested_capacity=None,
         debug_agreement=False,
         benefit_costs=None,
+        min_replica_routes=0,
+        replica_admission=None,
+        metadata_transport="nccl",
     ):
         from .benefit import BenefitGate
 
         self.config = config
+        self.replica_admission = replica_admission
+        self.min_replica_routes = min_replica_routes
         self.group = group
         self.benefit_gate = (
             BenefitGate(benefit_costs, device=device)
@@ -197,6 +228,18 @@ class DistributedPlanner:
         self.peer_hashes = torch.empty(
             config.world_size * 2, dtype=torch.int64, device=device
         )
+        self.metadata = None
+        if metadata_transport == "nvlink":
+            from .metadata import NvlinkMetadata
+
+            self.metadata = NvlinkMetadata(config, device=device, group=group)
+            self.histogram.counts = self.metadata.counts
+            self.histogram.status = self.metadata.status
+            self.hash = self.metadata.hash
+            self.routing.send_counts = self.metadata.send_counts
+            self.routing.send_words = self.metadata.send_words
+        elif metadata_transport != "nccl":
+            raise ValueError("metadata_transport must be nccl or nvlink")
         self.hash_weights = {}
         if debug_agreement:
             for name in (
@@ -215,28 +258,36 @@ class DistributedPlanner:
     def run(self, ids, *, rank, epoch, external_failure=None):
         import torch.distributed as dist
 
+        if self.metadata is not None:
+            self.metadata.begin()
         self.histogram.run(ids)
-        self.invalid.copy_(self.histogram.status)
-        dist.all_reduce(self.invalid, op=dist.ReduceOp.MAX, group=self.group)
+        counts = self.candidate.source_counts
+        if self.metadata is None:
+            self.invalid.copy_(self.histogram.status)
+            dist.all_reduce(self.invalid, op=dist.ReduceOp.MAX, group=self.group)
+            dist.all_gather_into_tensor(
+                counts.view(-1), self.histogram.counts, group=self.group
+            )
+        else:
+            self.metadata.statistics(counts, self.invalid)
         torch._assert_async(
             self.invalid.eq(0).all(), "invalid collective MegaFlux routes"
-        )
-        counts = self.candidate.source_counts
-        dist.all_gather_into_tensor(
-            counts.view(-1), self.histogram.counts, group=self.group
         )
         device_epoch = isinstance(epoch, torch.Tensor)
         self.candidate.build(
             counts,
             epoch=1 if device_epoch else epoch,
             requested_capacity=self.requested_capacity,
+            min_replica_routes=self.min_replica_routes,
+            replica_admission=self.replica_admission,
         )
-        self.identity.build(counts, epoch=1 if device_epoch else epoch, identity=True)
         if device_epoch:
             self.candidate.meta[5:6].copy_(epoch)
-            self.identity.meta[5:6].copy_(epoch)
         self.fallback.copy_(self.candidate.meta[1:2])
         if self.benefit_gate is not None:
+            self.identity.build(
+                counts, epoch=1 if device_epoch else epoch, identity=True
+            )
             rejected = self.benefit_gate.run(self.candidate, self.identity)
             self.fallback.copy_(torch.maximum(self.fallback, rejected))
         if external_failure is not None:
@@ -253,10 +304,33 @@ class DistributedPlanner:
                 values = (field + field_id) * weight
                 self.hash[0].add_(values.sum())
                 self.hash[1].add_((values * weight).sum())
-            dist.all_gather_into_tensor(self.peer_hashes, self.hash, group=self.group)
-            mismatch = ~self.peer_hashes.reshape(-1, 2).eq(self.hash).all()
-            self.fallback.copy_(torch.maximum(self.fallback, mismatch.to(torch.int32)))
-        dist.all_reduce(self.fallback, op=dist.ReduceOp.MAX, group=self.group)
+            if self.metadata is None:
+                dist.all_gather_into_tensor(
+                    self.peer_hashes, self.hash, group=self.group
+                )
+                mismatch = ~self.peer_hashes.reshape(-1, 2).eq(self.hash).all()
+                self.fallback.copy_(
+                    torch.maximum(self.fallback, mismatch.to(torch.int32))
+                )
+        if self.metadata is None:
+            dist.all_reduce(self.fallback, op=dist.ReduceOp.MAX, group=self.group)
+        else:
+            self.metadata.vote(
+                self.fallback, self.peer_hashes, check_hash=self.debug_agreement
+            )
+        if self.benefit_gate is None:
+            # The normal serving candidate fits the fixed capacity. Build the
+            # fallback only when a GPU collective actually requests it; keep
+            # the branch inside the kernel so graph replay remains dynamic.
+            self.identity.build(
+                counts,
+                epoch=1 if device_epoch else epoch,
+                identity=True,
+                condition=self.fallback,
+            )
+        if device_epoch:
+            self.identity.meta[5:6].copy_(epoch)
+        use_identity = self.fallback.ne(0)
         for name in (
             "source_counts",
             "q",
@@ -269,11 +343,18 @@ class DistributedPlanner:
             "meta",
         ):
             torch.where(
-                self.fallback.ne(0),
+                use_identity,
                 getattr(self.identity, name),
                 getattr(self.candidate, name),
                 out=getattr(self.committed, name),
             )
         self.routing.materialize(ids, self.histogram, self.committed, rank=rank)
-        self.routing.exchange(group=self.group)
+        if self.metadata is None:
+            self.routing.exchange(group=self.group)
+        else:
+            self.metadata.routes(self.routing.counts, self.routing.words)
         return self.committed
+
+    def close(self):
+        if self.metadata is not None:
+            self.metadata.close()

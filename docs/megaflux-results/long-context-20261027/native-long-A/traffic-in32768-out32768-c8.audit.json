@@ -1,0 +1,10 @@
+{
+  "expected": 8,
+  "completed": 8,
+  "failed": 0,
+  "input_count": 8,
+  "output_count": 8,
+  "complete_inputs": 8,
+  "complete_outputs": 8,
+  "total_output_tokens": 262144
+}

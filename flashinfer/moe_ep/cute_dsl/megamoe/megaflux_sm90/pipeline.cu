@@ -61,14 +61,14 @@ __device__ bool exported(const int64_t* q, int e, int P, int L) {
 }
 __global__ void unpack(const int64_t* q, const int64_t* slots, uint8_t* payload, uint8_t* offset,
                        uint8_t* residual, const uint8_t* cache, int E, int P, int S, int rank,
-                       int export_cap, int cache_cap, int64_t PB, int64_t OB, int64_t RB,
-                       int part, bool compact) {
+                       int export_cap, int cache_cap, int64_t PB, int64_t OB, int64_t RB, int part,
+                       bool compact) {
   int L = E / P, slot = L + blockIdx.x, e = slots[rank * S + slot];
   if (e < 0) return;
   int owner = e / L, index = 0;
   for (int prior = owner * L; prior < e; ++prior) index += exported(q, prior, P, L);
   if (index >= export_cap || !exported(q, e, P, L)) return;
-  int cache_index = compact ? slot - L : owner * cache_cap + index;
+  int cache_index = owner * cache_cap + (compact ? slot - L : index);
   const uint8_t* src = cache + cache_index * (PB + OB + RB);
   int64_t n = part == 0 ? PB : part == 1 ? OB : RB;
   uint8_t* dst = part == 0   ? payload + slot * PB
@@ -168,8 +168,8 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
   CHECK_DIM(2, q);
   CHECK_DIM(2, slots);
   int E = q.size(0), P = q.size(1), S = slots.size(1), cap = cache.size(0) / P;
-  TVM_FFI_ICHECK(rank >= 0 && rank < P && export_cap > 0 && E % P == 0 && S >= E / P &&
-                 part >= 0 && part < 3);
+  TVM_FFI_ICHECK(rank >= 0 && rank < P && export_cap > 0 && E % P == 0 && S >= E / P && part >= 0 &&
+                 part < 3);
   TVM_FFI_ICHECK_EQ(payload.size(0), S);
   TVM_FFI_ICHECK_EQ(offset.size(0), S);
   TVM_FFI_ICHECK_EQ(residual.size(0), S);
@@ -189,8 +189,8 @@ void unpack_part(TensorView q, TensorView slots, TensorView payload, TensorView 
 // Peer addresses come exclusively from nvshmem_ptr on tracked symmetric roots.
 // Owners publish before this kernel and cannot overwrite until global retirement.
 __global__ void selective_get_kernel(const int64_t* q, const int64_t* slots, const int64_t* peers,
-                                     uint8_t* cache, int E, int P, int S, int rank,
-                                     int export_cap, int cache_cap, int64_t bytes) {
+                                     uint8_t* cache, int E, int P, int S, int rank, int export_cap,
+                                     int cache_cap, int64_t bytes) {
   int L = E / P, e = slots[rank * S + L + blockIdx.x];
   if (e < 0 || e >= E || !q[e * P + rank]) return;
   int owner = e / L, index = 0;
@@ -218,8 +218,7 @@ void selective_get(TensorView q, TensorView slots, TensorView peers, TensorView 
   CHECK_DIM(2, slots);
   CHECK_DIM(2, cache);
   int E = q.size(0), P = q.size(1), S = slots.size(1);
-  TVM_FFI_ICHECK(P > 0 && E % P == 0 && rank >= 0 && rank < P && export_cap > 0 &&
-                 cache_cap > 0);
+  TVM_FFI_ICHECK(P > 0 && E % P == 0 && rank >= 0 && rank < P && export_cap > 0 && cache_cap > 0);
   TVM_FFI_ICHECK_EQ(slots.size(0), P);
   TVM_FFI_ICHECK_GE(S, E / P);
   TVM_FFI_ICHECK_EQ(peers.numel(), P);

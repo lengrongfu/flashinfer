@@ -12,28 +12,35 @@ import shutil
 import tempfile
 
 
-def replace_once(path: Path, old: str, new: str) -> None:
+def replace_once(path: Path, old: str, new: str, *, marker: str | None = None) -> None:
     source = path.read_text()
-    if new in source:
+    if new in source or (marker is not None and marker in source):
         return
     count = source.count(old)
     if count != 1:
-        raise RuntimeError(f"expected one patch anchor in {path}, found {count}: {old!r}")
+        raise RuntimeError(
+            f"expected one patch anchor in {path}, found {count}: {old!r}"
+        )
     path.write_text(source.replace(old, new))
 
 
 def main() -> None:
     installed = version("vllm")
     if not installed.startswith("0.32."):
-        raise RuntimeError(f"this integration patch targets vLLM 0.32.x, found {installed}")
+        raise RuntimeError(
+            f"this integration patch targets vLLM 0.32.x, found {installed}"
+        )
     root = Path(__import__("vllm").__file__).resolve().parent
     kernel = root / "config/kernel.py"
     adapter = root / "model_executor/layers/fused_moe/flashinfer_moe_ep.py"
     oracle = root / "model_executor/layers/fused_moe/oracle/mxfp4.py"
-    targets = (kernel, adapter, oracle)
+    experts = root / "model_executor/layers/fused_moe/experts/flashinfer_moe_ep.py"
+    targets = (kernel, adapter, oracle, experts)
     backup_root = Path(tempfile.mkdtemp(prefix="vllm-megaflux-sm90-backup-"))
     for path in targets:
-        shutil.copy2(path, backup_root / path.name)
+        backup = backup_root / path.relative_to(root)
+        backup.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, backup)
 
     replace_once(
         kernel,
@@ -49,21 +56,20 @@ def main() -> None:
     )
     replace_once(
         kernel,
-        '        FLASHINFER_MOE_EP_DEEP_GEMM,\n',
-        '        FLASHINFER_MOE_EP_DEEP_GEMM,\n'
-        '        FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n',
+        "        FLASHINFER_MOE_EP_DEEP_GEMM,\n",
+        "        FLASHINFER_MOE_EP_DEEP_GEMM,\n"
+        "        FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n",
     )
     replace_once(
         kernel,
-        '    if moe_backend != FLASHINFER_MOE_EP_DEEP_GEMM:\n',
-        '    if moe_backend not in (FLASHINFER_MOE_EP_DEEP_GEMM, FLASHINFER_MOE_EP_MEGAFLUX_SM90):\n',
+        "    if moe_backend != FLASHINFER_MOE_EP_DEEP_GEMM:\n",
+        "    if moe_backend not in (FLASHINFER_MOE_EP_DEEP_GEMM, FLASHINFER_MOE_EP_MEGAFLUX_SM90):\n",
     )
 
     replace_once(
         adapter,
-        '    FLASHINFER_MOE_EP_DEEP_GEMM,\n',
-        '    FLASHINFER_MOE_EP_DEEP_GEMM,\n'
-        '    FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n',
+        "    FLASHINFER_MOE_EP_DEEP_GEMM,\n",
+        "    FLASHINFER_MOE_EP_DEEP_GEMM,\n    FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n",
     )
     replace_once(
         adapter,
@@ -72,31 +78,31 @@ def main() -> None:
     )
     replace_once(
         adapter,
-        '_SUPPORTED_CAPABILITIES = frozenset({(10, 0), (10, 3)})\n',
-        '_SUPPORTED_CAPABILITIES = frozenset({(9, 0), (10, 0), (10, 3)})\n',
+        "_SUPPORTED_CAPABILITIES = frozenset({(10, 0), (10, 3)})\n",
+        "_SUPPORTED_CAPABILITIES = frozenset({(9, 0), (10, 0), (10, 3)})\n",
     )
     replace_once(
         adapter,
-        '    FLASHINFER_MOE_EP_DEEP_GEMM: FlashInferMoeEpBackendSpec(\n'
+        "    FLASHINFER_MOE_EP_DEEP_GEMM: FlashInferMoeEpBackendSpec(\n"
         '        kernel="deep_gemm",\n'
         '        weight_formats=frozenset({"mxfp4"}),\n'
-        '    ),\n',
-        '    FLASHINFER_MOE_EP_DEEP_GEMM: FlashInferMoeEpBackendSpec(\n'
+        "    ),\n",
+        "    FLASHINFER_MOE_EP_DEEP_GEMM: FlashInferMoeEpBackendSpec(\n"
         '        kernel="deep_gemm",\n'
         '        weight_formats=frozenset({"mxfp4"}),\n'
-        '    ),\n'
-        '    FLASHINFER_MOE_EP_MEGAFLUX_SM90: FlashInferMoeEpBackendSpec(\n'
+        "    ),\n"
+        "    FLASHINFER_MOE_EP_MEGAFLUX_SM90: FlashInferMoeEpBackendSpec(\n"
         '        kernel="megaflux_sm90",\n'
         '        weight_formats=frozenset({"mxfp4"}),\n'
-        '    ),\n',
+        "    ),\n",
     )
     replace_once(
         adapter,
-        '    spec = flashinfer_moe_ep_backend_spec(moe.moe_backend)\n'
-        '    unsupported: list[str] = []\n',
-        '    spec = flashinfer_moe_ep_backend_spec(moe.moe_backend)\n'
-        '    unsupported: list[str] = []\n'
-        '    capability = current_platform.get_device_capability()\n'
+        "    spec = flashinfer_moe_ep_backend_spec(moe.moe_backend)\n"
+        "    unsupported: list[str] = []\n",
+        "    spec = flashinfer_moe_ep_backend_spec(moe.moe_backend)\n"
+        "    unsupported: list[str] = []\n"
+        "    capability = current_platform.get_device_capability()\n"
         '    if spec.kernel == "megaflux_sm90" and (capability is None or (capability.major, capability.minor) != (9, 0)):\n'
         '        unsupported.append("SM90 MegaFlux requires compute capability 9.0")\n'
         '    if spec.kernel == "cutedsl" and capability is not None and capability.major == 9:\n'
@@ -112,111 +118,113 @@ def main() -> None:
     # Add imports to the API loader using a stable anchor in its guarded import.
     replace_once(
         adapter,
-        '                Nvfp4CutedslMegaMoeConfig,\n'
-        '            )\n',
-        '                Nvfp4CutedslMegaMoeConfig,\n'
-        '            )\n'
-        '            from flashinfer.moe_ep.megaflux_plan import PlanConfig\n'
-        '            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_graph import (\n'
-        '                Sm90_Mxfp4_MegaFluxGraphConfig,\n'
-        '            )\n',
+        "                Nvfp4CutedslMegaMoeConfig,\n            )\n",
+        "                Nvfp4CutedslMegaMoeConfig,\n"
+        "            )\n"
+        "            from flashinfer.moe_ep.megaflux_plan import PlanConfig\n"
+        "            from flashinfer.moe_ep.backends.mega.kernel.sm90.fp8_mxfp4_bf16_megaflux_graph import (\n"
+        "                Sm90_Mxfp4_MegaFluxGraphConfig,\n"
+        "            )\n",
+        marker="from flashinfer.moe_ep.megaflux_plan import PlanConfig",
     )
     replace_once(
         adapter,
-        '        self.Nvfp4CutedslMegaMoeConfig = Nvfp4CutedslMegaMoeConfig\n',
-        '        self.Nvfp4CutedslMegaMoeConfig = Nvfp4CutedslMegaMoeConfig\n'
-        '        self.PlanConfig = PlanConfig\n'
-        '        self.Sm90_Mxfp4_MegaFluxGraphConfig = Sm90_Mxfp4_MegaFluxGraphConfig\n',
+        "        self.Nvfp4CutedslMegaMoeConfig = Nvfp4CutedslMegaMoeConfig\n",
+        "        self.Nvfp4CutedslMegaMoeConfig = Nvfp4CutedslMegaMoeConfig\n"
+        "        self.PlanConfig = PlanConfig\n"
+        "        self.Sm90_Mxfp4_MegaFluxGraphConfig = Sm90_Mxfp4_MegaFluxGraphConfig\n",
+        marker="self.PlanConfig = PlanConfig",
     )
     replace_once(
         adapter,
-        '        self._top_k = moe.experts_per_token\n',
-        '        self._top_k = moe.experts_per_token\n'
-        '        self._topk_indices_dtype = (\n'
+        "        self._top_k = moe.experts_per_token\n",
+        "        self._top_k = moe.experts_per_token\n"
+        "        self._topk_indices_dtype = (\n"
         '            torch.int64 if spec.kernel == "megaflux_sm90" else torch.int32\n'
-        '        )\n',
+        "        )\n",
     )
     replace_once(
         adapter,
-        '    def topk_indices_dtype(self) -> torch.dtype:\n'
-        '        return torch.int32\n',
-        '    def topk_indices_dtype(self) -> torch.dtype:\n'
-        '        return self._topk_indices_dtype\n',
+        "    def topk_indices_dtype(self) -> torch.dtype:\n"
+        "        return torch.int32\n",
+        "    def topk_indices_dtype(self) -> torch.dtype:\n"
+        "        return self._topk_indices_dtype\n",
     )
     replace_once(
         adapter,
-        '        epilogue = cast(FlashInferMoeEpEpilogue, self._epilogue)\n'
-        '        return self._moe_ep_tensors_cls(\n',
-        '        epilogue = cast(FlashInferMoeEpEpilogue, self._epilogue)\n'
-        '        if topk_ids.dtype != self._topk_indices_dtype:\n'
-        '            topk_ids = topk_ids.to(self._topk_indices_dtype)\n'
-        '        return self._moe_ep_tensors_cls(\n',
+        "        epilogue = cast(FlashInferMoeEpEpilogue, self._epilogue)\n"
+        "        return self._moe_ep_tensors_cls(\n",
+        "        epilogue = cast(FlashInferMoeEpEpilogue, self._epilogue)\n"
+        "        if topk_ids.dtype != self._topk_indices_dtype:\n"
+        "            topk_ids = topk_ids.to(self._topk_indices_dtype)\n"
+        "        return self._moe_ep_tensors_cls(\n",
     )
     replace_once(
         adapter,
-        '            torch.arange(self._top_k, dtype=torch.int32, device=self._device)\n',
-        '            torch.arange(self._top_k, dtype=self.topk_indices_dtype, device=self._device)\n',
+        "            torch.arange(self._top_k, dtype=torch.int32, device=self._device)\n",
+        "            torch.arange(self._top_k, dtype=self.topk_indices_dtype, device=self._device)\n",
     )
     replace_once(
         adapter,
-        '        (fc1_weight, fc1_sf), (fc2_weight, fc2_sf) = self._mega_layer._transformed\n'
-        '        return (\n'
-        '            _expert_major_bytes(fc1_weight),\n'
-        '            _expert_major_bytes(fc1_sf),\n'
-        '            _expert_major_bytes(fc2_weight),\n'
-        '            _expert_major_bytes(fc2_sf),\n'
-        '        )\n',
-        '        transformed = self._mega_layer._transformed\n'
-        '        if self._topk_indices_dtype is torch.int64:\n'
-        '            # MegaFlux stores each FC leg as (weight, folded_offset,\n'
-        '            # activation_placeholder, residual_scale); EPLB is disabled\n'
-        '            # for this backend, so expose the first two expert-major views.\n'
-        '            fc1, fc2 = transformed\n'
-        '            return (\n'
-        '                _expert_major_bytes(fc1[0]),\n'
-        '                _expert_major_bytes(fc1[1]),\n'
-        '                _expert_major_bytes(fc2[0]),\n'
-        '                _expert_major_bytes(fc2[1]),\n'
-        '            )\n'
-        '        (fc1_weight, fc1_sf), (fc2_weight, fc2_sf) = transformed\n'
-        '        return (\n'
-        '            _expert_major_bytes(fc1_weight),\n'
-        '            _expert_major_bytes(fc1_sf),\n'
-        '            _expert_major_bytes(fc2_weight),\n'
-        '            _expert_major_bytes(fc2_sf),\n'
-        '        )\n',
+        "        (fc1_weight, fc1_sf), (fc2_weight, fc2_sf) = self._mega_layer._transformed\n"
+        "        return (\n"
+        "            _expert_major_bytes(fc1_weight),\n"
+        "            _expert_major_bytes(fc1_sf),\n"
+        "            _expert_major_bytes(fc2_weight),\n"
+        "            _expert_major_bytes(fc2_sf),\n"
+        "        )\n",
+        "        transformed = self._mega_layer._transformed\n"
+        "        if self._topk_indices_dtype is torch.int64:\n"
+        "            # MegaFlux stores each FC leg as (weight, folded_offset,\n"
+        "            # activation_placeholder, residual_scale); EPLB is disabled\n"
+        "            # for this backend, so expose the first two expert-major views.\n"
+        "            fc1, fc2 = transformed\n"
+        "            return (\n"
+        "                _expert_major_bytes(fc1[0]),\n"
+        "                _expert_major_bytes(fc1[1]),\n"
+        "                _expert_major_bytes(fc2[0]),\n"
+        "                _expert_major_bytes(fc2[1]),\n"
+        "            )\n"
+        "        (fc1_weight, fc1_sf), (fc2_weight, fc2_sf) = transformed\n"
+        "        return (\n"
+        "            _expert_major_bytes(fc1_weight),\n"
+        "            _expert_major_bytes(fc1_sf),\n"
+        "            _expert_major_bytes(fc2_weight),\n"
+        "            _expert_major_bytes(fc2_sf),\n"
+        "        )\n",
     )
     replace_once(
         adapter,
         '    if spec.kernel == "deep_gemm":\n'
-        '        return FlashInferMoeEpWeights(w13, w2, w13_scale, w2_scale)\n',
+        "        return FlashInferMoeEpWeights(w13, w2, w13_scale, w2_scale)\n",
         '    if spec.kernel in ("deep_gemm", "megaflux_sm90"):\n'
-        '        return FlashInferMoeEpWeights(w13, w2, w13_scale, w2_scale)\n',
+        "        return FlashInferMoeEpWeights(w13, w2, w13_scale, w2_scale)\n",
     )
     replace_once(
         adapter,
         '        if spec.kernel == "cutedsl":\n'
-        '            # In-kernel fc2 reduce keeps its default (off); FlashInfer 0.7.1rc1\n',
+        "            # In-kernel fc2 reduce keeps its default (off); FlashInfer 0.7.1rc1\n",
         '        if spec.kernel == "megaflux_sm90":\n'
-        '            if moe.routing_method is not RoutingMethodType.DeepseekV4:\n'
+        "            if moe.routing_method is not RoutingMethodType.DeepseekV4:\n"
         '                raise ValueError("SM90 MegaFlux vLLM integration currently requires DeepseekV4 routing")\n'
-        '            plan_config = api.PlanConfig(\n'
-        '                num_logical_experts=moe.num_experts,\n'
-        '                world_size=ep_group.world_size,\n'
-        '                replica_budget=1,\n'
-        '                max_tokens_per_source=moe.max_num_tokens,\n'
-        '                top_k=moe.experts_per_token,\n'
-        '            )\n'
-        '            megakernel = api.Sm90_Mxfp4_MegaFluxGraphConfig(\n'
-        '                intermediate_size=moe.intermediate_size,\n'
-        '                top_k=moe.experts_per_token,\n'
-        '                plan_config=plan_config,\n'
-        '                selective_weight_copy=True,\n'
-        '                gate_up_clamp=moe.swiglu_limit,\n'
+        "            plan_config = api.PlanConfig(\n"
+        "                num_logical_experts=moe.num_experts,\n"
+        "                world_size=ep_group.world_size,\n"
+        "                replica_budget=1,\n"
+        "                max_tokens_per_source=moe.max_num_tokens,\n"
+        "                top_k=moe.experts_per_token,\n"
+        "            )\n"
+        "            megakernel = api.Sm90_Mxfp4_MegaFluxGraphConfig(\n"
+        "                intermediate_size=moe.intermediate_size,\n"
+        "                top_k=moe.experts_per_token,\n"
+        "                plan_config=plan_config,\n"
+        "                selective_weight_copy=True,\n"
+        "                gate_up_clamp=moe.swiglu_limit,\n"
         '                load_balance_mode="static",\n'
-        '            )\n'
+        "            )\n"
         '        elif spec.kernel == "cutedsl":\n'
-        '            # In-kernel fc2 reduce keeps its default (off); FlashInfer 0.7.1rc1\n',
+        "            # In-kernel fc2 reduce keeps its default (off); FlashInfer 0.7.1rc1\n",
+        marker='        if spec.kernel == "megaflux_sm90":',
     )
 
     replace_once(
@@ -227,25 +235,130 @@ def main() -> None:
     )
     replace_once(
         oracle,
-        '    Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM,\n',
-        '    Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM,\n'
-        '    Mxfp4MoeBackend.FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n',
+        "    Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM,\n",
+        "    Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM,\n"
+        "    Mxfp4MoeBackend.FLASHINFER_MOE_EP_MEGAFLUX_SM90,\n",
     )
     replace_once(
         oracle,
         '        "flashinfer_moe_ep_mega_deep_gemm": [\n'
-        '            Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM\n'
-        '        ],\n',
+        "            Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM\n"
+        "        ],\n",
         '        "flashinfer_moe_ep_mega_deep_gemm": [\n'
-        '            Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM\n'
-        '        ],\n'
+        "            Mxfp4MoeBackend.FLASHINFER_MOE_EP_DEEP_GEMM\n"
+        "        ],\n"
         '        "flashinfer_moe_ep_megaflux_sm90": [\n'
-        '            Mxfp4MoeBackend.FLASHINFER_MOE_EP_MEGAFLUX_SM90\n'
-        '        ],\n',
+        "            Mxfp4MoeBackend.FLASHINFER_MOE_EP_MEGAFLUX_SM90\n"
+        "        ],\n",
+    )
+    replace_once(
+        adapter,
+        "                selective_weight_copy=True,\n",
+        "                selective_weight_copy=True,\n"
+        "                min_replica_routes=ep_group.world_size * moe.experts_per_token + 1,\n",
+        marker="min_replica_routes=",
+    )
+    replace_once(adapter, "import contextlib\n", "import contextlib\nimport os\n")
+    replace_once(
+        adapter,
+        "            from flashinfer.moe_ep.megaflux_plan import PlanConfig\n",
+        "            from flashinfer.moe_ep.megaflux_plan import PlanConfig\n"
+        "            from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.replay import MegaFluxGraphReplay\n",
+    )
+    replace_once(
+        adapter,
+        "        self.PlanConfig = PlanConfig\n",
+        "        self.PlanConfig = PlanConfig\n"
+        "        self.MegaFluxGraphReplay = MegaFluxGraphReplay\n",
+    )
+    replace_once(
+        adapter,
+        "        self._return_workspace_view = moe.routing_method is RoutingMethodType.DeepseekV4\n",
+        "        self._return_workspace_view = moe.routing_method is RoutingMethodType.DeepseekV4\n"
+        "        self._replay = None\n"
+        "        self._replay_cls = (\n"
+        '            api.MegaFluxGraphReplay if spec.kernel == "megaflux_sm90"\n'
+        '            and os.environ.get("FLASHINFER_MOE_EP_MEGAFLUX_CUDA_GRAPH", "1") == "1"\n'
+        "            else None\n"
+        "        )\n",
+    )
+    replace_once(
+        adapter,
+        "        tensors = self._tensors(hidden_states, topk_ids, topk_weights)\n",
+        "        if self._replay is not None:\n"
+        "            return self._replay(hidden_states, topk_ids, topk_weights)\n"
+        "        tensors = self._tensors(hidden_states, topk_ids, topk_weights)\n",
+    )
+    replace_once(
+        adapter,
+        "        self._mega_layer.warmup(self._tensors(hidden_states, topk_ids, topk_weights))\n",
+        "        self._mega_layer.warmup(self._tensors(hidden_states, topk_ids, topk_weights))\n"
+        "        if self._replay_cls is not None and self._replay is None:\n"
+        "            self._replay = self._replay_cls(\n"
+        "                self._mega_layer, max_tokens=self._max_num_tokens,\n"
+        "                hidden_size=self._hidden_size, top_k=self._top_k, device=self._device,\n"
+        "            )\n",
+    )
+    replace_once(
+        adapter,
+        "        mega_layer.destroy()\n",
+        "        if self._replay is not None:\n"
+        "            self._replay.close()\n"
+        "            self._replay = None\n"
+        "        mega_layer.destroy()\n",
+    )
+    # Upgrade an earlier calibration patch without disturbing other adapter edits.
+    previous_default = "                    ep_group.world_size * moe.experts_per_token * min(moe.max_num_tokens, 256) + 1,\n"
+    if previous_default in adapter.read_text():
+        replace_once(
+            adapter,
+            previous_default,
+            "                    ep_group.world_size * moe.experts_per_token * min(\n"
+            '                        moe.max_num_tokens, 256 if "H200" in torch.cuda.get_device_name(weights.w13.device) else 1,\n'
+            "                    ) + 1,\n",
+        )
+    replace_once(
+        adapter,
+        "                min_replica_routes=ep_group.world_size * moe.experts_per_token + 1,\n",
+        "                # EP8 H200 capacity sweeps found planning/copy overhead dominates\n"
+        "                # both balanced and hotspot batches up to 256 tokens per rank.\n"
+        "                # Keep replica planning available above this calibrated band.\n"
+        "                min_replica_routes=int(os.environ.get(\n"
+        '                    "FLASHINFER_MOE_EP_MEGAFLUX_MIN_REPLICA_ROUTES",\n'
+        "                    ep_group.world_size * moe.experts_per_token * min(\n"
+        '                        moe.max_num_tokens, 256 if "H200" in torch.cuda.get_device_name(weights.w13.device) else 1,\n'
+        "                    ) + 1,\n"
+        "                )),\n",
+    )
+    replace_once(
+        experts,
+        "self._adapter(hidden_states, topk_ids.to(torch.int32), topk_weights)",
+        "self._adapter(hidden_states, topk_ids.to(self._adapter.topk_indices_dtype), topk_weights)",
+    )
+    replace_once(
+        adapter,
+        "            megakernel = api.Sm90_Mxfp4_MegaFluxGraphConfig(\n",
+        "            from flashinfer.moe_ep.cute_dsl.megamoe.megaflux_sm90.benefit import h200_replica_admission\n"
+        "            megakernel = api.Sm90_Mxfp4_MegaFluxGraphConfig(\n"
+        "                replica_admission=h200_replica_admission(\n"
+        "                    device_name=torch.cuda.get_device_name(weights.w13.device),\n"
+        "                    experts=moe.num_experts, world_size=ep_group.world_size,\n"
+        "                    hidden=moe.hidden_dim, intermediate=moe.intermediate_size,\n"
+        "                    top_k=moe.experts_per_token,\n"
+        '                    enabled=os.environ.get("FLASHINFER_MOE_EP_MEGAFLUX_ADMISSION", "1") == "1",\n'
+        "                ),\n",
+        marker="replica_admission=h200_replica_admission",
+    )
+    replace_once(
+        adapter,
+        "                selective_weight_copy=True,\n",
+        "                selective_weight_copy=True,\n"
+        "                metadata_transport=os.environ.get(\n"
+        '                    "FLASHINFER_MOE_EP_MEGAFLUX_METADATA", "nccl",\n'
+        "                ),\n",
+        marker="metadata_transport=os.environ.get",
     )
     print(f"Patched vLLM {installed} at {root}; backups: {backup_root}")
-
-
 
 
 if __name__ == "__main__":

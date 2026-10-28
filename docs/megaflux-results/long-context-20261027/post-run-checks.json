@@ -1,0 +1,17 @@
+{
+  "time": 1793114520.5331888,
+  "compute_apps_csv": "",
+  "gpu_csv": "index, name, memory.used [MiB], memory.free [MiB], temperature.gpu, ecc.errors.corrected.volatile.total, ecc.errors.uncorrected.volatile.total\n0, NVIDIA H200, 0 MiB, 143158 MiB, 27, 0, 0\n1, NVIDIA H200, 0 MiB, 143158 MiB, 29, 0, 0\n2, NVIDIA H200, 0 MiB, 143158 MiB, 29, 0, 0\n3, NVIDIA H200, 0 MiB, 143158 MiB, 26, 0, 0\n4, NVIDIA H200, 0 MiB, 143158 MiB, 27, 0, 0\n5, NVIDIA H200, 0 MiB, 143158 MiB, 28, 0, 0\n6, NVIDIA H200, 0 MiB, 143158 MiB, 28, 0, 0\n7, NVIDIA H200, 0 MiB, 143158 MiB, 27, 0, 0\n",
+  "all_five_start_hashes_identical": true,
+  "selected_source_files": 37,
+  "current_hash_mismatches": [],
+  "completed_lifetime_guards": [
+    "native-long-A",
+    "megaflux-long-B",
+    "megaflux-restart-C",
+    "native-highconcurrency-E"
+  ],
+  "skipped_lifetime_guard": [
+    "megaflux-highconcurrency-D"
+  ]
+}

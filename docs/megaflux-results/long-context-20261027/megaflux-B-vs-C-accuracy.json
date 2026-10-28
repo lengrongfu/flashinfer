@@ -1,0 +1,632 @@
+{
+  "left": "/tmp/megaflux-results/long-context-20261027/megaflux-long-B/accuracy-before",
+  "right": "/tmp/megaflux-results/long-context-20261027/megaflux-restart-C/accuracy-before",
+  "fixture_sha256": "b968fb5f636efa21f157f00fe19da8ccf4e29fab129b1b76da3c30ffd3c3bac9",
+  "only_left": [],
+  "only_right": [],
+  "answers": {
+    "gsm8k": {
+      "total": 64,
+      "left_correct": 61,
+      "right_correct": 61,
+      "left_only_correct": 0,
+      "right_only_correct": 0,
+      "answer_agreement": 64,
+      "cases": [
+        {
+          "name": "gsm8k-1008",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "2.3E+2",
+          "right_answer": "2.3E+2"
+        },
+        {
+          "name": "gsm8k-1013",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "2",
+          "right_answer": "2"
+        },
+        {
+          "name": "gsm8k-102",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "26",
+          "right_answer": "26"
+        },
+        {
+          "name": "gsm8k-1072",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "85",
+          "right_answer": "85"
+        },
+        {
+          "name": "gsm8k-1108",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "38",
+          "right_answer": "38"
+        },
+        {
+          "name": "gsm8k-1135",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "32",
+          "right_answer": "32"
+        },
+        {
+          "name": "gsm8k-1155",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "13",
+          "right_answer": "13"
+        },
+        {
+          "name": "gsm8k-1163",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "12",
+          "right_answer": "12"
+        },
+        {
+          "name": "gsm8k-1198",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.4E+2",
+          "right_answer": "1.4E+2"
+        },
+        {
+          "name": "gsm8k-1199",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "2",
+          "right_answer": "2"
+        },
+        {
+          "name": "gsm8k-1220",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "32",
+          "right_answer": "32"
+        },
+        {
+          "name": "gsm8k-1225",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3",
+          "right_answer": "3"
+        },
+        {
+          "name": "gsm8k-1237",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "78",
+          "right_answer": "78"
+        },
+        {
+          "name": "gsm8k-1282",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "12",
+          "right_answer": "12"
+        },
+        {
+          "name": "gsm8k-1284",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "25",
+          "right_answer": "25"
+        },
+        {
+          "name": "gsm8k-1303",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "4",
+          "right_answer": "4"
+        },
+        {
+          "name": "gsm8k-160",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "16",
+          "right_answer": "16"
+        },
+        {
+          "name": "gsm8k-171",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.21E+3",
+          "right_answer": "1.21E+3"
+        },
+        {
+          "name": "gsm8k-179",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.3E+2",
+          "right_answer": "1.3E+2"
+        },
+        {
+          "name": "gsm8k-197",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "6277",
+          "right_answer": "6277"
+        },
+        {
+          "name": "gsm8k-207",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "2.6E+3",
+          "right_answer": "2.6E+3"
+        },
+        {
+          "name": "gsm8k-23",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "8",
+          "right_answer": "8"
+        },
+        {
+          "name": "gsm8k-240",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "21",
+          "right_answer": "21"
+        },
+        {
+          "name": "gsm8k-265",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "9.5E+3",
+          "right_answer": "9.5E+3"
+        },
+        {
+          "name": "gsm8k-293",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "83",
+          "right_answer": "83"
+        },
+        {
+          "name": "gsm8k-306",
+          "left_correct": false,
+          "right_correct": false,
+          "answer_agrees": true,
+          "left_answer": "5",
+          "right_answer": "5"
+        },
+        {
+          "name": "gsm8k-313",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.2E+5",
+          "right_answer": "1.2E+5"
+        },
+        {
+          "name": "gsm8k-354",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "45",
+          "right_answer": "45"
+        },
+        {
+          "name": "gsm8k-384",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "32",
+          "right_answer": "32"
+        },
+        {
+          "name": "gsm8k-386",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "8E+1",
+          "right_answer": "8E+1"
+        },
+        {
+          "name": "gsm8k-390",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "12",
+          "right_answer": "12"
+        },
+        {
+          "name": "gsm8k-410",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3",
+          "right_answer": "3"
+        },
+        {
+          "name": "gsm8k-424",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "5.7E+2",
+          "right_answer": "5.7E+2"
+        },
+        {
+          "name": "gsm8k-439",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "17",
+          "right_answer": "17"
+        },
+        {
+          "name": "gsm8k-465",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3E+1",
+          "right_answer": "3E+1"
+        },
+        {
+          "name": "gsm8k-476",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "5",
+          "right_answer": "5"
+        },
+        {
+          "name": "gsm8k-499",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1E+1",
+          "right_answer": "1E+1"
+        },
+        {
+          "name": "gsm8k-52",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "15",
+          "right_answer": "15"
+        },
+        {
+          "name": "gsm8k-523",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "74",
+          "right_answer": "74"
+        },
+        {
+          "name": "gsm8k-531",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "66",
+          "right_answer": "66"
+        },
+        {
+          "name": "gsm8k-545",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3E+1",
+          "right_answer": "3E+1"
+        },
+        {
+          "name": "gsm8k-552",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "4.5E+2",
+          "right_answer": "4.5E+2"
+        },
+        {
+          "name": "gsm8k-56",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3",
+          "right_answer": "3"
+        },
+        {
+          "name": "gsm8k-589",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "15",
+          "right_answer": "15"
+        },
+        {
+          "name": "gsm8k-623",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "8",
+          "right_answer": "8"
+        },
+        {
+          "name": "gsm8k-627",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "54",
+          "right_answer": "54"
+        },
+        {
+          "name": "gsm8k-652",
+          "left_correct": false,
+          "right_correct": false,
+          "answer_agrees": true,
+          "left_answer": "105",
+          "right_answer": "105"
+        },
+        {
+          "name": "gsm8k-660",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "15",
+          "right_answer": "15"
+        },
+        {
+          "name": "gsm8k-668",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3",
+          "right_answer": "3"
+        },
+        {
+          "name": "gsm8k-724",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "18",
+          "right_answer": "18"
+        },
+        {
+          "name": "gsm8k-749",
+          "left_correct": false,
+          "right_correct": false,
+          "answer_agrees": true,
+          "left_answer": "6",
+          "right_answer": "6"
+        },
+        {
+          "name": "gsm8k-754",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "89",
+          "right_answer": "89"
+        },
+        {
+          "name": "gsm8k-76",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "5",
+          "right_answer": "5"
+        },
+        {
+          "name": "gsm8k-786",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "142",
+          "right_answer": "142"
+        },
+        {
+          "name": "gsm8k-787",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "25",
+          "right_answer": "25"
+        },
+        {
+          "name": "gsm8k-799",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "4",
+          "right_answer": "4"
+        },
+        {
+          "name": "gsm8k-83",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "6E+2",
+          "right_answer": "6E+2"
+        },
+        {
+          "name": "gsm8k-834",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "8E+1",
+          "right_answer": "8E+1"
+        },
+        {
+          "name": "gsm8k-836",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.4E+2",
+          "right_answer": "1.4E+2"
+        },
+        {
+          "name": "gsm8k-860",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "3",
+          "right_answer": "3"
+        },
+        {
+          "name": "gsm8k-863",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "1.1E+2",
+          "right_answer": "1.1E+2"
+        },
+        {
+          "name": "gsm8k-886",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "2E+1",
+          "right_answer": "2E+1"
+        },
+        {
+          "name": "gsm8k-890",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "25",
+          "right_answer": "25"
+        },
+        {
+          "name": "gsm8k-993",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "11",
+          "right_answer": "11"
+        }
+      ]
+    },
+    "retrieval": {
+      "total": 6,
+      "left_correct": 6,
+      "right_correct": 6,
+      "left_only_correct": 0,
+      "right_only_correct": 0,
+      "answer_agreement": 6,
+      "cases": [
+        {
+          "name": "retrieval-16384-position-0",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81250951",
+          "right_answer": "81250951"
+        },
+        {
+          "name": "retrieval-16384-position-1",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81251124",
+          "right_answer": "81251124"
+        },
+        {
+          "name": "retrieval-16384-position-2",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81251297",
+          "right_answer": "81251297"
+        },
+        {
+          "name": "retrieval-32768-position-0",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81267335",
+          "right_answer": "81267335"
+        },
+        {
+          "name": "retrieval-32768-position-1",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81267508",
+          "right_answer": "81267508"
+        },
+        {
+          "name": "retrieval-32768-position-2",
+          "left_correct": true,
+          "right_correct": true,
+          "answer_agrees": true,
+          "left_answer": "81267681",
+          "right_answer": "81267681"
+        }
+      ]
+    }
+  },
+  "logprobs": {
+    "logprobs-16384.json.gz": {
+      "scored_tokens": 16383,
+      "top1_agreement": 0.9868766404199475,
+      "exact_chosen_logprob_fraction": 0.012696087407678691,
+      "mean_abs_logprob_delta": 0.04524610474206801,
+      "p99_abs_logprob_delta": 0.8729415392875672,
+      "max_abs_logprob_delta": 2.8715434074401855,
+      "left_mean_nll": 0.34020485793033634,
+      "right_mean_nll": 0.3455097251734642
+    },
+    "logprobs-32768.json.gz": {
+      "scored_tokens": 32767,
+      "top1_agreement": 0.9909360026856289,
+      "exact_chosen_logprob_fraction": 0.1491134372997223,
+      "mean_abs_logprob_delta": 0.029346107230449486,
+      "p99_abs_logprob_delta": 0.6326748552918434,
+      "max_abs_logprob_delta": 6.3676300048828125,
+      "left_mean_nll": 0.24978576903907596,
+      "right_mean_nll": 0.25143134414947604
+    },
+    "logprobs-4096.json.gz": {
+      "scored_tokens": 4095,
+      "top1_agreement": 0.989010989010989,
+      "exact_chosen_logprob_fraction": 0.018070818070818073,
+      "mean_abs_logprob_delta": 0.035306876943014084,
+      "p99_abs_logprob_delta": 0.8361565023660645,
+      "max_abs_logprob_delta": 6.396021366119385,
+      "left_mean_nll": 0.22223107833218708,
+      "right_mean_nll": 0.226891476166151
+    },
+    "logprobs-512.json.gz": {
+      "scored_tokens": 511,
+      "top1_agreement": 0.9843444227005871,
+      "exact_chosen_logprob_fraction": 0.03131115459882583,
+      "mean_abs_logprob_delta": 0.07429000944975792,
+      "p99_abs_logprob_delta": 1.8998983860015843,
+      "max_abs_logprob_delta": 4.909918785095215,
+      "left_mean_nll": 0.247838767534999,
+      "right_mean_nll": 0.2421676582693184
+    }
+  },
+  "failed_observations": []
+}

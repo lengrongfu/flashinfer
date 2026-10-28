@@ -49,6 +49,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cuda-graph", action="store_true")
     parser.add_argument(
+        "--metadata-transport", choices=("nccl", "nvlink"), default="nccl"
+    )
+    parser.add_argument(
         "--reference",
         action="store_true",
         help="owner-sharded independent instruction reference outside timing",
@@ -164,7 +167,13 @@ def main():
                 )
 
                 kind = Sm90_Mxfp4_MegaFluxGraphConfig
-            return kind(**common, plan_config=pc, selective_weight_copy=True, **extra)
+            return kind(
+                **common,
+                plan_config=pc,
+                selective_weight_copy=True,
+                metadata_transport=args.metadata_transport,
+                **extra,
+            )
 
         outputs = []
         results = {}

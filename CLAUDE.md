@@ -43,6 +43,10 @@ FlashInfer is a GPU kernel library for LLM serving that uses **JIT (Just-In-Time
 | Skip MoE EP CuTe-DSL import/version guard | `export FLASHINFER_MOE_EP_SKIP_DSL_CHECK=1` |
 | Override MoE EP knob-cache path | `export FLASHINFER_MOE_EP_KNOB_CACHE=/path/to/knobs.json` |
 | Disable MoE EP fused staging kernel | `export FLASHINFER_MEGA_FUSED_STAGE=0` |
+| Disable the vLLM SM90 MegaFlux adapter's local MoE CUDA Graph replay | `export FLASHINFER_MOE_EP_MEGAFLUX_CUDA_GRAPH=0` |
+| Opt in to NVLink peer metadata exchange in the vLLM SM90 MegaFlux adapter | `export FLASHINFER_MOE_EP_MEGAFLUX_METADATA=nvlink` (default `nccl`) |
+| Override the vLLM SM90 MegaFlux replica-planning route threshold | `export FLASHINFER_MOE_EP_MEGAFLUX_MIN_REPLICA_ROUTES=49` |
+| Disable the calibrated EP8 H200 MegaFlux skew/transport admission policy | `export FLASHINFER_MOE_EP_MEGAFLUX_ADMISSION=0` |
 | Log MegaMoE compilation and workspace diagnostics | `export FLASHINFER_MEGAMOE_LOG_COMPILE_SPEC=1` |
 | Enable MoE EP EXPERT_MAJOR padding-row exclusion (opt-in; shape-dependent) | `export FLASHINFER_MOE_EP_EXCLUDE_PADDING_ROWS=1` |
 | Enable distribution-aware MoE autotune and kernel dispatch (experimental; TRT-LLM MoE only) | `export FLASHINFER_DIST_AWARE_AUTOTUNE=1` |

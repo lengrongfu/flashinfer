@@ -1,0 +1,1325 @@
+{
+  "raw_archive_local": "/Users/lengrongfu/py-workspace/flashinfer/.fi_workspace/megaflux-results/long-context-20261027.tar.gz",
+  "raw_archive_remote": "/root/flashinfer/.fi_workspace/megaflux-results/long-context-20261027.tar.gz",
+  "raw_archive_sha256": "5c2e38be7948648a89d7538612baa4b17f62fbed846f7acfaba9f8564bcb9d26",
+  "raw_archive_bytes": 20703208,
+  "original_remote_root": "/tmp/megaflux-results/long-context-20261027",
+  "files": [
+    {
+      "source": "GSM8K-LICENSE.txt",
+      "stored": "GSM8K-LICENSE.txt",
+      "transformation": "final newline normalized",
+      "source_sha256": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+      "stored_sha256": "893951b3bf94db8df1b13e05da5cdeb499400960e4d44a3962a8b33ed0b4f28e"
+    },
+    {
+      "source": "accuracy-fixtures.json.gz",
+      "stored": "accuracy-fixtures.json.gz",
+      "transformation": "verbatim",
+      "source_sha256": "b968fb5f636efa21f157f00fe19da8ccf4e29fab129b1b76da3c30ffd3c3bac9",
+      "stored_sha256": "b968fb5f636efa21f157f00fe19da8ccf4e29fab129b1b76da3c30ffd3c3bac9"
+    },
+    {
+      "source": "analysis-status.json",
+      "stored": "analysis-status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "478172ddf1ec87dc560d8005ac9555a35865422965212f8cef801889711d16e9",
+      "stored_sha256": "478172ddf1ec87dc560d8005ac9555a35865422965212f8cef801889711d16e9"
+    },
+    {
+      "source": "audit.command.json",
+      "stored": "audit.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "e8e02ad8e498f292b1b2dc70a1bbb25082847b7eff011169b68ac57fe1d61a13",
+      "stored_sha256": "e8e02ad8e498f292b1b2dc70a1bbb25082847b7eff011169b68ac57fe1d61a13"
+    },
+    {
+      "source": "audit.log",
+      "stored": "audit.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "06ff32ef81c2e595a3cb5905a4201038144abe6c2619496246d773ff72f4fb95",
+      "stored_sha256": "3dad955fcb33679d254d5f1a87386172c38728935cc1921a4e90bc28ce8d601c"
+    },
+    {
+      "source": "audited-summary.json",
+      "stored": "audited-summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "a395443b2bcedc0f062b828a0fdc01894a4591c8deda759d0439fe0c1b9705c6",
+      "stored_sha256": "a395443b2bcedc0f062b828a0fdc01894a4591c8deda759d0439fe0c1b9705c6"
+    },
+    {
+      "source": "campaign-status.json",
+      "stored": "campaign-status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "8161e2485f6b382534b587a61bab5686726d10aff440dc6363c513e2c18eebd7",
+      "stored_sha256": "8161e2485f6b382534b587a61bab5686726d10aff440dc6363c513e2c18eebd7"
+    },
+    {
+      "source": "control-e-status.json",
+      "stored": "control-e-status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5ea0ce2116af2c83138a81e7ea257ccabd11359753cb12c0d2827b59610e2daf",
+      "stored_sha256": "5ea0ce2116af2c83138a81e7ea257ccabd11359753cb12c0d2827b59610e2daf"
+    },
+    {
+      "source": "control-e.command.json",
+      "stored": "control-e.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "847d0cd67db0ccd0bfc6968d071af785b6a1516f3fc1875720cbf55483f72c34",
+      "stored_sha256": "847d0cd67db0ccd0bfc6968d071af785b6a1516f3fc1875720cbf55483f72c34"
+    },
+    {
+      "source": "critical-signatures.json",
+      "stored": "critical-signatures.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "39fac909f91c7014d3f7ba262d9d28fc23491f3176696e15fac48d8dd7848b0c",
+      "stored_sha256": "39fac909f91c7014d3f7ba262d9d28fc23491f3176696e15fac48d8dd7848b0c"
+    },
+    {
+      "source": "environment.json",
+      "stored": "environment.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "0cdcd95b42f551a599aa9cee90ebf2af9a06ba5a4ce799e801845aa04e48aede",
+      "stored_sha256": "0cdcd95b42f551a599aa9cee90ebf2af9a06ba5a4ce799e801845aa04e48aede"
+    },
+    {
+      "source": "ep8-regression.command.json",
+      "stored": "ep8-regression.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d89ac3acee93bec6a2160e3a1a5b21a42dc46f6882303d47d3336bbec9c439a9",
+      "stored_sha256": "8cff33e3fb28adc9dc26a7e6439c717f89d409ad6770cdd3202708c460d169e1"
+    },
+    {
+      "source": "ep8-regression.log",
+      "stored": "ep8-regression.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "4142c93b2ae804f5606aa20f03ccfa5b9936fb14ec7be0513f3b3fe756383c3e",
+      "stored_sha256": "81ceaf67dd4d9bac90efefe40913063c4784193806e49679f4efc41bdb420ec1"
+    },
+    {
+      "source": "ep8-regression.status.json",
+      "stored": "ep8-regression.status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "67d26a35465b4e9dbbd46110e7b5081114662028d77934add3e229dfa49b5239",
+      "stored_sha256": "dc96a1ff8547885504c1dcfc79f9b80016f134376c6376149e059628cc3a499f"
+    },
+    {
+      "source": "failure-analysis-D.json",
+      "stored": "failure-analysis-D.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "dfbb70347adddb53bbb7aa4159a7d1006a58015fd06abbca46ca0510fe89431c",
+      "stored_sha256": "dfbb70347adddb53bbb7aa4159a7d1006a58015fd06abbca46ca0510fe89431c"
+    },
+    {
+      "source": "failure-source-sha256.json",
+      "stored": "failure-source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fb120c200c774eff00689b3227103d93478acbf71d3616b4ddb92411b4ebea49",
+      "stored_sha256": "fb120c200c774eff00689b3227103d93478acbf71d3616b4ddb92411b4ebea49"
+    },
+    {
+      "source": "file-manifest.json",
+      "stored": "file-manifest.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "9f5295649317af198b5f759ab83558616268f6feac849b39becc5302ebd7dbe5",
+      "stored_sha256": "9f5295649317af198b5f759ab83558616268f6feac849b39becc5302ebd7dbe5"
+    },
+    {
+      "source": "gpu-test-source-sha256.json",
+      "stored": "gpu-test-source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "118972697e849c631cfdc4e864277dd9bcc21a26bf0858f2b0cf4d5817e3c464",
+      "stored_sha256": "118972697e849c631cfdc4e864277dd9bcc21a26bf0858f2b0cf4d5817e3c464"
+    },
+    {
+      "source": "megaflux-32k-hour1-check.json",
+      "stored": "megaflux-32k-hour1-check.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "4f5d6fca5561ef2648913480e83b2a1625cae67c6aec0499bc6a5952db3c0457",
+      "stored_sha256": "4f5d6fca5561ef2648913480e83b2a1625cae67c6aec0499bc6a5952db3c0457"
+    },
+    {
+      "source": "megaflux-B-vs-C-accuracy.json",
+      "stored": "megaflux-B-vs-C-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7f51799ae87b3165a83329f51aad00f3dcdce606f65a388f35b0da2e4a7fd6d3",
+      "stored_sha256": "7f51799ae87b3165a83329f51aad00f3dcdce606f65a388f35b0da2e4a7fd6d3"
+    },
+    {
+      "source": "megaflux-B-vs-D-accuracy.json",
+      "stored": "megaflux-B-vs-D-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ce8dcaeda4252578a7061a9689804875fba5abacb0a6f19ea373ccd5f28be561",
+      "stored_sha256": "ce8dcaeda4252578a7061a9689804875fba5abacb0a6f19ea373ccd5f28be561"
+    },
+    {
+      "source": "megaflux-B-within-accuracy.json",
+      "stored": "megaflux-B-within-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5cee6eacc87b7cf8c457cb6fe47363bb65b775fd500b5cfb64c8a4fa7626c552",
+      "stored_sha256": "5cee6eacc87b7cf8c457cb6fe47363bb65b775fd500b5cfb64c8a4fa7626c552"
+    },
+    {
+      "source": "megaflux-C-within-accuracy.json",
+      "stored": "megaflux-C-within-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "adc404eaa5446824d956e718e6493c35e37b0bd6b99ab1830c1686d977a05c0a",
+      "stored_sha256": "adc404eaa5446824d956e718e6493c35e37b0bd6b99ab1830c1686d977a05c0a"
+    },
+    {
+      "source": "megaflux-highconcurrency-D.driver.log",
+      "stored": "megaflux-highconcurrency-D.driver.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "6464f9c5a3ff15c05fb1e56e8ce71ed481a997db01f3fefd081130565becb2be",
+      "stored_sha256": "aee8daf6eb28824461197e423c5b986017b9af13eadb0af937aeade8e0000526"
+    },
+    {
+      "source": "megaflux-long-B.driver.log",
+      "stored": "megaflux-long-B.driver.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "a5ff1ac5a2cf5db9870ebfcc55545a955e470dc2f02543a67281b0db246347e5",
+      "stored_sha256": "0cdaeca6c221a390f0868bf7718c3185ce63747cda6f9508bc26f6d28810ff10"
+    },
+    {
+      "source": "megaflux-restart-C.driver.log",
+      "stored": "megaflux-restart-C.driver.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "4c4973556ae74308840bba1442e08ce57910bdd750c88f4a6af70af81e9bfd1b",
+      "stored_sha256": "4675dbd80423a1ffe18a2a9778246377cba92e4b885d079e4deeccf97a851719"
+    },
+    {
+      "source": "monitor-native-e.jsonl",
+      "stored": "monitor-native-e.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "1934c3db047bf42ff270f4d849489bfc206009d7ade376403bd1f7c23f043939",
+      "stored_sha256": "e4e96659bbe9e000ce14b8fd301fe95d8362bb9aa9b123ec5f3652efdd0baf5b"
+    },
+    {
+      "source": "monitor-native-e.log",
+      "stored": "monitor-native-e.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f1b651238a58fe290baec6c5e32f3bdb1943dd2bd582f02569231f7a757c7837"
+    },
+    {
+      "source": "monitor-resumed.jsonl",
+      "stored": "monitor-resumed.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "5e333db0bb13a0fd6c5b204329f4301efe0552a4add44ce6fc9e58d2adcfbb0b",
+      "stored_sha256": "ba7fc7fd70123f60d6dcd4527adf6d4d2fe82bc4011e4adf0a4690712f71b2e7"
+    },
+    {
+      "source": "monitor-resumed.log",
+      "stored": "monitor-resumed.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f1b651238a58fe290baec6c5e32f3bdb1943dd2bd582f02569231f7a757c7837"
+    },
+    {
+      "source": "monitor.jsonl",
+      "stored": "monitor.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "f4a62941c3095382a7e53d7fc867512a43555817e0b7e7511772c19ba113b6e6",
+      "stored_sha256": "7f4811958646e32161aaab23e864bf732d89e1863e7ce1a3e8c9452993bc1361"
+    },
+    {
+      "source": "native-A-vs-E-accuracy.json",
+      "stored": "native-A-vs-E-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fb82dcf946b6df2322566de7c0526a0e2b111fd9c35d61b8bc74e43af4a29b80",
+      "stored_sha256": "fb82dcf946b6df2322566de7c0526a0e2b111fd9c35d61b8bc74e43af4a29b80"
+    },
+    {
+      "source": "native-E-vs-megaflux-D-accuracy.json",
+      "stored": "native-E-vs-megaflux-D-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "2e423a6864596b3046d71304d4821467f7457eb3532b59a19387f441dab7f17a",
+      "stored_sha256": "2e423a6864596b3046d71304d4821467f7457eb3532b59a19387f441dab7f17a"
+    },
+    {
+      "source": "native-E-within-accuracy.json",
+      "stored": "native-E-within-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "0b8072f311b070e4789ccc6158ac53aafec0e6c5a8aa06733183d7325f322552",
+      "stored_sha256": "0b8072f311b070e4789ccc6158ac53aafec0e6c5a8aa06733183d7325f322552"
+    },
+    {
+      "source": "native-highconcurrency-E.driver.log",
+      "stored": "native-highconcurrency-E.driver.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "a3bc21371b4affaa6b7fc40bffe3acb41579d104a034bed2a3ca9b9b2a134ab9",
+      "stored_sha256": "d3a862942398f776233fe7a047a46989e2f51c7ad54b9811283b6a9559720435"
+    },
+    {
+      "source": "native-long-A.driver.log",
+      "stored": "native-long-A.driver.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "260485229d9bb8e682c5c5dc73061e7385cdd0f91697956019a138371f0896e3",
+      "stored_sha256": "2a953a7cab53476de7c91255bdd249f05b24a8e52f7f6ab627ff90cf65e59179"
+    },
+    {
+      "source": "native-vs-megaflux-C-accuracy.json",
+      "stored": "native-vs-megaflux-C-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "da2d55dafa8d10501283abe0a1e614eaf7f61e993e1524fb1cc2b6af0dfa55c2",
+      "stored_sha256": "da2d55dafa8d10501283abe0a1e614eaf7f61e993e1524fb1cc2b6af0dfa55c2"
+    },
+    {
+      "source": "native-vs-megaflux-D-accuracy.json",
+      "stored": "native-vs-megaflux-D-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "51b3036dd56d075062e59a33da20ffe8622e1038f6b173066afdd09ed8f56718",
+      "stored_sha256": "51b3036dd56d075062e59a33da20ffe8622e1038f6b173066afdd09ed8f56718"
+    },
+    {
+      "source": "native-vs-megaflux-accuracy.json",
+      "stored": "native-vs-megaflux-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "02c7e802e1d5476824e516be0c6cad60b460ce1bef0bc74f6fcdbfe4f81a1d51",
+      "stored_sha256": "02c7e802e1d5476824e516be0c6cad60b460ce1bef0bc74f6fcdbfe4f81a1d51"
+    },
+    {
+      "source": "native-within-accuracy.json",
+      "stored": "native-within-accuracy.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "55ba0507f7b9e5715c4ce1b60b99497e80c703e03a6360a297ac212eb1e47e7d",
+      "stored_sha256": "55ba0507f7b9e5715c4ce1b60b99497e80c703e03a6360a297ac212eb1e47e7d"
+    },
+    {
+      "source": "post-run-checks.json",
+      "stored": "post-run-checks.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "af20faa1a19b8b1014c26a7d4e4ee5a90e700cba275af0a9d9a5e70a7428b541",
+      "stored_sha256": "af20faa1a19b8b1014c26a7d4e4ee5a90e700cba275af0a9d9a5e70a7428b541"
+    },
+    {
+      "source": "reference-balanced.command.json",
+      "stored": "reference-balanced.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "93be45e6fa8cd50717741d875f5a111bfda68843868ee8c6f7b8b1e6cc7c922c",
+      "stored_sha256": "8e7ab2b42d2b67b4d41fab89c2c98a372d4f06f26eebb703af88143d04c6b7cb"
+    },
+    {
+      "source": "reference-balanced.log",
+      "stored": "reference-balanced.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "04f7808c64c33c190e2bcdd232085c7d9c85586fb5d5312d6be10fa63796fe8f",
+      "stored_sha256": "4452eea61f5f8a885f5974d798ab9176bd99da6fca2b7057e46e106824032166"
+    },
+    {
+      "source": "reference-balanced.status.json",
+      "stored": "reference-balanced.status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f027611c77eabfcb9dd3f6a9f5ef035af4711baacac53c32bcd43f4b31ab5df7",
+      "stored_sha256": "682a0467ddc1ac3e18b2c2cbbcfa49b5a7b52a132f8a055161e1ee7848f9d73a"
+    },
+    {
+      "source": "reference-hotspot.command.json",
+      "stored": "reference-hotspot.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fe7225824a1555dbc8877ab96240451f7d294b605d307f29a2ecb4c64e050904",
+      "stored_sha256": "b8049ad64c6423bfad428daab7dec4a249eb92f5d116421b6e41cd1b70cffa59"
+    },
+    {
+      "source": "reference-hotspot.log",
+      "stored": "reference-hotspot.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "7d0b65340c562ba01785b8ffbd94571cc5f2c58464048c322dc25ffaec6a504c",
+      "stored_sha256": "a93eda20f71acdf72e654845c2ed4bcb45149b400ddff700169f4abaa739cfa9"
+    },
+    {
+      "source": "reference-hotspot.status.json",
+      "stored": "reference-hotspot.status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7efabbb067df5efd5a6f261423f76df8ad54227d8bcbcce7140a489055a96468",
+      "stored_sha256": "4c06d65788ce25b03f98190fc88d3e1c2f18357c8bd4cd8de1ee5c6d670b302a"
+    },
+    {
+      "source": "resume-campaign-status.json",
+      "stored": "resume-campaign-status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "df06411605357b8902434f680bf8857df2fbe155105e5ded3e039316586d176f",
+      "stored_sha256": "df06411605357b8902434f680bf8857df2fbe155105e5ded3e039316586d176f"
+    },
+    {
+      "source": "resume-campaign.log",
+      "stored": "resume-campaign.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "4b16b4ae152fd8e624ad63264a302d40cf75fcfbf6af573217aa222744469aa5",
+      "stored_sha256": "8b720a53ed95a97d47d1681baad7278f8d65fc6847f17f06bf4695524d5158ff"
+    },
+    {
+      "source": "stress.command.json",
+      "stored": "stress.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "9f52884079320c4c8f39def14161a8062961bed2e5f6371f9f7dfb3390658ef9",
+      "stored_sha256": "0efb8a8189b86cf8667149dd24cfbf3393da4c1665fab592c847d566fa68b528"
+    },
+    {
+      "source": "stress.env.json",
+      "stored": "stress.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ace3681ffb535b243c242349dc0469600b7ed80255785c74ff26b76e0c56cdf4",
+      "stored_sha256": "0f4a79e9f9bc5ac771de982ca001e6a8bb9ab385ca8f850518c274ac27ecbe26"
+    },
+    {
+      "source": "stress.log",
+      "stored": "stress.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "3d0550843bbcd18b4c5d370b10787ecd987375fed80fc7d0baa65b4fdc7e7018",
+      "stored_sha256": "1dee5536de253ba594f43e1233fd15891159b8dec80787a7b30fce80cb0441eb"
+    },
+    {
+      "source": "stress.status.json",
+      "stored": "stress.status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "32657375373e6b1b14af5718970b1ecf30cc474dbcd21bd7228118062fa6d128",
+      "stored_sha256": "62c86b56f8eccee63bc0bddafd1b9a5e6ea7ef2da843f5a3e3c83138a446766a"
+    },
+    {
+      "source": "stress_nvlink.py",
+      "stored": "stress_nvlink.py.gz",
+      "transformation": "gzip",
+      "source_sha256": "7ed6559eb52e7bda53a11c3a0d2fcfe82dd47015acff3268fb3a4deb7083ba38",
+      "stored_sha256": "06f46bb3f012c5b6353339bca68117b50f45409a5b75416ef1642c6fa42a6fc7"
+    },
+    {
+      "source": "native-long-A/accuracy-after/summary.json",
+      "stored": "native-long-A/accuracy-after/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "9ee17d5861192e4a4db8292a3aa09f649a6e667c210b305d13d8b9a33f6c0a57",
+      "stored_sha256": "9ee17d5861192e4a4db8292a3aa09f649a6e667c210b305d13d8b9a33f6c0a57"
+    },
+    {
+      "source": "native-long-A/accuracy-after.command.json",
+      "stored": "native-long-A/accuracy-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f45aa08ad4bfd7219e033307db15cc45252e1e0191ed319245ab43adfb30d6ab",
+      "stored_sha256": "f45aa08ad4bfd7219e033307db15cc45252e1e0191ed319245ab43adfb30d6ab"
+    },
+    {
+      "source": "native-long-A/accuracy-after.log",
+      "stored": "native-long-A/accuracy-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "9fc3b8ee0b3613105e197a783f39f7cb81484c4d9a284057fa4a7492104f5d6d",
+      "stored_sha256": "10c7f9b6efef58a8b64eac17853a7bc9d773cf6e27da6c537740b8d37674afb1"
+    },
+    {
+      "source": "native-long-A/accuracy-before/summary.json",
+      "stored": "native-long-A/accuracy-before/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "57b56952c888372bf0564661d8a8218806cebd8cd107389f09ec22138406465e",
+      "stored_sha256": "57b56952c888372bf0564661d8a8218806cebd8cd107389f09ec22138406465e"
+    },
+    {
+      "source": "native-long-A/accuracy-before.command.json",
+      "stored": "native-long-A/accuracy-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "e59ef8cb4e2451c740fbc15fd7e50c7fcf451f28ac4b50ca764e05119668346b",
+      "stored_sha256": "e59ef8cb4e2451c740fbc15fd7e50c7fcf451f28ac4b50ca764e05119668346b"
+    },
+    {
+      "source": "native-long-A/accuracy-before.log",
+      "stored": "native-long-A/accuracy-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "4cb5d8b09b0aad2735240819edf745f6204e1dc03d6457b580b22ded48dd25da",
+      "stored_sha256": "22960479ab3a3d7e38cbee184686ea2e7247decb447544c283b7a47bd8d0a14d"
+    },
+    {
+      "source": "native-long-A/events.jsonl",
+      "stored": "native-long-A/events.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "260485229d9bb8e682c5c5dc73061e7385cdd0f91697956019a138371f0896e3",
+      "stored_sha256": "2a953a7cab53476de7c91255bdd249f05b24a8e52f7f6ab627ff90cf65e59179"
+    },
+    {
+      "source": "native-long-A/prewarm-4096-out128.audit.json",
+      "stored": "native-long-A/prewarm-4096-out128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7",
+      "stored_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7"
+    },
+    {
+      "source": "native-long-A/prewarm-4096-out128.command.json",
+      "stored": "native-long-A/prewarm-4096-out128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "6b8cb1a8a6a2aecb158de169ab3069a0ebc9d96bbe1e170e8d305c7df9f7d07f",
+      "stored_sha256": "6b8cb1a8a6a2aecb158de169ab3069a0ebc9d96bbe1e170e8d305c7df9f7d07f"
+    },
+    {
+      "source": "native-long-A/prewarm-4096-out128.log",
+      "stored": "native-long-A/prewarm-4096-out128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "b9d072aa8ccac4a591d8ded4425c341fe61b21072c3efcee615cb05de80ad424",
+      "stored_sha256": "3719af6d79253a95c971ae210791368ddab383475b92217d41f5f56afd82d33b"
+    },
+    {
+      "source": "native-long-A/semantic-after.command.json",
+      "stored": "native-long-A/semantic-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "a7da5101a34a62675f19a001c9fb7a62f1f1d3af201e0166efcabcf6b0c244ef",
+      "stored_sha256": "a7da5101a34a62675f19a001c9fb7a62f1f1d3af201e0166efcabcf6b0c244ef"
+    },
+    {
+      "source": "native-long-A/semantic-after.json",
+      "stored": "native-long-A/semantic-after.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bdfcae0a44655bbd370dda4d5dda37dc6be26ac346b24f5d91e4f015256005ed",
+      "stored_sha256": "5b273acd1dfcfdb2377411ee2ddf4b2eab60f6d8dd599c651602be75c73318d2"
+    },
+    {
+      "source": "native-long-A/semantic-after.log",
+      "stored": "native-long-A/semantic-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "9268584ce81c2e71d30acca41b6ceb9d7e3c07306b391aa529234870572aab78",
+      "stored_sha256": "16f35d1f0b3ed633fe4eb1dea507304cf5da720efa8bd797894b5d8e33098c72"
+    },
+    {
+      "source": "native-long-A/semantic-before.command.json",
+      "stored": "native-long-A/semantic-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "a4eef85a56aed8150e9cda96524612de97d3e0084e771f49f196de5e71bf4201",
+      "stored_sha256": "a4eef85a56aed8150e9cda96524612de97d3e0084e771f49f196de5e71bf4201"
+    },
+    {
+      "source": "native-long-A/semantic-before.json",
+      "stored": "native-long-A/semantic-before.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "124732e9e22250be10fd857382ab70326b2b14b78e05babc281a83461c3bd0bc",
+      "stored_sha256": "0425a53a0554207b7232fbd21992c69caf8a1580df596e9aae82e4e971884868"
+    },
+    {
+      "source": "native-long-A/semantic-before.log",
+      "stored": "native-long-A/semantic-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "1e9da2c700820160f3d37cff20460b067bfd3db136ac04934e31e815d54fa307",
+      "stored_sha256": "40322f9a9a20a8624fd5315096c9d3b90d1729be70a88db9637319b84d75c0ff"
+    },
+    {
+      "source": "native-long-A/server.command.json",
+      "stored": "native-long-A/server.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "99b1f3e6498f0edb00215cbb54a28524647feb1bd52c9948c7f0f1b2e22e0cad",
+      "stored_sha256": "99b1f3e6498f0edb00215cbb54a28524647feb1bd52c9948c7f0f1b2e22e0cad"
+    },
+    {
+      "source": "native-long-A/server.env.json",
+      "stored": "native-long-A/server.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490",
+      "stored_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490"
+    },
+    {
+      "source": "native-long-A/server.log",
+      "stored": "native-long-A/server.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "eed5c712401226a3351aee196e754ba306b55ee533303deb5a2c8be82b4067e3",
+      "stored_sha256": "986bc7ca1042dc1aaf2c6808c7bce7191283b9e965f480b9c39ce9fa84d6dc19"
+    },
+    {
+      "source": "native-long-A/source-sha256.json",
+      "stored": "native-long-A/source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1",
+      "stored_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1"
+    },
+    {
+      "source": "native-long-A/status.json",
+      "stored": "native-long-A/status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7062b566152793caaf8a6632d0d582e433d258f5292e1fb2a547498b943fe739",
+      "stored_sha256": "7062b566152793caaf8a6632d0d582e433d258f5292e1fb2a547498b943fe739"
+    },
+    {
+      "source": "native-long-A/telemetry.csv",
+      "stored": "native-long-A/telemetry.csv.gz",
+      "transformation": "gzip",
+      "source_sha256": "644761709178f442e150807cdae6947dce0069b5dfd0a6fc80720298e70a73af",
+      "stored_sha256": "a5ef5cb42a474cac760f983b24749668515d8ca9c71cb252c2e8fea532c06388"
+    },
+    {
+      "source": "native-long-A/traffic-in16384-out16384-c8.audit.json",
+      "stored": "native-long-A/traffic-in16384-out16384-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7fcf4bf071267c1c0ea7a431c7d30a819d2834a0a1770dc1c2c5239187ec7522",
+      "stored_sha256": "7fcf4bf071267c1c0ea7a431c7d30a819d2834a0a1770dc1c2c5239187ec7522"
+    },
+    {
+      "source": "native-long-A/traffic-in16384-out16384-c8.command.json",
+      "stored": "native-long-A/traffic-in16384-out16384-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "91520975d48053837fac6dbe2f71c0571cc685fb38a5c350ace4c112f35a8d47",
+      "stored_sha256": "91520975d48053837fac6dbe2f71c0571cc685fb38a5c350ace4c112f35a8d47"
+    },
+    {
+      "source": "native-long-A/traffic-in16384-out16384-c8.log",
+      "stored": "native-long-A/traffic-in16384-out16384-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "8759722f3f44f23f2c128a9e896edf21b014e434cd34bdbad7384280f4ed295d",
+      "stored_sha256": "dbedb8b1d3c5bcbb77a56daad983d3a4dccd686ae8fe80ef48baa9dbdca33ba4"
+    },
+    {
+      "source": "native-long-A/traffic-in32768-out32768-c8.audit.json",
+      "stored": "native-long-A/traffic-in32768-out32768-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "41a5c5fd2c7073bea8008489fcce5f95c76abff19a3a80437f19d5bd19b43904",
+      "stored_sha256": "41a5c5fd2c7073bea8008489fcce5f95c76abff19a3a80437f19d5bd19b43904"
+    },
+    {
+      "source": "native-long-A/traffic-in32768-out32768-c8.command.json",
+      "stored": "native-long-A/traffic-in32768-out32768-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "3b3b574adfc6fb5f2aafbf70f66cb9ecb41c53db74159cc4339796a953d8f4b6",
+      "stored_sha256": "3b3b574adfc6fb5f2aafbf70f66cb9ecb41c53db74159cc4339796a953d8f4b6"
+    },
+    {
+      "source": "native-long-A/traffic-in32768-out32768-c8.log",
+      "stored": "native-long-A/traffic-in32768-out32768-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "022b02ea3772ca0a3b8d4bc9a870bc65449b720e521de9f248e27e450db52a5f",
+      "stored_sha256": "4f45da9480b18264540b590aea7fc2365de73d1e9c1b7e5e4790030cc34b8224"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-after/summary.json",
+      "stored": "megaflux-long-B/accuracy-after/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "baeb1d3ffadffff31837515222fc2d07439e1aab40da6bfff1230bebd0b02cd1",
+      "stored_sha256": "baeb1d3ffadffff31837515222fc2d07439e1aab40da6bfff1230bebd0b02cd1"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-after.command.json",
+      "stored": "megaflux-long-B/accuracy-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "224a64ebb7df4d78f8bc493b2a4f2579d32cf1b1b6ef0ae2ca7c2a21247db88a",
+      "stored_sha256": "224a64ebb7df4d78f8bc493b2a4f2579d32cf1b1b6ef0ae2ca7c2a21247db88a"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-after.log",
+      "stored": "megaflux-long-B/accuracy-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "1004cec31e87a0a9f8d7c886bb3e26fa2635ae5615d588fb5b1095e1e6a076dc",
+      "stored_sha256": "1613e156e7c74233eefd4f3b5398af1403c83504e2ef05c4ba6006e5616e3f57"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-before/summary.json",
+      "stored": "megaflux-long-B/accuracy-before/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "741276694be21d2aeb6b7001d6cff66409facad21c90bcc8e063c2eb5bfa56d1",
+      "stored_sha256": "741276694be21d2aeb6b7001d6cff66409facad21c90bcc8e063c2eb5bfa56d1"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-before.command.json",
+      "stored": "megaflux-long-B/accuracy-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "8c1d379a4ab369f4217e7983ff89b95b320d13701115cced58fd355df79aba22",
+      "stored_sha256": "8c1d379a4ab369f4217e7983ff89b95b320d13701115cced58fd355df79aba22"
+    },
+    {
+      "source": "megaflux-long-B/accuracy-before.log",
+      "stored": "megaflux-long-B/accuracy-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "6200cdc09d0dfc3c84dee696ddb72525c0deaaf6111896758e942fb50d19638c",
+      "stored_sha256": "509899192c9927dcc263f988b4f546babf80e6aed1ff08c3bc4be4ab732b18b5"
+    },
+    {
+      "source": "megaflux-long-B/events.jsonl",
+      "stored": "megaflux-long-B/events.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "a5ff1ac5a2cf5db9870ebfcc55545a955e470dc2f02543a67281b0db246347e5",
+      "stored_sha256": "0cdaeca6c221a390f0868bf7718c3185ce63747cda6f9508bc26f6d28810ff10"
+    },
+    {
+      "source": "megaflux-long-B/prewarm-4096-out128.audit.json",
+      "stored": "megaflux-long-B/prewarm-4096-out128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7",
+      "stored_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7"
+    },
+    {
+      "source": "megaflux-long-B/prewarm-4096-out128.command.json",
+      "stored": "megaflux-long-B/prewarm-4096-out128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "07bb8c5c66368837e5dd5c3056500b039bfba2bee3fd13345bfcc2e869be972b",
+      "stored_sha256": "07bb8c5c66368837e5dd5c3056500b039bfba2bee3fd13345bfcc2e869be972b"
+    },
+    {
+      "source": "megaflux-long-B/prewarm-4096-out128.log",
+      "stored": "megaflux-long-B/prewarm-4096-out128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "789dee46d447a87bf645c76ed4584603ce7acae25db74a01702ef7f1fb2cc7ac",
+      "stored_sha256": "d4e41fc47779673db4878612a3dcab01cc4ed3afb37c2267fd4b5081c6cfd424"
+    },
+    {
+      "source": "megaflux-long-B/semantic-after.command.json",
+      "stored": "megaflux-long-B/semantic-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "2828d3da9ca6f5b2216cc71f17d18c5052393828f22155fb67b08be8cef425e1",
+      "stored_sha256": "2828d3da9ca6f5b2216cc71f17d18c5052393828f22155fb67b08be8cef425e1"
+    },
+    {
+      "source": "megaflux-long-B/semantic-after.json",
+      "stored": "megaflux-long-B/semantic-after.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "dd7b18fb3e81b023e936262ad9194feaaefc177d29855519a068ef0d0cf3fabd",
+      "stored_sha256": "16649bb4dc2ba86a197c657592ee2c14a3ffd0e0c0a50c9fdb5e09db0f6a1453"
+    },
+    {
+      "source": "megaflux-long-B/semantic-after.log",
+      "stored": "megaflux-long-B/semantic-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "dfed54a7171e25a0308ca16472a41e2e5d0f6844fb5bc4e97cbdf30e75b1cf38",
+      "stored_sha256": "dde125f13ce2a3be4f20c027c7201cfe2ecd3d02fbd865750eb2a7cc1741c8a5"
+    },
+    {
+      "source": "megaflux-long-B/semantic-before.command.json",
+      "stored": "megaflux-long-B/semantic-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7ad217fb4d329eca30198a3e7eecee74dc9124a62a30f5ccb358c7888f84f916",
+      "stored_sha256": "7ad217fb4d329eca30198a3e7eecee74dc9124a62a30f5ccb358c7888f84f916"
+    },
+    {
+      "source": "megaflux-long-B/semantic-before.json",
+      "stored": "megaflux-long-B/semantic-before.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "2b4a69bda9d85e0d71e2d9675f71c49c1eb68a3d01808805312af009657e53ea",
+      "stored_sha256": "90a9041d250f0ebbced811ffd3b562a6daa1e5830a47e2780182957bacc205f4"
+    },
+    {
+      "source": "megaflux-long-B/semantic-before.log",
+      "stored": "megaflux-long-B/semantic-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "b6d66ad201c65be6b6eaca82bb7c1fd8984cb64de7093c1c7eb1ef00dee48008",
+      "stored_sha256": "bbc747f895711525f5cb17a2dadce2904a057c9d6d370263f818a8fbe36d1125"
+    },
+    {
+      "source": "megaflux-long-B/server.command.json",
+      "stored": "megaflux-long-B/server.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96",
+      "stored_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96"
+    },
+    {
+      "source": "megaflux-long-B/server.env.json",
+      "stored": "megaflux-long-B/server.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490",
+      "stored_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490"
+    },
+    {
+      "source": "megaflux-long-B/server.log",
+      "stored": "megaflux-long-B/server.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "7d25ddf6dbb69b1cf76c8b5ff389cc3dcd7cd110a47435f9d6343bbe7a17d6da",
+      "stored_sha256": "7693a7d20f6d6e5217d1d3eedab371d6f184e304d73101e8151160865c6048d6"
+    },
+    {
+      "source": "megaflux-long-B/source-sha256.json",
+      "stored": "megaflux-long-B/source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1",
+      "stored_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1"
+    },
+    {
+      "source": "megaflux-long-B/status.json",
+      "stored": "megaflux-long-B/status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "1f75c8e049f42fcfa7e00ec5579c0e2d280fe39930f7d870530f023085b9222c",
+      "stored_sha256": "1f75c8e049f42fcfa7e00ec5579c0e2d280fe39930f7d870530f023085b9222c"
+    },
+    {
+      "source": "megaflux-long-B/telemetry.csv",
+      "stored": "megaflux-long-B/telemetry.csv.gz",
+      "transformation": "gzip",
+      "source_sha256": "559b8870e986f52a6eab01aa7a510c7f8e5034bf8280a400bc93c64fbb41fbff",
+      "stored_sha256": "95722b57e9ae012513c10be7651c3c5d9bbbc4a6e3090f05e50b4fcc19f7599c"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in16384-out16384-c8.audit.json",
+      "stored": "megaflux-long-B/traffic-in16384-out16384-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "7fcf4bf071267c1c0ea7a431c7d30a819d2834a0a1770dc1c2c5239187ec7522",
+      "stored_sha256": "7fcf4bf071267c1c0ea7a431c7d30a819d2834a0a1770dc1c2c5239187ec7522"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in16384-out16384-c8.command.json",
+      "stored": "megaflux-long-B/traffic-in16384-out16384-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d40e993ac416aee0a63ddcce6bec3c16553b59d10fff328603329b922fe5402b",
+      "stored_sha256": "d40e993ac416aee0a63ddcce6bec3c16553b59d10fff328603329b922fe5402b"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in16384-out16384-c8.log",
+      "stored": "megaflux-long-B/traffic-in16384-out16384-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "297a92395a9a27bdb87b0d4292c5dd2be229ae899dec7cd94f166134f90a2a94",
+      "stored_sha256": "acf460c99ab26213675f7ffbbc870ff5371d6bffbfb29fd123c587d931b81efb"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in32768-out32768-c8.audit.json",
+      "stored": "megaflux-long-B/traffic-in32768-out32768-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "41a5c5fd2c7073bea8008489fcce5f95c76abff19a3a80437f19d5bd19b43904",
+      "stored_sha256": "41a5c5fd2c7073bea8008489fcce5f95c76abff19a3a80437f19d5bd19b43904"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in32768-out32768-c8.command.json",
+      "stored": "megaflux-long-B/traffic-in32768-out32768-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ca26915597f06493c4a2b01f81ae0b0f35be2c1ad38eb51895209b7fe17f5fc3",
+      "stored_sha256": "ca26915597f06493c4a2b01f81ae0b0f35be2c1ad38eb51895209b7fe17f5fc3"
+    },
+    {
+      "source": "megaflux-long-B/traffic-in32768-out32768-c8.log",
+      "stored": "megaflux-long-B/traffic-in32768-out32768-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "d77bece102148867815b1bb30a2c7cd7c42f1bb1e42d22d5da048bb144266d25",
+      "stored_sha256": "9bad18dbc17ceb94a84b9a37e911b8d6ea1ed1b42c01cbe45952d60c246b07e3"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-after/summary.json",
+      "stored": "megaflux-restart-C/accuracy-after/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "47d97ca9e3e8a2c546c0349b659a6f7405f4a014aa4d0ab4f8ade09f0d700f9e",
+      "stored_sha256": "47d97ca9e3e8a2c546c0349b659a6f7405f4a014aa4d0ab4f8ade09f0d700f9e"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-after.command.json",
+      "stored": "megaflux-restart-C/accuracy-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ea1450171d8449ca2cb9c32dfbb139c86a4f576befe2494e92a6f60a71f0dd9a",
+      "stored_sha256": "ea1450171d8449ca2cb9c32dfbb139c86a4f576befe2494e92a6f60a71f0dd9a"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-after.log",
+      "stored": "megaflux-restart-C/accuracy-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "18c085a08c6fcc7e368d22a6589319c14e9669b3c3041d4056087e8398a35ed7",
+      "stored_sha256": "f890d207b7726a2933352246d2a7e274c995c2acb5f6efad0f5d03953b14b3e3"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-before/summary.json",
+      "stored": "megaflux-restart-C/accuracy-before/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5ac3d46ea853d72c438579adfb1df79252bb9ef50d7621f57b1acee3fc14e950",
+      "stored_sha256": "5ac3d46ea853d72c438579adfb1df79252bb9ef50d7621f57b1acee3fc14e950"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-before.command.json",
+      "stored": "megaflux-restart-C/accuracy-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "c40485fe52ad244e612c067e136ca4310cbbfbfcac2d4372f2653fde6370dd1c",
+      "stored_sha256": "c40485fe52ad244e612c067e136ca4310cbbfbfcac2d4372f2653fde6370dd1c"
+    },
+    {
+      "source": "megaflux-restart-C/accuracy-before.log",
+      "stored": "megaflux-restart-C/accuracy-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "452f07a62b36518fdf1b14f1a5e953355ad314bb577824a2337e249df9be97ea",
+      "stored_sha256": "e5ae5903881e4cec503860c0021bb34a4ee839c7f92e9e09ccbad7310aa7afe7"
+    },
+    {
+      "source": "megaflux-restart-C/events.jsonl",
+      "stored": "megaflux-restart-C/events.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "4c4973556ae74308840bba1442e08ce57910bdd750c88f4a6af70af81e9bfd1b",
+      "stored_sha256": "4675dbd80423a1ffe18a2a9778246377cba92e4b885d079e4deeccf97a851719"
+    },
+    {
+      "source": "megaflux-restart-C/prewarm-4096-out128.audit.json",
+      "stored": "megaflux-restart-C/prewarm-4096-out128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7",
+      "stored_sha256": "b446ef5ae65aba9f9825fa592580ce610a2fc5227e1ab3222e46ca49d95c8ec7"
+    },
+    {
+      "source": "megaflux-restart-C/prewarm-4096-out128.command.json",
+      "stored": "megaflux-restart-C/prewarm-4096-out128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "e91f36db2ba5f9247a5ae7b55b3a6405fffaf4f3605935e390b96ead3f82eb72",
+      "stored_sha256": "e91f36db2ba5f9247a5ae7b55b3a6405fffaf4f3605935e390b96ead3f82eb72"
+    },
+    {
+      "source": "megaflux-restart-C/prewarm-4096-out128.log",
+      "stored": "megaflux-restart-C/prewarm-4096-out128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "470985d2b33b00f8d3e0a4e5e005c0a8313a3b07997627337027e88cc21cdd92",
+      "stored_sha256": "6e8938a3b24608a6b2d1d64d2562c1c60f555c499f897a608eedcc2e63f94deb"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-after.command.json",
+      "stored": "megaflux-restart-C/semantic-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "9d1e25f698ea7c34c2a35af45c7234dfd8683b3dd792f45996e9ece650f253b8",
+      "stored_sha256": "9d1e25f698ea7c34c2a35af45c7234dfd8683b3dd792f45996e9ece650f253b8"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-after.json",
+      "stored": "megaflux-restart-C/semantic-after.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "3032895ba0d4b1d219488b0dffd7742f658388f21be04ef29eb6a55408c35a08",
+      "stored_sha256": "fdd4dc427f7794d67c5c4d49d4996f77b538d9d7e7a4470dd10d0a53c6103c14"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-after.log",
+      "stored": "megaflux-restart-C/semantic-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "22490422ff5c6ca04456a882d991deb1c3431d19ac529fa0c8082d2775728f81",
+      "stored_sha256": "485b975eec3ae4b2cd3dd18ef7e1e7e18c57a7e43faf19eeccf2dce998dfc8e2"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-before.command.json",
+      "stored": "megaflux-restart-C/semantic-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f3be102f2d5d6a8bda77ec14699acd7e15e0e977c57335dd6d537c2a5e147089",
+      "stored_sha256": "f3be102f2d5d6a8bda77ec14699acd7e15e0e977c57335dd6d537c2a5e147089"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-before.json",
+      "stored": "megaflux-restart-C/semantic-before.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "27abe8187f5f583b0edfc9db8035003c8000064693bcc03798c9478a3d82f60f",
+      "stored_sha256": "4066798e3bd824e300156d8352288079bc06c4e49d4831b9ca2324ed62198c24"
+    },
+    {
+      "source": "megaflux-restart-C/semantic-before.log",
+      "stored": "megaflux-restart-C/semantic-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "c476dd358a8105513b14f984d7dce9d31511fbd2f0cbce2b640ad29a6d973c1d",
+      "stored_sha256": "b31558fa275943f2b528fe37fbbd2a69e2d7e6edb4630d06d6621c450d4a9389"
+    },
+    {
+      "source": "megaflux-restart-C/server.command.json",
+      "stored": "megaflux-restart-C/server.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96",
+      "stored_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96"
+    },
+    {
+      "source": "megaflux-restart-C/server.env.json",
+      "stored": "megaflux-restart-C/server.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490",
+      "stored_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490"
+    },
+    {
+      "source": "megaflux-restart-C/server.log",
+      "stored": "megaflux-restart-C/server.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "de68ec21c7fbbbb801cd7ec84df0eb6687fa2d07885095be5339411a9bd7c5e8",
+      "stored_sha256": "e1730cc1af8f0eaed9caba41d52f95130b1d90617a15cf9b8941634cacf8f178"
+    },
+    {
+      "source": "megaflux-restart-C/source-sha256.json",
+      "stored": "megaflux-restart-C/source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1",
+      "stored_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1"
+    },
+    {
+      "source": "megaflux-restart-C/status.json",
+      "stored": "megaflux-restart-C/status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "368263a586dd287c17f5f2a5cb25cb560b53204740fe4e76aae1d2c2b21ce168",
+      "stored_sha256": "368263a586dd287c17f5f2a5cb25cb560b53204740fe4e76aae1d2c2b21ce168"
+    },
+    {
+      "source": "megaflux-restart-C/telemetry.csv",
+      "stored": "megaflux-restart-C/telemetry.csv.gz",
+      "transformation": "gzip",
+      "source_sha256": "c1100e4970c4476a872d64c3012950bd455b1c5e676e44f143c255c6373016ef",
+      "stored_sha256": "8f374b289ec0f6dac22fd98058278919d2461c557525ec8515198c8e3dfc99e4"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in16384-out512-c8.audit.json",
+      "stored": "megaflux-restart-C/traffic-in16384-out512-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d63d1c56e5ee4b36017fdd3297a232633c4e1ceb4a3f36b12fc405bac44458f2",
+      "stored_sha256": "d63d1c56e5ee4b36017fdd3297a232633c4e1ceb4a3f36b12fc405bac44458f2"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in16384-out512-c8.command.json",
+      "stored": "megaflux-restart-C/traffic-in16384-out512-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fc23b2b16dcc7b9ab0ada09468810bbf1b02e8e4c46a9d8a342c5b59b4a03a28",
+      "stored_sha256": "fc23b2b16dcc7b9ab0ada09468810bbf1b02e8e4c46a9d8a342c5b59b4a03a28"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in16384-out512-c8.log",
+      "stored": "megaflux-restart-C/traffic-in16384-out512-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "857a4def6ce75cc821d06c5a9d23920892f90f37a88f2d319ee19dbdd9b2ba4b",
+      "stored_sha256": "eb22911e46ea2b93a5883aaaad76c53560c9ca5786e8b2ecc8250a86b50b7082"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in32768-out512-c8.audit.json",
+      "stored": "megaflux-restart-C/traffic-in32768-out512-c8.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d63d1c56e5ee4b36017fdd3297a232633c4e1ceb4a3f36b12fc405bac44458f2",
+      "stored_sha256": "d63d1c56e5ee4b36017fdd3297a232633c4e1ceb4a3f36b12fc405bac44458f2"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in32768-out512-c8.command.json",
+      "stored": "megaflux-restart-C/traffic-in32768-out512-c8.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "58cb7181522c7877ab19f2c273c92347c8aca5c45e86d5c0602f9f58ea76f8f4",
+      "stored_sha256": "58cb7181522c7877ab19f2c273c92347c8aca5c45e86d5c0602f9f58ea76f8f4"
+    },
+    {
+      "source": "megaflux-restart-C/traffic-in32768-out512-c8.log",
+      "stored": "megaflux-restart-C/traffic-in32768-out512-c8.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "ed934c067cc16629edbf40010ee0cd08b994b3b4ee3e1cd652c602529ce245d7",
+      "stored_sha256": "a048a8dc1aeb7e99c8608ef83851b04e6e55134d06e023d1897fee300e048c5c"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/accuracy-before/summary.json",
+      "stored": "megaflux-highconcurrency-D/accuracy-before/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f9f484abf9e7dd2fa1274af318b9cae6d01444182f08ae7f504f0a2db5a3db84",
+      "stored_sha256": "f9f484abf9e7dd2fa1274af318b9cae6d01444182f08ae7f504f0a2db5a3db84"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/accuracy-before.command.json",
+      "stored": "megaflux-highconcurrency-D/accuracy-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f3834f210f8e01db0d69324a086d6511a52eed3473c7b2bf859cf6994606b0de",
+      "stored_sha256": "f3834f210f8e01db0d69324a086d6511a52eed3473c7b2bf859cf6994606b0de"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/accuracy-before.log",
+      "stored": "megaflux-highconcurrency-D/accuracy-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "b7d2d5ac8de74bfa01b3061fb5078cfc63298cc0f458570bf1ae47561a6175bf",
+      "stored_sha256": "c1b5d0e281915baee80d7f4a37e091df9cb48b59e1012b27fa028f86fefe87bd"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/events.jsonl",
+      "stored": "megaflux-highconcurrency-D/events.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "50cd557e182f6a3e50721a58b2edbeb07b4204d4e9cf34ba055ae8140a4bd085",
+      "stored_sha256": "3d21d92a2483e3e9be7911f21111816dd6a39ee43f7a75cb33efce90221ed6de"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/prewarm-4096-out128.audit.json",
+      "stored": "megaflux-highconcurrency-D/prewarm-4096-out128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "34e8f66c27291b18598f71751f71f5943c4fad00f167e26bd73046562fb36151",
+      "stored_sha256": "34e8f66c27291b18598f71751f71f5943c4fad00f167e26bd73046562fb36151"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/prewarm-4096-out128.command.json",
+      "stored": "megaflux-highconcurrency-D/prewarm-4096-out128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "461859692f4dce22e7422013ebd55ce7149fcb3e271c9d110860e3fa93652f2f",
+      "stored_sha256": "461859692f4dce22e7422013ebd55ce7149fcb3e271c9d110860e3fa93652f2f"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/prewarm-4096-out128.log",
+      "stored": "megaflux-highconcurrency-D/prewarm-4096-out128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "d0f1973803cc0820ca50a223429673873c39a6fb27b30e6e01df8e799274aa13",
+      "stored_sha256": "f4374f146224c460d523720b64a78b4fc31c71f7d677af6f79b0d62b8c2a940c"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/semantic-before.command.json",
+      "stored": "megaflux-highconcurrency-D/semantic-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d1450c24e675d8cc5019becdd92fcb3916573ea60cf0d6494f7812ebce1ceb74",
+      "stored_sha256": "d1450c24e675d8cc5019becdd92fcb3916573ea60cf0d6494f7812ebce1ceb74"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/semantic-before.json",
+      "stored": "megaflux-highconcurrency-D/semantic-before.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ee903b03fd46a90e55ba079c58d5b0fbb0f3754bf0dded0959c73c9d68f89de7",
+      "stored_sha256": "b69cd924735365c84dd5cf8a43e9c0bdb828356e5215a745677d85fa96181555"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/semantic-before.log",
+      "stored": "megaflux-highconcurrency-D/semantic-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "d6bef82b579245a9b725d4de34e37e963bb9a4e251d30a8ac75c80f499c5b4ca",
+      "stored_sha256": "45e18dbf832a339af1bd911ab7f8bdcd5212fa9214b21a43c1c728e9bf2ccc46"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/server.command.json",
+      "stored": "megaflux-highconcurrency-D/server.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96",
+      "stored_sha256": "5b0e6440dc57ad66f227b0e7c8d6e3cad39debe8555b57a6e7e29a25573f1c96"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/server.env.json",
+      "stored": "megaflux-highconcurrency-D/server.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490",
+      "stored_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/server.log",
+      "stored": "megaflux-highconcurrency-D/server.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "3d5122c60b5b571dd08897704021c883f3fd1a46334ed57367333dd84770f123",
+      "stored_sha256": "5cda2c1dfe11e7c7a75a8e26ccae3893ae80de9260a8b5454156aa4c4d53d552"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/source-sha256.json",
+      "stored": "megaflux-highconcurrency-D/source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1",
+      "stored_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/status.json",
+      "stored": "megaflux-highconcurrency-D/status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "32bbbdd2bdce4586b3e3ff3d5455dd3efe84e6757863af672799d8c5bcdddef9",
+      "stored_sha256": "32bbbdd2bdce4586b3e3ff3d5455dd3efe84e6757863af672799d8c5bcdddef9"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/telemetry.csv",
+      "stored": "megaflux-highconcurrency-D/telemetry.csv.gz",
+      "transformation": "gzip",
+      "source_sha256": "005c033534420566bf4433137385a022c6a27446875ef8bcd427dfe020ae4c8a",
+      "stored_sha256": "72769be39aa8abf93ca7277bb5e68ee485727bb835745ac69b465eac00d94ae9"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.audit.json",
+      "stored": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601",
+      "stored_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.command.json",
+      "stored": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "6188e68d3a3570cfc43a8c75e4f06a8629d0e43aa7b9c86293126895c649d278",
+      "stored_sha256": "6188e68d3a3570cfc43a8c75e4f06a8629d0e43aa7b9c86293126895c649d278"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.log",
+      "stored": "megaflux-highconcurrency-D/traffic-in16384-out512-c128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "33c6a8649aa3bfb66d356fbd2136c6c77cc35334240b41086f92458be7e9f5c4",
+      "stored_sha256": "cb09816dd5c5f897e12642b2cb00f3d4df57681e77272574efcf83a536bd0d3a"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.audit.json",
+      "stored": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "51c04bd4098191c0e1337b5ee69b15553531150a29f0938e7d596c44a83c51c4",
+      "stored_sha256": "51c04bd4098191c0e1337b5ee69b15553531150a29f0938e7d596c44a83c51c4"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.command.json",
+      "stored": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "705e4b90bb188616f4e25207e9f85f7aa16c763d1668a32f29a695f5ea83fd62",
+      "stored_sha256": "705e4b90bb188616f4e25207e9f85f7aa16c763d1668a32f29a695f5ea83fd62"
+    },
+    {
+      "source": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.log",
+      "stored": "megaflux-highconcurrency-D/traffic-in32768-out512-c128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "2ab306b1cfd4e76f512c4ecdbf82f2309b92a96bf2a8308341c3a4762a733d20",
+      "stored_sha256": "ae74bd86b2ef3f35989dd17fd440e894986736e5427553561ea86f3abc5ec10c"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-after/summary.json",
+      "stored": "native-highconcurrency-E/accuracy-after/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "d2754be299d1623a71ae6df5034112eb1eaf9b6fdb6685f12d54cfee7b926dca",
+      "stored_sha256": "d2754be299d1623a71ae6df5034112eb1eaf9b6fdb6685f12d54cfee7b926dca"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-after.command.json",
+      "stored": "native-highconcurrency-E/accuracy-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "2eed4411e7e5eebe4aabb8cce43cbc69e8766e8afe69caea53656ff682ab2206",
+      "stored_sha256": "2eed4411e7e5eebe4aabb8cce43cbc69e8766e8afe69caea53656ff682ab2206"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-after.log",
+      "stored": "native-highconcurrency-E/accuracy-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "2fd7845d88b815ce8ff40b5f8bf43f926e6ff4f4bdc1e394d21aa60d7e8e9a3a",
+      "stored_sha256": "8b12962ea5f724b4438520643d7c0293ca848d05358eecf33c7f2200ee172e2e"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-before/summary.json",
+      "stored": "native-highconcurrency-E/accuracy-before/summary.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "e02c11ba077c0df44897faca49d3037c2973b29f8984560c9f75352bd7c18fa1",
+      "stored_sha256": "e02c11ba077c0df44897faca49d3037c2973b29f8984560c9f75352bd7c18fa1"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-before.command.json",
+      "stored": "native-highconcurrency-E/accuracy-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "0c292b2ba14cfcdd43d1c2260bf69fd63d264d6e30f119c0a6aa84069a3e7b1e",
+      "stored_sha256": "0c292b2ba14cfcdd43d1c2260bf69fd63d264d6e30f119c0a6aa84069a3e7b1e"
+    },
+    {
+      "source": "native-highconcurrency-E/accuracy-before.log",
+      "stored": "native-highconcurrency-E/accuracy-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "8c3b2ae6f94076aa6366f868ce99bffa77b8d5d9939a3685e09c21751ea93c7f",
+      "stored_sha256": "ba07fa38a07db3331031b488e31e82949f14e94998351185b294b4096241fefa"
+    },
+    {
+      "source": "native-highconcurrency-E/events.jsonl",
+      "stored": "native-highconcurrency-E/events.jsonl.gz",
+      "transformation": "gzip",
+      "source_sha256": "a3bc21371b4affaa6b7fc40bffe3acb41579d104a034bed2a3ca9b9b2a134ab9",
+      "stored_sha256": "d3a862942398f776233fe7a047a46989e2f51c7ad54b9811283b6a9559720435"
+    },
+    {
+      "source": "native-highconcurrency-E/prewarm-4096-out128.audit.json",
+      "stored": "native-highconcurrency-E/prewarm-4096-out128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "34e8f66c27291b18598f71751f71f5943c4fad00f167e26bd73046562fb36151",
+      "stored_sha256": "34e8f66c27291b18598f71751f71f5943c4fad00f167e26bd73046562fb36151"
+    },
+    {
+      "source": "native-highconcurrency-E/prewarm-4096-out128.command.json",
+      "stored": "native-highconcurrency-E/prewarm-4096-out128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "2714165e67b5ee52416b68b2f4c1c72fb410c634af3bbfcf86e53ffcab91c588",
+      "stored_sha256": "2714165e67b5ee52416b68b2f4c1c72fb410c634af3bbfcf86e53ffcab91c588"
+    },
+    {
+      "source": "native-highconcurrency-E/prewarm-4096-out128.log",
+      "stored": "native-highconcurrency-E/prewarm-4096-out128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "704adcbd9e1f1619bc9f5240ef43dbdecb528739aef543304c09b6d4e2e1ec86",
+      "stored_sha256": "7dbca5e7203a09d3854f8a82cf0fb1aff02623dfbfd0f2f617d5ed585d58f067"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-after.command.json",
+      "stored": "native-highconcurrency-E/semantic-after.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "43c12ed3b4129c01b906d93ad674afd36329cdb346594bd22068f315ae2484ed",
+      "stored_sha256": "43c12ed3b4129c01b906d93ad674afd36329cdb346594bd22068f315ae2484ed"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-after.json",
+      "stored": "native-highconcurrency-E/semantic-after.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "1b3a5e06137b5dbb210248fe1298c71e8f39c32635e0f943a8db955257c14b41",
+      "stored_sha256": "6c5654d4fb0925bf9a723b0c47ea31dfcee25311c70957b5c0617a2e98f751d5"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-after.log",
+      "stored": "native-highconcurrency-E/semantic-after.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "aef3d49f9aaad0326004370be6931bb8d919ae5200e881f7f407221d8bf642f4",
+      "stored_sha256": "5a017a56d48d8c922bc4199b9cba778265c7fb3a2665181ddb0f500be2dc1e0b"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-before.command.json",
+      "stored": "native-highconcurrency-E/semantic-before.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "f3b0736e82db88d8c7ccbe5c0f1524f88ac6a39e9230f03a4eb24996d235f980",
+      "stored_sha256": "f3b0736e82db88d8c7ccbe5c0f1524f88ac6a39e9230f03a4eb24996d235f980"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-before.json",
+      "stored": "native-highconcurrency-E/semantic-before.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "ed4f14b3278848d52e401508371ce75f499941629804d7be9df117e2ecc12f17",
+      "stored_sha256": "db97d0fb951e8c7c3a5428ee574ad94b5d68afa25479098683499a7250dbbb13"
+    },
+    {
+      "source": "native-highconcurrency-E/semantic-before.log",
+      "stored": "native-highconcurrency-E/semantic-before.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "44ae6ca642daea69bf64b06588e731f7174cfb3428f1f384427b801fbc8f3f25",
+      "stored_sha256": "0bf7fa369fda85e44c4823301c3e7dade8729e2b0e6dca037679c1c17c7acea4"
+    },
+    {
+      "source": "native-highconcurrency-E/server.command.json",
+      "stored": "native-highconcurrency-E/server.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "99b1f3e6498f0edb00215cbb54a28524647feb1bd52c9948c7f0f1b2e22e0cad",
+      "stored_sha256": "99b1f3e6498f0edb00215cbb54a28524647feb1bd52c9948c7f0f1b2e22e0cad"
+    },
+    {
+      "source": "native-highconcurrency-E/server.env.json",
+      "stored": "native-highconcurrency-E/server.env.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490",
+      "stored_sha256": "44814cd3d565aa7982cc7b0df91a1a19a1c08e26abe60e124e6448ba26640490"
+    },
+    {
+      "source": "native-highconcurrency-E/server.log",
+      "stored": "native-highconcurrency-E/server.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "5d2fe336d8d52a676dc97f03299c4eff340f61a66abcabc0ae5224801ecb88b9",
+      "stored_sha256": "4e6acc2ffddfb50996a87f7d1aaad87386b460cca48961a7bde3284672034573"
+    },
+    {
+      "source": "native-highconcurrency-E/source-sha256.json",
+      "stored": "native-highconcurrency-E/source-sha256.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1",
+      "stored_sha256": "bf0ca10640452ccd8e1969bea38e8cf6f6093b99c1a4c93cd5f90fd08534a2b1"
+    },
+    {
+      "source": "native-highconcurrency-E/status.json",
+      "stored": "native-highconcurrency-E/status.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "c2ba0c9bd49260aea290cf6448889958cbadad37fc8aa24b012116652da1cc24",
+      "stored_sha256": "c2ba0c9bd49260aea290cf6448889958cbadad37fc8aa24b012116652da1cc24"
+    },
+    {
+      "source": "native-highconcurrency-E/telemetry.csv",
+      "stored": "native-highconcurrency-E/telemetry.csv.gz",
+      "transformation": "gzip",
+      "source_sha256": "64ef538f7641d8d667ca560ef3c5318bb61c02a292f31c5cf8635478a57cbb53",
+      "stored_sha256": "160728dd9e8c90a2eb36dc10db8800c2b01777ac124ddf2f526d0f7a6052642f"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in16384-out512-c128.audit.json",
+      "stored": "native-highconcurrency-E/traffic-in16384-out512-c128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601",
+      "stored_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in16384-out512-c128.command.json",
+      "stored": "native-highconcurrency-E/traffic-in16384-out512-c128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "58e0bbd052ce04b128acb3a2dfb967710dce2b8e43df791261fb0bb70573ba8f",
+      "stored_sha256": "58e0bbd052ce04b128acb3a2dfb967710dce2b8e43df791261fb0bb70573ba8f"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in16384-out512-c128.log",
+      "stored": "native-highconcurrency-E/traffic-in16384-out512-c128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "f6f177eeda55bd98917409f53da9344e8724edb994c22aabd8f65e9278968411",
+      "stored_sha256": "9bacd9d3177d3e3a32032e36e2250c910597b19966af04617a62faeb0feca6b8"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in32768-out512-c128.audit.json",
+      "stored": "native-highconcurrency-E/traffic-in32768-out512-c128.audit.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601",
+      "stored_sha256": "fc4f817b2149a305710108674a0eba25897d6cb33fa90e53483e8eec1b6d8601"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in32768-out512-c128.command.json",
+      "stored": "native-highconcurrency-E/traffic-in32768-out512-c128.command.json",
+      "transformation": "JSON indentation and final newline normalized",
+      "source_sha256": "64a3fc6b9c62b88ff8c619da92a825cd8c6c3127cb50ec77e7b256d398b0a7a0",
+      "stored_sha256": "64a3fc6b9c62b88ff8c619da92a825cd8c6c3127cb50ec77e7b256d398b0a7a0"
+    },
+    {
+      "source": "native-highconcurrency-E/traffic-in32768-out512-c128.log",
+      "stored": "native-highconcurrency-E/traffic-in32768-out512-c128.log.gz",
+      "transformation": "gzip",
+      "source_sha256": "bf0e45108b61f42bf2327095068db4b55750b09365d426e6d25895f27b370bcf",
+      "stored_sha256": "b03dfa74ae654c8aa36c6ffc5a8a6aaa8d673157797614939c016b4d2da80345"
+    }
+  ]
+}

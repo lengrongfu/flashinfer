@@ -209,7 +209,9 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                 src, source_bytes, _ = core.tensor_get_buffer(root)
                 dst, cache_size, _ = core.tensor_get_buffer(cache)
                 if source_bytes % self.export_capacity:
-                    raise RuntimeError("symmetric pipeline export size is not row aligned")
+                    raise RuntimeError(
+                        "symmetric pipeline export size is not row aligned"
+                    )
                 row_bytes = source_bytes // self.export_capacity
                 if (
                     src.size < source_bytes
@@ -233,9 +235,9 @@ class PipelinedReplicaTransport(DeviceReplicaTransport):
                 else:
                     for owner in range(c.world_size):
                         bindings.getmem_on_stream(
-                            dst.handle + owner * size,
+                            dst.handle + owner * source_bytes,
                             src.handle,
-                            size,
+                            source_bytes,
                             owner,
                             stream.cuda_stream,
                         )

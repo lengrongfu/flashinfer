@@ -1,0 +1,38 @@
+{
+  "time": 1793114520.853467,
+  "audit_returncode": 1,
+  "expected_failure_preserved": true,
+  "invalid_workloads": [
+    "megaflux-highconcurrency-D/traffic-in32768-out512-c128"
+  ],
+  "comparison_count": 11,
+  "states": {
+    "native-long-A": {
+      "stage": "ALL_DONE",
+      "time": 1793101134.605874
+    },
+    "megaflux-long-B": {
+      "stage": "ALL_DONE",
+      "time": 1793110669.9169154
+    },
+    "megaflux-restart-C": {
+      "stage": "ALL_DONE",
+      "time": 1793111622.4518602
+    },
+    "megaflux-highconcurrency-D": {
+      "stage": "FAILED",
+      "time": 1793112694.878174,
+      "error": "RuntimeError(\"incomplete workload: traffic-in32768-out512-c128: {'expected': 128, 'completed': 123, 'failed': 5, 'input_count': 128, 'output_count': 128, 'complete_inputs': 128, 'complete_outputs': 50, 'total_output_tokens': 109571}\")"
+    },
+    "native-highconcurrency-E": {
+      "stage": "ALL_DONE",
+      "time": 1793114217.5506356
+    }
+  },
+  "analysis_sources": {
+    "audit_megaflux_long_context.py": "ae1f90e88ad6d599e8450f05cbd7b72742cf6a70bbb0ad04c682cd9ac57fc965",
+    "compare_megaflux_accuracy.py": "5dc68c5fb060bae9dffab6fca6cdc3d861922654447d06e2b84abc87a06ef79a",
+    "run_megaflux_long_context.py": "db46f3e7188dbea77ee0280f68cf1682e63eb9411b7d8a3d1ce780c250fb5797",
+    "measure_megaflux_accuracy.py": "c68c3e61483e0dc1c74c2bfd71f26840a847260fa932b0a77b24cd1d37c17e76"
+  }
+}

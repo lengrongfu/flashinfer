@@ -56,3 +56,59 @@ class BenefitGate:
         self.reject.copy_(self.metrics[1:2] + c.margin_us >= self.metrics[0:1])
         self.metrics[3:4].copy_(self.reject)
         return self.reject
+
+
+@dataclass(frozen=True)
+class ReplicaAdmission:
+    """Optional geometry-specific admission calibration; all times are ns.
+
+    copy_ns charges both transport legs for one committed expert replica.
+    min_skew_milli compares padded owner critical-path blocks to their mean.
+    Calibrate outside serving; zero-cost defaults are intentionally absent.
+    """
+
+    min_skew_milli: int
+    block_ns: int
+    fixed_ns: int
+    copy_ns: int
+    margin_ns: int
+
+    def __post_init__(self):
+        for value in self.values:
+            if (
+                not isinstance(value, int)
+                or isinstance(value, bool)
+                or not 0 <= value <= 10**12
+            ):
+                raise ValueError(
+                    "admission parameters must be bounded nonnegative integers"
+                )
+        if self.min_skew_milli < 1000 or not self.block_ns:
+            raise ValueError("admission requires skew >= 1 and positive block cost")
+
+    @property
+    def values(self):
+        return (
+            self.min_skew_milli,
+            self.block_ns,
+            self.fixed_ns,
+            self.copy_ns,
+            self.margin_ns,
+        )
+
+
+def h200_replica_admission(
+    *, device_name, experts, world_size, hidden, intermediate, top_k, enabled=True
+):
+    """Calibration from EP8 H200 512/1024 sweeps, not a universal default.
+
+    18,800,648 logical bytes includes both expert transport legs. Effective
+    188 GB/s charges ~100us per copy; fixed search/staging is charged in full.
+    """
+    if (
+        not enabled
+        or "H200" not in device_name
+        or (experts, world_size, hidden, intermediate, top_k) != (384, 8, 5120, 2304, 6)
+    ):
+        return None
+    return ReplicaAdmission(3000, 8000, 3_300_000, (18_800_648 + 187) // 188, 300_000)

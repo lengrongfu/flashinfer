@@ -40,8 +40,74 @@ def test_gpu_hot_expert_global_tail(budget, tokens):
     _check([[[0]] * tokens, [], [], []], c)
 
 
-def _check(ids, c, capacity=None):
-    expected = plan_forward(ids, c, invocation_epoch=17, block_capacity=capacity)
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("experts", [384, 512])
+@pytest.mark.parametrize("budget", [1, 4])
+def test_gpu_plan_production_shared_scratch_bounds(experts, budget):
+    rng = random.Random(42)
+    c = PlanConfig(experts, 8, budget, 33, 6)
+    hot_owner = list(range(experts - experts // 8, experts))
+    ids = [
+        [rng.sample(hot_owner if rank % 2 else range(experts), 6) for _ in range(33)]
+        for rank in range(8)
+    ]
+    _check(ids, c)
+
+
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("tokens", [1, 33])
+def test_gpu_decode_policy_preserves_cpu_plan(tokens):
+    rng = random.Random(42)
+    c = PlanConfig(384, 8, 1, 33, 6)
+    ids = [[rng.sample(range(384), 6) for _ in range(tokens)] for _ in range(8)]
+    _check(ids, c, min_replica_routes=49)
+
+
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("experts,budget", [(16, 0), (384, 1), (512, 4)])
+@pytest.mark.parametrize("tokens", [0, 1, 8, 33, 128, 256])
+def test_gpu_parallel_owner_plan_matches_cpu(experts, budget, tokens):
+    rng = random.Random(73)
+    c = PlanConfig(experts, 8, budget, 256, 1)
+    ids = [
+        [[rng.randrange(experts) if r % 2 else experts - 1] for _ in range(tokens)]
+        for r in range(8)
+    ]
+    _check(ids, c, min_replica_routes=8 * 256 + 1)
+
+
+@pytest.mark.arch_hopper
+@pytest.mark.parametrize("capacity", [0, 1])
+def test_gpu_parallel_owner_plan_overflow(capacity):
+    c = PlanConfig(16, 4, 1, 33, 1)
+    _check([[[0]] * 33, [], [], []], c, capacity, min_replica_routes=34)
+
+
+@pytest.mark.arch_hopper
+def test_gpu_conditional_plan_rechecks_device_flag():
+    c = PlanConfig(16, 4, 1, 33, 1)
+    counts = torch.ones((4, 16), dtype=torch.int64, device="cuda")
+    plan = DevicePlan(c, device="cuda")
+    plan.q.fill_(-7)
+    condition = torch.zeros(1, dtype=torch.int32, device="cuda")
+    plan.build(counts, epoch=17, condition=condition)
+    assert plan.q.eq(-7).all().item()
+    condition.fill_(1)
+    plan.build(counts, epoch=17, condition=condition)
+    expected = DevicePlan(c, device="cuda").build(counts, epoch=17)
+    torch.testing.assert_close(plan.q, expected.q, atol=0, rtol=0)
+    torch.testing.assert_close(plan.meta, expected.meta, atol=0, rtol=0)
+
+
+def _check(ids, c, capacity=None, min_replica_routes=0):
+    routes = sum(e >= 0 for source in ids for row in source for e in row)
+    expected = plan_forward(
+        ids,
+        c,
+        invocation_epoch=17,
+        block_capacity=capacity,
+        identity=routes < min_replica_routes,
+    )
     histogram = LocalHistogram(c, device="cuda")
     source_counts = []
     for source in ids:
@@ -61,7 +127,9 @@ def _check(ids, c, capacity=None):
         assert histogram.counts.cpu().tolist() == seen
         source_counts.append(histogram.counts.clone())
     counts = torch.stack(source_counts)
-    gpu = DevicePlan(c, device="cuda", block_capacity=capacity).build(counts, epoch=17)
+    gpu = DevicePlan(c, device="cuda", block_capacity=capacity).build(
+        counts, epoch=17, min_replica_routes=min_replica_routes
+    )
     assert gpu.meta.cpu().tolist() == [
         int(expected.status),
         int(expected.overflow),

@@ -1,0 +1,11 @@
+[
+  "/usr/bin/python3",
+  "/root/flashinfer/examples/deepseek_v41/audit_megaflux_long_context.py",
+  "/tmp/megaflux-results/long-context-20261027/native-long-A",
+  "/tmp/megaflux-results/long-context-20261027/megaflux-long-B",
+  "/tmp/megaflux-results/long-context-20261027/megaflux-restart-C",
+  "/tmp/megaflux-results/long-context-20261027/megaflux-highconcurrency-D",
+  "/tmp/megaflux-results/long-context-20261027/native-highconcurrency-E",
+  "--output",
+  "/tmp/megaflux-results/long-context-20261027/audited-summary.json"
+]

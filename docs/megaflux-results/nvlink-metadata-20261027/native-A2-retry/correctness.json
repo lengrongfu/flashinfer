@@ -1,0 +1,1116 @@
+[
+  {
+    "name": "arithmetic",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 17 + 25? Reply with only the integer."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "42",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-8ad0c4e76661427f",
+      "object": "chat.completion",
+      "created": 1793088897,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "42",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 20,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "42",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.9613086939789355
+  },
+  {
+    "name": "capital",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the capital of France? Reply with only the city name."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "Paris",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-8c793cc683e7b91d",
+      "object": "chat.completion",
+      "created": 1793088898,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Paris",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 20,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "Paris",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.6539130927994847
+  },
+  {
+    "name": "chinese",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "中国的首都是哪里？只回答城市名称。"
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "北京",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-a2ad99852a26123a",
+      "object": "chat.completion",
+      "created": 1793088898,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "北京",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 16,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "北京",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.6469681221060455
+  },
+  {
+    "name": "repeat",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Repeat exactly this word and nothing else: megaflux"
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "megaflux",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-8c89ef6f73126232",
+      "object": "chat.completion",
+      "created": 1793088899,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "megaflux",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 18,
+        "completion_tokens": 4,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "megaflux",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 1.1064864676445723
+  },
+  {
+    "name": "concurrent-arithmetic",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 17 + 25? Reply with only the integer."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "42",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-bbbc03a6d99f8b0d",
+      "object": "chat.completion",
+      "created": 1793088900,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "42",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 20,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "42",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.7954096887260675
+  },
+  {
+    "name": "concurrent-capital",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the capital of France? Reply with only the city name."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "Paris",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-b8b75be530a3f131",
+      "object": "chat.completion",
+      "created": 1793088900,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Paris",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 20,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "Paris",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.7966219410300255
+  },
+  {
+    "name": "concurrent-chinese",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "中国的首都是哪里？只回答城市名称。"
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "北京",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-b771350c35160712",
+      "object": "chat.completion",
+      "created": 1793088900,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "北京",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 16,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "北京",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.79451789194718
+  },
+  {
+    "name": "concurrent-repeat",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Repeat exactly this word and nothing else: megaflux"
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "megaflux",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-837068f94e00fe2b",
+      "object": "chat.completion",
+      "created": 1793088900,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "megaflux",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 18,
+        "completion_tokens": 4,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "megaflux",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 1.2427879748865962
+  },
+  {
+    "name": "chunked-prefill",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. The marker is irrelevant. \nWhat is 17 + 25? Reply with only the integer."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "42",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-815d3545b9db8d05",
+      "object": "chat.completion",
+      "created": 1793088901,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "42",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 469,
+        "total_tokens": 471,
+        "completion_tokens": 2,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "42",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.8903635339811444
+  },
+  {
+    "name": "multi-step-decode",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "List the integers from 1 to 30, separated by commas. Output only the list."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": null,
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-aa1c8b0b537b773b",
+      "object": "chat.completion",
+      "created": 1793088902,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 112,
+        "completion_tokens": 89,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 18.443351075984538
+  },
+  {
+    "name": "streaming",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the capital of France? Reply with only the city name."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": true,
+      "chat_template_kwargs": {
+        "thinking": false
+      }
+    },
+    "expected": "Paris",
+    "status": 200,
+    "chunks": [
+      {
+        "id": "chatcmpl-a381102c51905b6d",
+        "object": "chat.completion.chunk",
+        "created": 1793088921,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "role": "assistant",
+              "content": ""
+            },
+            "logprobs": null,
+            "finish_reason": null
+          }
+        ],
+        "prompt_token_ids": null,
+        "prompt_text": null
+      },
+      {
+        "id": "chatcmpl-a381102c51905b6d",
+        "object": "chat.completion.chunk",
+        "created": 1793088921,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "Paris"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-a381102c51905b6d",
+        "object": "chat.completion.chunk",
+        "created": 1793088921,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ""
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236"
+      }
+    ],
+    "done": true,
+    "content": "Paris",
+    "reasoning": "",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 0.6297092488966882
+  },
+  {
+    "name": "default-thinking",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 17 + 25? Reply with only the integer."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": false
+    },
+    "expected": "42",
+    "status": 200,
+    "response": {
+      "id": "chatcmpl-bf05d21a0dd419d0",
+      "object": "chat.completion",
+      "created": 1793088921,
+      "model": "deepseek-v41-megaflux",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "42",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "reasoning": "We need answer only integer. 17+25=42."
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null,
+          "routed_experts": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236",
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 60,
+        "completion_tokens": 16,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 13
+        }
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "prompt_text": null,
+      "kv_transfer_params": null,
+      "ec_transfer_params": null,
+      "metrics": null
+    },
+    "content": "42",
+    "reasoning": "We need answer only integer. 17+25=42.",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 3.1091286977753043
+  },
+  {
+    "name": "streaming-thinking",
+    "request": {
+      "model": "deepseek-v41-megaflux",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 17 + 25? Reply with only the integer."
+        }
+      ],
+      "temperature": 0,
+      "seed": 0,
+      "max_tokens": 128,
+      "stream": true
+    },
+    "expected": "42",
+    "status": 200,
+    "chunks": [
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "role": "assistant",
+              "content": ""
+            },
+            "logprobs": null,
+            "finish_reason": null
+          }
+        ],
+        "prompt_token_ids": null,
+        "prompt_text": null
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "We"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": " need"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": " answer"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": " only"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": " integer"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "."
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": " 17"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "+"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "25"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "="
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "42"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "reasoning": "."
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "42"
+            },
+            "logprobs": null,
+            "finish_reason": null,
+            "token_ids": null
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-8b88d610c80817f6",
+        "object": "chat.completion.chunk",
+        "created": 1793088924,
+        "model": "deepseek-v41-megaflux",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ""
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "system_fingerprint": "vllm-0.32.0-dp8-ep-eda2a236"
+      }
+    ],
+    "done": true,
+    "content": "42",
+    "reasoning": "We need answer only integer. 17+25=42.",
+    "finish_reason": "stop",
+    "passed": true,
+    "seconds": 3.1213570050895214
+  }
+]

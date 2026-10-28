@@ -1,0 +1,46 @@
+{
+  "fixture_sha256": "b968fb5f636efa21f157f00fe19da8ccf4e29fab129b1b76da3c30ffd3c3bac9",
+  "observations": [
+    {
+      "name": "logprobs-512",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 511,
+      "seconds": 0.3052765568718314
+    },
+    {
+      "name": "logprobs-4096",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 4095,
+      "seconds": 1.8001514072529972
+    },
+    {
+      "name": "logprobs-16384",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 16383,
+      "seconds": 6.8596764472313225
+    },
+    {
+      "name": "logprobs-32768",
+      "kind": "logprobs",
+      "transport_ok": true,
+      "finish_reason": "length",
+      "scored_tokens": 32767,
+      "seconds": 13.097609111107886
+    }
+  ],
+  "transport_failures": 0,
+  "gsm8k": {
+    "total": 0,
+    "correct": 0
+  },
+  "retrieval": {
+    "total": 0,
+    "correct": 0
+  }
+}

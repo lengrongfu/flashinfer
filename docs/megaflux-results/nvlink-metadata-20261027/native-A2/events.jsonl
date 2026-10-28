@@ -1,0 +1,8 @@
+{"stage": "starting", "time": 1793088108.4044247, "pid": 1177749}
+{"stage": "correctness", "time": 1793088298.5026102}
+{"stage": "prewarm-4096-c64-s1042", "time": 1793088326.707273}
+{"stage": "case_passed", "time": 1793088363.4865613, "name": "prewarm-4096-c64-s1042", "completed": 64, "failed": 0, "complete_inputs": 64, "complete_outputs": 64, "expected": 64, "duration": 16.18003420298919, "output_throughput": 31.6439380520846, "p95_ttft_ms": 14842.103183479048, "p95_tpot_ms": 221.35696952962982}
+{"stage": "prewarm-7168-c128-s1042", "time": 1793088363.487928}
+{"stage": "case_passed", "time": 1793088439.42707, "name": "prewarm-7168-c128-s1042", "completed": 128, "failed": 0, "complete_inputs": 128, "complete_outputs": 128, "expected": 128, "duration": 49.741687280125916, "output_throughput": 20.58635434365603, "p95_ttft_ms": 45431.748481979586, "p95_tpot_ms": 223.73873498956007}
+{"stage": "traffic-4096-c64-s42", "time": 1793088439.4281428}
+{"stage": "FAILED", "time": 1793088498.6737976, "error": "RuntimeError(\"invalid workload: traffic-4096-c64-s42: {'completed': 56, 'failed': 72, 'complete_inputs': 128, 'complete_outputs': 0, 'expected': 128}\")"}

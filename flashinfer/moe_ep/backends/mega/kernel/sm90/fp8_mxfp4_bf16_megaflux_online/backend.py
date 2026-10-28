@@ -27,6 +27,13 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
                 p.top_k,
                 p.weight_version,
                 1,
+                self._kernel_config.min_replica_routes,
+                *(
+                    self._kernel_config.replica_admission.values
+                    if self._kernel_config.replica_admission is not None
+                    else (0,) * 5
+                ),
+                int(self._kernel_config.metadata_transport == "nvlink"),
             ],
             dtype=torch.int64,
             device="cuda",
@@ -36,7 +43,7 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
         )
         dist.all_gather_into_tensor(all_manifests, manifest, group=self.ep_comm_group)
         fleet = all_manifests.reshape(p.world_size, -1)
-        geometry = [0, 1, 2, 3, 4, 6]
+        geometry = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13]
         torch._assert_async(
             fleet[:, geometry].eq(manifest[geometry]).all(),
             "inconsistent collective MegaFlux geometry/layout",
@@ -69,6 +76,9 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
                 requested_capacity=self._kernel_config.requested_block_capacity,
                 debug_agreement=self._kernel_config.debug_plan_agreement,
                 benefit_costs=self._kernel_config.benefit_costs,
+                min_replica_routes=self._kernel_config.min_replica_routes,
+                replica_admission=self._kernel_config.replica_admission,
+                metadata_transport=self._kernel_config.metadata_transport,
             )
             workspace._megaflux_planner = planner
             workspace._megaflux_transport = self._make_transport(p, bank, workspace)
@@ -110,5 +120,8 @@ class Sm90MegaFluxOnlineBackend(Sm90MegaFluxPhysicalBackend):
         if transport is not None:
             transport.close()
             workspace._megaflux_transport = None
-        workspace._megaflux_planner = None
+        planner = getattr(workspace, "_megaflux_planner", None)
+        if planner is not None:
+            planner.close()
+            workspace._megaflux_planner = None
         super()._forget_local_workspace_state(workspace)
