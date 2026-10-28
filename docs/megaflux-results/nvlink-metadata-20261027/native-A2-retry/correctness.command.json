@@ -1,6 +1,0 @@
-[
-  "python3",
-  "examples/deepseek_v41/verify_vllm_megaflux_sm90.py",
-  "--output",
-  "/tmp/megaflux-results/nvlink-metadata-20261027/native-A2-retry/correctness.json"
-]

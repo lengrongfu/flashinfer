@@ -1,9 +1,0 @@
-{
-  "captured_at": 1793114520.8533654,
-  "files": {
-    "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v4/common/ops/fused_indexer_q.py": "5d27632f3b1fc67a407393221ba06f72a8cbc2a138bc8ee5076423000d56e7eb",
-    "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py": "dd146642fc7d7034f32feecf35ff4d7d9460f59a8a57444c0dd6f367fe8f15fb",
-    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/warmup/jit_warmup.py": "a5fade0712c9032e8ed5f61454e39782fc69035be8a4ab8ec4fca4dfa25acfd0",
-    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/warmup/jit_warmup_cutedsl_helper.py": "8d3b448ac416747e8544d3c8d5487e79cb5561e67146c91eb07b4ab9f4796e9b"
-  }
-}
